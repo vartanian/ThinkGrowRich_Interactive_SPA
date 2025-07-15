@@ -127,6 +127,10 @@
                         <a href="#affirmation-generator-section">Affirmation Generator</a>
                         <a href="#goal-breakdown-section">Goal Breakdown</a>
                         <a href="#mastermind-ideator-section">Master Mind Ideator</a>
+                        <a href="#definite-aim-generator-section">Definite Aim Generator</a>
+                        <a href="#obstacle-overcomer-section">Obstacle Overcomer</a>
+                        <a href="#persistence-booster-section">Persistence Booster</a>
+                        <a href="#knowledge-navigator-section">Specialized Knowledge</a>
                     </div>
                 </div>
             </div>
@@ -143,6 +147,10 @@
             <a href="#affirmation-generator-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Affirmation Generator</a>
             <a href="#goal-breakdown-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Goal Breakdown</a>
             <a href="#mastermind-ideator-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Master Mind Ideator</a>
+            <a href="#definite-aim-generator-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Definite Aim Generator</a>
+            <a href="#obstacle-overcomer-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Obstacle Overcomer</a>
+            <a href="#persistence-booster-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Persistence Booster</a>
+            <a href="#knowledge-navigator-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Specialized Knowledge</a>
         </div>
     </header>
 
@@ -275,6 +283,98 @@
                 <div id="mastermind-output" class="mt-8 p-6 bg-amber-100 border-l-4 accent-border text-amber-800 rounded-r-lg hidden">
                     <h4 class="font-bold mb-2">Suggested Master Mind Member Types:</h4>
                     <ul id="mastermind-suggestions" class="list-disc list-inside"></ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="definite-aim-generator-section" class="mt-20 bg-gray-50 rounded-lg shadow-lg p-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">✨ Definite Chief Aim Idea Generator</h2>
+            <p class="text-lg neutral-text-light max-w-3xl mx-auto text-center mb-8">Enter a general area of interest or a broad aspiration, and I'll help you brainstorm specific, definite chief aim ideas, inspired by Napoleon Hill's principle of Desire.</p>
+
+            <div class="max-w-2xl mx-auto space-y-6">
+                <div>
+                    <label for="general-aim-input" class="block text-lg font-medium text-gray-700 mb-2">My General Area of Interest / Aspiration:</label>
+                    <textarea id="general-aim-input" rows="4" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-amber-500 focus:border-amber-500" placeholder="e.g., 'I want to improve my career.' or 'I want to achieve financial independence.'"></textarea>
+                </div>
+                <button id="generate-definite-aim-button" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition flex items-center justify-center">
+                    <span id="generate-definite-aim-text">Generate Ideas ✨</span>
+                    <svg id="definite-aim-loading-spinner" class="animate-spin h-5 w-5 text-white ml-3 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </button>
+                <div id="definite-aim-output" class="mt-8 p-6 bg-amber-100 border-l-4 accent-border text-amber-800 rounded-r-lg hidden">
+                    <h4 class="font-bold mb-2">Suggested Definite Chief Aim Ideas:</h4>
+                    <ul id="definite-aim-suggestions" class="list-disc list-inside"></ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="obstacle-overcomer-section" class="mt-20 bg-gray-50 rounded-lg shadow-lg p-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">✨ Obstacle Overcomer</h2>
+            <p class="text-lg neutral-text-light max-w-3xl mx-auto text-center mb-8">Describe a specific challenge or obstacle you're facing, and I'll suggest strategies for overcoming it, inspired by Napoleon Hill's principles of Persistence, Decision, and Overcoming Fear.</p>
+
+            <div class="max-w-2xl mx-auto space-y-6">
+                <div>
+                    <label for="obstacle-input" class="block text-lg font-medium text-gray-700 mb-2">My Current Obstacle:</label>
+                    <textarea id="obstacle-input" rows="4" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-amber-500 focus:border-amber-500" placeholder="e.g., 'I'm struggling with procrastination on my most important tasks.' or 'I lack confidence in public speaking.'"></textarea>
+                </div>
+                <button id="suggest-obstacle-solutions-button" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition flex items-center justify-center">
+                    <span id="suggest-obstacle-solutions-text">Suggest Solutions ✨</span>
+                    <svg id="obstacle-solutions-loading-spinner" class="animate-spin h-5 w-5 text-white ml-3 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </button>
+                <div id="obstacle-solutions-output" class="mt-8 p-6 bg-amber-100 border-l-4 accent-border text-amber-800 rounded-r-lg hidden">
+                    <h4 class="font-bold mb-2">Suggested Strategies:</h4>
+                    <ul id="obstacle-strategies" class="list-disc list-inside"></ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="persistence-booster-section" class="mt-20 bg-gray-50 rounded-lg shadow-lg p-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">✨ Persistence Booster</h2>
+            <p class="text-lg neutral-text-light max-w-3xl mx-auto text-center mb-8">Feeling discouraged or tempted to quit? Describe your current challenge or moment of doubt, and I'll provide a motivational message inspired by Napoleon Hill's principle of Persistence.</p>
+
+            <div class="max-w-2xl mx-auto space-y-6">
+                <div>
+                    <label for="persistence-challenge-input" class="block text-lg font-medium text-gray-700 mb-2">My Current Challenge / Moment of Doubt:</label>
+                    <textarea id="persistence-challenge-input" rows="4" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-amber-500 focus:border-amber-500" placeholder="e.g., 'I've faced multiple rejections for my business idea and feel like giving up.' or 'I'm exhausted and losing motivation on my long-term project.'"></textarea>
+                </div>
+                <button id="boost-persistence-button" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition flex items-center justify-center">
+                    <span id="boost-persistence-text">Boost My Persistence ✨</span>
+                    <svg id="persistence-loading-spinner" class="animate-spin h-5 w-5 text-white ml-3 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </button>
+                <div id="persistence-output" class="mt-8 p-6 bg-amber-100 border-l-4 accent-border text-amber-800 rounded-r-lg hidden">
+                    <h4 class="font-bold mb-2">Your Persistence Boost:</h4>
+                    <p id="generated-persistence-text" class="italic"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="knowledge-navigator-section" class="mt-20 bg-gray-50 rounded-lg shadow-lg p-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">✨ Specialized Knowledge Navigator</h2>
+            <p class="text-lg neutral-text-light max-w-3xl mx-auto text-center mb-8">Enter a specific goal you wish to achieve, and I'll suggest key areas of specialized knowledge that would be essential or highly beneficial for reaching it, inspired by Napoleon Hill's principle of Specialized Knowledge.</p>
+
+            <div class="max-w-2xl mx-auto space-y-6">
+                <div>
+                    <label for="knowledge-goal-input" class="block text-lg font-medium text-gray-700 mb-2">My Goal:</label>
+                    <textarea id="knowledge-goal-input" rows="4" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-amber-500 focus:border-amber-500" placeholder="e.g., 'Become a top-tier digital marketer.' or 'Develop a successful mobile application.'"></textarea>
+                </div>
+                <button id="suggest-knowledge-button" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition flex items-center justify-center">
+                    <span id="suggest-knowledge-text">Suggest Knowledge Areas ✨</span>
+                    <svg id="knowledge-loading-spinner" class="animate-spin h-5 w-5 text-white ml-3 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </button>
+                <div id="knowledge-output" class="mt-8 p-6 bg-amber-100 border-l-4 accent-border text-amber-800 rounded-r-lg hidden">
+                    <h4 class="font-bold mb-2">Suggested Specialized Knowledge Areas:</h4>
+                    <ul id="knowledge-areas-list" class="list-disc list-inside"></ul>
                 </div>
             </div>
         </section>
@@ -2269,8 +2369,70 @@
         const mastermindOutput = document.getElementById('mastermind-output');
         const mastermindSuggestions = document.getElementById('mastermind-suggestions');
 
+        // New elements for Definite Chief Aim Idea Generator
+        const generalAimInput = document.getElementById('general-aim-input');
+        const generateDefiniteAimButton = document.getElementById('generate-definite-aim-button');
+        const generateDefiniteAimText = document.getElementById('generate-definite-aim-text');
+        const definiteAimLoadingSpinner = document.getElementById('definite-aim-loading-spinner');
+        const definiteAimOutput = document.getElementById('definite-aim-output');
+        const definiteAimSuggestions = document.getElementById('definite-aim-suggestions');
+
+        // New elements for Obstacle Overcomer
+        const obstacleInput = document.getElementById('obstacle-input');
+        const suggestObstacleSolutionsButton = document.getElementById('suggest-obstacle-solutions-button');
+        const suggestObstacleSolutionsText = document.getElementById('suggest-obstacle-solutions-text');
+        const obstacleSolutionsLoadingSpinner = document.getElementById('obstacle-solutions-loading-spinner');
+        const obstacleSolutionsOutput = document.getElementById('obstacle-solutions-output');
+        const obstacleStrategies = document.getElementById('obstacle-strategies');
+
+        // New elements for Persistence Booster
+        const persistenceChallengeInput = document.getElementById('persistence-challenge-input');
+        const boostPersistenceButton = document.getElementById('boost-persistence-button');
+        const boostPersistenceText = document.getElementById('boost-persistence-text');
+        const persistenceLoadingSpinner = document.getElementById('persistence-loading-spinner');
+        const persistenceOutput = document.getElementById('persistence-output');
+        const generatedPersistenceText = document.getElementById('generated-persistence-text');
+
+        // New elements for Specialized Knowledge Navigator
+        const knowledgeGoalInput = document.getElementById('knowledge-goal-input');
+        const suggestKnowledgeButton = document.getElementById('suggest-knowledge-button');
+        const suggestKnowledgeText = document.getElementById('suggest-knowledge-text');
+        const knowledgeLoadingSpinner = document.getElementById('knowledge-loading-spinner');
+        const knowledgeOutput = document.getElementById('knowledge-output');
+        const knowledgeAreasList = document.getElementById('knowledge-areas-list');
+
 
         const PASSING_GRADE_PERCENTAGE = 75;
+
+        // Refactored: Centralized API Key and URL
+        const apiKey = ""; // Canvas will provide this in runtime
+        const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+        // Helper function for displaying output messages
+        function displayOutput(element, message, isError = false) {
+            element.classList.remove('hidden', 'bg-amber-100', 'text-amber-800', 'bg-red-100', 'text-red-800');
+            if (isError) {
+                element.classList.add('bg-red-100', 'text-red-800');
+            } else {
+                element.classList.add('bg-amber-100', 'text-amber-800');
+            }
+            // Assuming the message is for a <p> tag inside the output div
+            const textElement = element.querySelector('p') || element.querySelector('ul');
+            if (textElement) {
+                if (typeof message === 'string') {
+                    textElement.textContent = message;
+                } else if (Array.isArray(message)) {
+                    textElement.innerHTML = ''; // Clear previous list items
+                    message.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = item;
+                        textElement.appendChild(li);
+                    });
+                }
+            } else {
+                element.textContent = message; // Fallback if no inner p/ul
+            }
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
             const principlesContent = document.getElementById('principles-content');
@@ -2607,9 +2769,7 @@
                 const userGoal = goalInput.value.trim();
 
                 if (!userGoal) {
-                    // Simple message box for user feedback
-                    affirmationOutput.classList.remove('hidden', 'bg-amber-100', 'text-amber-800');
-                    affirmationOutput.classList.add('bg-red-100', 'text-red-800');
+                    displayOutput(affirmationOutput, "Please enter your goal or definite chief aim to generate an affirmation.", true);
                     generatedAffirmationText.innerHTML = "Please enter your goal or definite chief aim to generate an affirmation.";
                     return;
                 }
@@ -2626,10 +2786,8 @@
                     let chatHistory = [];
                     chatHistory.push({ role: "user", parts: [{ text: prompt }] });
                     const payload = { contents: chatHistory };
-                    const apiKey = ""; // Canvas will provide this in runtime
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-                    const response = await fetch(apiUrl, {
+                    
+                    const response = await fetch(geminiApiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
@@ -2642,18 +2800,13 @@
                         result.candidates[0].content.parts.length > 0) {
                         const text = result.candidates[0].content.parts[0].text;
                         generatedAffirmationText.textContent = text;
-                        affirmationOutput.classList.remove('hidden', 'bg-red-100', 'text-red-800'); // Reset to amber if it was red
-                        affirmationOutput.classList.add('bg-amber-100', 'text-amber-800');
+                        displayOutput(affirmationOutput, text); // Use helper for success
                     } else {
-                        generatedAffirmationText.textContent = "Could not generate affirmation. Please try again.";
-                        affirmationOutput.classList.remove('hidden', 'bg-amber-100', 'text-amber-800');
-                        affirmationOutput.classList.add('bg-red-100', 'text-red-800');
+                        displayOutput(affirmationOutput, "Could not generate affirmation. Please try again.", true);
                     }
                 } catch (error) {
                     console.error("Error generating affirmation:", error);
-                    generatedAffirmationText.textContent = "An error occurred while generating the affirmation. Please try again later.";
-                    affirmationOutput.classList.remove('hidden', 'bg-amber-100', 'text-amber-800');
-                    affirmationOutput.classList.add('bg-red-100', 'text-red-800');
+                    displayOutput(affirmationOutput, "An error occurred while generating the affirmation. Please try again later.", true);
                 } finally {
                     // Hide loading state
                     generateAffirmationText.textContent = "Generate My Affirmation ✨";
@@ -2667,12 +2820,11 @@
                 const userMajorGoal = majorGoalInput.value.trim();
 
                 if (!userMajorGoal) {
-                    breakdownOutput.classList.remove('hidden', 'bg-amber-100', 'text-amber-800');
-                    breakdownOutput.classList.add('bg-red-100', 'text-red-800');
                     breakdownSteps.innerHTML = '';
                     breakdownObstacles.innerHTML = '';
                     breakdownOutput.querySelector('h4').textContent = "Error:";
-                    breakdownOutput.querySelector('ul').innerHTML = '<li>Please enter your major goal to break it down.</li>';
+                    breakdownOutput.querySelectorAll('h4')[1].textContent = ""; // Clear second title
+                    displayOutput(breakdownOutput, ['Please enter your major goal to break it down.'], true);
                     return;
                 }
 
@@ -2717,10 +2869,8 @@ Example JSON structure:
                             }
                         }
                     };
-                    const apiKey = ""; // Canvas will provide this in runtime
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-                    const response = await fetch(apiUrl, {
+                    
+                    const response = await fetch(geminiApiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
@@ -2754,21 +2904,19 @@ Example JSON structure:
                         breakdownOutput.querySelectorAll('h4')[1].textContent = "Potential Obstacles:"; // Reset title
 
                     } else {
-                        breakdownOutput.classList.remove('hidden', 'bg-amber-100', 'text-amber-800');
-                        breakdownOutput.classList.add('bg-red-100', 'text-red-800');
                         breakdownSteps.innerHTML = '';
                         breakdownObstacles.innerHTML = '';
                         breakdownOutput.querySelector('h4').textContent = "Error:";
-                        breakdownOutput.querySelector('ul').innerHTML = '<li>Could not break down goal. Please try again.</li>';
+                        breakdownOutput.querySelectorAll('h4')[1].textContent = ""; // Clear second title
+                        displayOutput(breakdownOutput, ['Could not break down goal. Please try again.'], true);
                     }
                 } catch (error) {
                     console.error("Error breaking down goal:", error);
-                    breakdownOutput.classList.remove('hidden', 'bg-amber-100', 'text-amber-800');
-                    breakdownOutput.classList.add('bg-red-100', 'text-red-800');
                     breakdownSteps.innerHTML = '';
                     breakdownObstacles.innerHTML = '';
                     breakdownOutput.querySelector('h4').textContent = "Error:";
-                    breakdownOutput.querySelector('ul').innerHTML = '<li>An error occurred while breaking down the goal. Please try again later.</li>';
+                    breakdownOutput.querySelectorAll('h4')[1].textContent = ""; // Clear second title
+                    displayOutput(breakdownOutput, ['An error occurred while breaking down the goal. Please try again later.'], true);
                 } finally {
                     // Hide loading state
                     breakdownGoalText.textContent = "Break Down My Goal ✨";
@@ -2782,11 +2930,9 @@ Example JSON structure:
                 const userMastermindGoal = mastermindGoalInput.value.trim();
 
                 if (!userMastermindGoal) {
-                    mastermindOutput.classList.remove('hidden', 'bg-amber-100', 'text-amber-800');
-                    mastermindOutput.classList.add('bg-red-100', 'text-red-800');
                     mastermindSuggestions.innerHTML = '';
                     mastermindOutput.querySelector('h4').textContent = "Error:";
-                    mastermindOutput.querySelector('ul').innerHTML = '<li>Please enter your major goal for the Master Mind Group to get suggestions.</li>';
+                    displayOutput(mastermindOutput, ['Please enter your major goal for the Master Mind Group to get suggestions.'], true);
                     return;
                 }
 
@@ -2826,10 +2972,8 @@ Example JSON structure:
                             }
                         }
                     };
-                    const apiKey = ""; // Canvas will provide this in runtime
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-                    const response = await fetch(apiUrl, {
+                    
+                    const response = await fetch(geminiApiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
@@ -2855,24 +2999,336 @@ Example JSON structure:
                         mastermindOutput.querySelector('h4').textContent = "Suggested Master Mind Member Types:"; // Reset title
 
                     } else {
-                        mastermindOutput.classList.remove('hidden', 'bg-amber-100', 'text-amber-800');
-                        mastermindOutput.classList.add('bg-red-100', 'text-red-800');
                         mastermindSuggestions.innerHTML = '';
                         mastermindOutput.querySelector('h4').textContent = "Error:";
-                        mastermindOutput.querySelector('ul').innerHTML = '<li>Could not suggest Master Mind members. Please try again.</li>';
+                        displayOutput(mastermindOutput, ['Could not suggest Master Mind members. Please try again.'], true);
                     }
                 } catch (error) {
                     console.error("Error suggesting Master Mind members:", error);
-                    mastermindOutput.classList.remove('hidden', 'bg-amber-100', 'text-amber-800');
-                    mastermindOutput.classList.add('bg-red-100', 'text-red-800');
                     mastermindSuggestions.innerHTML = '';
                     mastermindOutput.querySelector('h4').textContent = "Error:";
-                    mastermindOutput.querySelector('ul').innerHTML = '<li>An error occurred while suggesting Master Mind members. Please try again later.</li>';
+                    displayOutput(mastermindOutput, ['An error occurred while suggesting Master Mind members. Please try again later.'], true);
                 } finally {
                     // Hide loading state
                     suggestMastermindText.textContent = "Suggest Master Mind Members ✨";
                     mastermindLoadingSpinner.classList.add('hidden');
                     suggestMastermindButton.disabled = false;
+                }
+            });
+
+            // Definite Chief Aim Idea Generator Logic
+            generateDefiniteAimButton.addEventListener('click', async () => {
+                const generalAim = generalAimInput.value.trim();
+
+                if (!generalAim) {
+                    definiteAimSuggestions.innerHTML = '';
+                    definiteAimOutput.querySelector('h4').textContent = "Error:";
+                    displayOutput(definiteAimOutput, ['Please enter a general area of interest to generate definite chief aim ideas.'], true);
+                    return;
+                }
+
+                // Show loading state
+                generateDefiniteAimText.textContent = "Generating Ideas...";
+                definiteAimLoadingSpinner.classList.remove('hidden');
+                generateDefiniteAimButton.disabled = true;
+                definiteAimOutput.classList.add('hidden'); // Hide previous output
+
+                try {
+                    const prompt = `As a 'Think and Grow Rich' expert, generate 5-7 specific and definite chief aim ideas based on the following general aspiration: "${generalAim}". Each idea should be actionable, measurable, and align with the principles of having a 'definite chief aim' as described by Napoleon Hill. Provide the response in JSON format with a single key 'ideas', which is an array of strings.
+
+Example JSON structure:
+{
+  "ideas": ["Idea 1", "Idea 2"]
+}`;
+
+                    let chatHistory = [];
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = {
+                        contents: chatHistory,
+                        generationConfig: {
+                            responseMimeType: "application/json",
+                            responseSchema: {
+                                type: "OBJECT",
+                                properties: {
+                                    "ideas": {
+                                        type: "ARRAY",
+                                        items: { "type": "STRING" }
+                                    }
+                                },
+                                "propertyOrdering": ["ideas"]
+                            }
+                        }
+                    };
+                    
+                    const response = await fetch(geminiApiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const jsonString = result.candidates[0].content.parts[0].text;
+                        const parsedJson = JSON.parse(jsonString);
+
+                        definiteAimSuggestions.innerHTML = '';
+                        parsedJson.ideas.forEach(idea => {
+                            const li = document.createElement('li');
+                            li.textContent = idea;
+                            definiteAimSuggestions.appendChild(li);
+                        });
+                        
+                        definiteAimOutput.classList.remove('hidden', 'bg-red-100', 'text-red-800');
+                        definiteAimOutput.classList.add('bg-amber-100', 'text-amber-800');
+                        definiteAimOutput.querySelector('h4').textContent = "Suggested Definite Chief Aim Ideas:";
+
+                    } else {
+                        definiteAimSuggestions.innerHTML = '';
+                        definiteAimOutput.querySelector('h4').textContent = "Error:";
+                        displayOutput(definiteAimOutput, ['Could not generate definite chief aim ideas. Please try again.'], true);
+                    }
+                } catch (error) {
+                    console.error("Error generating definite aim ideas:", error);
+                    definiteAimSuggestions.innerHTML = '';
+                    definiteAimOutput.querySelector('h4').textContent = "Error:";
+                    displayOutput(definiteAimOutput, ['An error occurred while generating definite aim ideas. Please try again later.'], true);
+                } finally {
+                    // Hide loading state
+                    generateDefiniteAimText.textContent = "Generate Ideas ✨";
+                    definiteAimLoadingSpinner.classList.add('hidden');
+                    generateDefiniteAimButton.disabled = false;
+                }
+            });
+
+            // Obstacle Overcomer Logic
+            suggestObstacleSolutionsButton.addEventListener('click', async () => {
+                const obstacle = obstacleInput.value.trim();
+
+                if (!obstacle) {
+                    obstacleStrategies.innerHTML = '';
+                    obstacleSolutionsOutput.querySelector('h4').textContent = "Error:";
+                    displayOutput(obstacleSolutionsOutput, ['Please describe an obstacle to get suggested solutions.'], true);
+                    return;
+                }
+
+                // Show loading state
+                suggestObstacleSolutionsText.textContent = "Suggesting Solutions...";
+                obstacleSolutionsLoadingSpinner.classList.remove('hidden');
+                suggestObstacleSolutionsButton.disabled = true;
+                obstacleSolutionsOutput.classList.add('hidden'); // Hide previous output
+
+                try {
+                    const prompt = `As a 'Think and Grow Rich' expert, your task is to provide 3-5 actionable strategies for overcoming the following obstacle, drawing specifically from Napoleon Hill's principles such as Persistence, Decision, Faith, and Overcoming Fear. Each strategy should be concise and practical.
+
+The obstacle is: "${obstacle}".
+
+Provide your response in JSON format with a single key 'strategies', which is an array of strings.
+
+Example JSON structure:
+{
+  "strategies": ["Strategy 1", "Strategy 2"]
+}`;
+
+                    let chatHistory = [];
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = {
+                        contents: chatHistory,
+                        generationConfig: {
+                            responseMimeType: "application/json",
+                            responseSchema: {
+                                type: "OBJECT",
+                                properties: {
+                                    "strategies": {
+                                        type: "ARRAY",
+                                        items: { "type": "STRING" }
+                                    }
+                                },
+                                "propertyOrdering": ["strategies"]
+                            }
+                        }
+                    };
+                    
+                    const response = await fetch(geminiApiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const jsonString = result.candidates[0].content.parts[0].text;
+                        const parsedJson = JSON.parse(jsonString);
+
+                        obstacleStrategies.innerHTML = '';
+                        parsedJson.strategies.forEach(strategy => {
+                            const li = document.createElement('li');
+                            li.textContent = strategy;
+                            obstacleStrategies.appendChild(li);
+                        });
+                        
+                        obstacleSolutionsOutput.classList.remove('hidden', 'bg-red-100', 'text-red-800');
+                        obstacleSolutionsOutput.classList.add('bg-amber-100', 'text-amber-800');
+                        obstacleSolutionsOutput.querySelector('h4').textContent = "Suggested Strategies:";
+
+                    } else {
+                        obstacleStrategies.innerHTML = '';
+                        obstacleSolutionsOutput.querySelector('h4').textContent = "Error:";
+                        displayOutput(obstacleSolutionsOutput, ['Could not suggest solutions. Please try again.'], true);
+                    }
+                } catch (error) {
+                    console.error("Error suggesting obstacle solutions:", error);
+                    obstacleStrategies.innerHTML = '';
+                    obstacleSolutionsOutput.querySelector('h4').textContent = "Error:";
+                    displayOutput(obstacleSolutionsOutput, ['An error occurred while suggesting solutions. Please try again later.'], true);
+                } finally {
+                    // Hide loading state
+                    suggestObstacleSolutionsText.textContent = "Suggest Solutions ✨";
+                    obstacleSolutionsLoadingSpinner.classList.add('hidden');
+                    suggestObstacleSolutionsButton.disabled = false;
+                }
+            });
+
+            // Persistence Booster Logic
+            boostPersistenceButton.addEventListener('click', async () => {
+                const userChallenge = persistenceChallengeInput.value.trim();
+
+                if (!userChallenge) {
+                    displayOutput(persistenceOutput, "Please describe your challenge or moment of doubt to get a persistence boost.", true);
+                    generatedPersistenceText.innerHTML = "Please describe your challenge or moment of doubt to get a persistence boost.";
+                    return;
+                }
+
+                // Show loading state
+                boostPersistenceText.textContent = "Boosting...";
+                persistenceLoadingSpinner.classList.remove('hidden');
+                boostPersistenceButton.disabled = true;
+                persistenceOutput.classList.add('hidden'); // Hide previous output
+
+                try {
+                    const prompt = `The user is feeling discouraged or tempted to quit, describing their challenge as: "${userChallenge}".
+                    Based on Napoleon Hill's principle of Persistence from "Think and Grow Rich" (Chapter 9), provide a concise, powerful motivational message (1-2 paragraphs max) to help them overcome this moment of doubt and continue towards their definite chief aim. Remind them of the importance of unwavering effort despite temporary defeat, and that success often lies just beyond the point of giving up.`;
+
+                    let chatHistory = [];
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    
+                    const response = await fetch(geminiApiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        generatedPersistenceText.textContent = text;
+                        displayOutput(persistenceOutput, text);
+                    } else {
+                        displayOutput(persistenceOutput, "Could not generate a persistence boost. Please try again.", true);
+                    }
+                } catch (error) {
+                    console.error("Error boosting persistence:", error);
+                    displayOutput(persistenceOutput, "An error occurred while boosting persistence. Please try again later.", true);
+                } finally {
+                    boostPersistenceText.textContent = "Boost My Persistence ✨";
+                    persistenceLoadingSpinner.classList.add('hidden');
+                    boostPersistenceButton.disabled = false;
+                }
+            });
+
+            // Specialized Knowledge Navigator Logic
+            suggestKnowledgeButton.addEventListener('click', async () => {
+                const userKnowledgeGoal = knowledgeGoalInput.value.trim();
+
+                if (!userKnowledgeGoal) {
+                    knowledgeAreasList.innerHTML = '';
+                    knowledgeOutput.querySelector('h4').textContent = "Error:";
+                    displayOutput(knowledgeOutput, ['Please enter your goal to get specialized knowledge suggestions.'], true);
+                    return;
+                }
+
+                // Show loading state
+                suggestKnowledgeText.textContent = "Suggesting...";
+                knowledgeLoadingSpinner.classList.remove('hidden');
+                suggestKnowledgeButton.disabled = true;
+                knowledgeOutput.classList.add('hidden'); // Hide previous output
+
+                try {
+                    const prompt = `The user's goal is: "${userKnowledgeGoal}".
+                    Based on Napoleon Hill's principle of 'Specialized Knowledge' from "Think and Grow Rich" (Chapter 5), identify 3-5 key areas of specialized knowledge that would be essential or highly beneficial for achieving this goal. Focus on practical, actionable knowledge areas. Provide the response in JSON format with a single key 'knowledge_areas', which is an array of strings.
+
+Example JSON structure:
+{
+  "knowledge_areas": ["Area 1", "Area 2"]
+}`;
+
+                    let chatHistory = [];
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = {
+                        contents: chatHistory,
+                        generationConfig: {
+                            responseMimeType: "application/json",
+                            responseSchema: {
+                                type: "OBJECT",
+                                properties: {
+                                    "knowledge_areas": {
+                                        type: "ARRAY",
+                                        items: { "type": "STRING" }
+                                    }
+                                },
+                                "propertyOrdering": ["knowledge_areas"]
+                            }
+                        }
+                    };
+                    
+                    const response = await fetch(geminiApiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const jsonString = result.candidates[0].content.parts[0].text;
+                        const parsedJson = JSON.parse(jsonString);
+
+                        knowledgeAreasList.innerHTML = '';
+                        parsedJson.knowledge_areas.forEach(area => {
+                            const li = document.createElement('li');
+                            li.textContent = area;
+                            knowledgeAreasList.appendChild(li);
+                        });
+                        
+                        knowledgeOutput.classList.remove('hidden', 'bg-red-100', 'text-red-800');
+                        knowledgeOutput.classList.add('bg-amber-100', 'text-amber-800');
+                        knowledgeOutput.querySelector('h4').textContent = "Suggested Specialized Knowledge Areas:";
+
+                    } else {
+                        knowledgeAreasList.innerHTML = '';
+                        knowledgeOutput.querySelector('h4').textContent = "Error:";
+                        displayOutput(knowledgeOutput, ['Could not suggest knowledge areas. Please try again.'], true);
+                    }
+                } catch (error) {
+                    console.error("Error suggesting knowledge areas:", error);
+                    knowledgeAreasList.innerHTML = '';
+                    knowledgeOutput.querySelector('h4').textContent = "Error:";
+                    displayOutput(knowledgeOutput, ['An error occurred while suggesting knowledge areas. Please try again later.'], true);
+                } finally {
+                    suggestKnowledgeText.textContent = "Suggest Knowledge Areas ✨";
+                    knowledgeLoadingSpinner.classList.add('hidden');
+                    suggestKnowledgeButton.disabled = false;
                 }
             });
         });
