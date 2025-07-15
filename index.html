@@ -71,16 +71,14 @@
 
     <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="break-inside-avoid-column md:break-inside-auto ...">
-                <h1 class="text-xl md:text-2xl font-bold text-gray-800">Think & Grow Rich</h1>
-                <h2 class="break-after-column md:break-after-auto font-bold text-gray-800">- Napoleon Hill </h2>
-            </div>
+            <h1 class="text-xl md:text-2xl font-bold text-gray-800">Think & Grow Rich</h1>
             <div class="hidden md:flex space-x-8">
                 <a href="#foundation" class="text-gray-600 hover:text-amber-500 transition">The Foundation</a>
                 <a href="#blueprint" class="text-gray-600 hover:text-amber-500 transition">The Blueprint</a>
                 <a href="#mastery" class="text-gray-600 hover:text-amber-500 transition">The Mastery</a>
                 <a href="#fears" class="text-gray-600 hover:text-amber-500 transition">Overcoming Fear</a>
                 <a href="#quiz-section" class="text-gray-600 hover:text-amber-500 transition">Quiz</a>
+                <a href="#affirmation-generator-section" class="text-gray-600 hover:text-amber-500 transition">Affirmation Generator</a>
             </div>
             <button id="mobile-menu-button" class="md:hidden text-gray-800 focus:outline-none">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
@@ -92,6 +90,7 @@
             <a href="#mastery" class="block py-2 text-gray-600 hover:text-amber-500 transition">The Mastery</a>
             <a href="#fears" class="block py-2 text-gray-600 hover:text-amber-500 transition">Overcoming Fear</a>
             <a href="#quiz-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Quiz</a>
+            <a href="#affirmation-generator-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Affirmation Generator</a>
         </div>
     </header>
 
@@ -154,6 +153,29 @@
                 <p id="score-text" class="text-xl mb-2"></p>
                 <p id="pass-fail-text" class="text-2xl font-bold"></p>
                 <button id="retake-quiz" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition mt-6">Retake Quiz</button>
+            </div>
+        </section>
+
+        <section id="affirmation-generator-section" class="mt-20 bg-gray-50 rounded-lg shadow-lg p-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">✨ Generate Your Personal Affirmation</h2>
+            <p class="text-lg neutral-text-light max-w-3xl mx-auto text-center mb-8">Describe your definite chief aim or a goal you want to achieve, and I'll help you craft a powerful affirmation inspired by the principles of 'Think and Grow Rich'.</p>
+
+            <div class="max-w-2xl mx-auto space-y-6">
+                <div>
+                    <label for="goal-input" class="block text-lg font-medium text-gray-700 mb-2">My Definite Chief Aim / Goal:</label>
+                    <textarea id="goal-input" rows="4" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-amber-500 focus:border-amber-500" placeholder="e.g., 'I desire to accumulate $1,000,000 by December 31, 2026, by providing exceptional value as a [Your Profession].'"></textarea>
+                </div>
+                <button id="generate-affirmation-button" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition flex items-center justify-center">
+                    <span id="generate-affirmation-text">Generate My Affirmation ✨</span>
+                    <svg id="loading-spinner" class="animate-spin h-5 w-5 text-white ml-3 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </button>
+                <div id="affirmation-output" class="mt-8 p-6 bg-amber-100 border-l-4 accent-border text-amber-800 rounded-r-lg hidden">
+                    <h4 class="font-bold mb-2">Your Affirmation:</h4>
+                    <p id="generated-affirmation-text" class="italic"></p>
+                </div>
             </div>
         </section>
 
@@ -2122,6 +2144,15 @@
         const showHintButton = document.getElementById('show-hint');
         const hintTextEl = document.getElementById('hint-text');
 
+        // New elements for Affirmation Generator
+        const goalInput = document.getElementById('goal-input');
+        const generateAffirmationButton = document.getElementById('generate-affirmation-button');
+        const generateAffirmationText = document.getElementById('generate-affirmation-text');
+        const loadingSpinner = document.getElementById('loading-spinner');
+        const affirmationOutput = document.getElementById('affirmation-output');
+        const generatedAffirmationText = document.getElementById('generated-affirmation-text');
+
+
         const PASSING_GRADE_PERCENTAGE = 75;
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -2386,26 +2417,32 @@
                     }
                 }
 
-                // If it's the last question, automatically show results after an answer is selected
+                // If it's the last question, automatically show results after a short delay
                 if (currentQuestionIndex === currentQuizQuestions.length - 1) {
-                    showResults();
+                    setTimeout(() => {
+                        showResults();
+                    }, 500); // 500ms delay
                 }
             }
 
             function showResults() {
-                quizQuestionArea.classList.add('hidden'); // Corrected variable name
+                console.log("showResults called!"); // For debugging
+                quizQuestionArea.classList.add('hidden');
                 quizResultsEl.classList.remove('hidden');
                 const percentage = (score / currentQuizQuestions.length) * 100;
                 scoreTextEl.textContent = `You scored ${score} out of ${currentQuizQuestions.length} (${percentage.toFixed(2)}%)`;
+                console.log(`Score: ${score}, Total: ${currentQuizQuestions.length}, Percentage: ${percentage.toFixed(2)}%`); // For debugging
 
                 if (percentage >= PASSING_GRADE_PERCENTAGE) {
                     passFailTextEl.textContent = 'Congratulations! You Passed!';
                     passFailTextEl.classList.remove('text-red-600');
                     passFailTextEl.classList.add('text-green-600');
+                    console.log("Passed!"); // For debugging
                 } else {
                     passFailTextEl.textContent = 'Keep Studying! You Did Not Pass.';
                     passFailTextEl.classList.remove('text-green-600');
                     passFailTextEl.classList.add('text-red-600');
+                    console.log("Failed!"); // For debugging
                 }
             }
 
@@ -2446,6 +2483,66 @@
 
             showHintButton.addEventListener('click', () => {
                 hintTextEl.classList.toggle('hidden');
+            });
+
+            // Affirmation Generator Logic
+            generateAffirmationButton.addEventListener('click', async () => {
+                const userGoal = goalInput.value.trim();
+
+                if (!userGoal) {
+                    // Simple message box for user feedback
+                    affirmationOutput.classList.remove('hidden', 'bg-amber-100', 'text-amber-800');
+                    affirmationOutput.classList.add('bg-red-100', 'text-red-800');
+                    generatedAffirmationText.innerHTML = "Please enter your goal or definite chief aim to generate an affirmation.";
+                    return;
+                }
+
+                // Show loading state
+                generateAffirmationText.textContent = "Generating...";
+                loadingSpinner.classList.remove('hidden');
+                generateAffirmationButton.disabled = true;
+                affirmationOutput.classList.add('hidden'); // Hide previous output
+
+                try {
+                    const prompt = `Based on Napoleon Hill's "Think and Grow Rich" principles, especially Desire, Faith, and Auto-Suggestion, generate a powerful, concise, and emotionally charged affirmation for the following goal: "${userGoal}". The affirmation should be in the first person, present tense, and express absolute belief in attainment. It should be suitable for daily repetition.`;
+
+                    let chatHistory = [];
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = ""; // Canvas will provide this in runtime
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        generatedAffirmationText.textContent = text;
+                        affirmationOutput.classList.remove('hidden', 'bg-red-100', 'text-red-800'); // Reset to amber if it was red
+                        affirmationOutput.classList.add('bg-amber-100', 'text-amber-800');
+                    } else {
+                        generatedAffirmationText.textContent = "Could not generate affirmation. Please try again.";
+                        affirmationOutput.classList.remove('hidden', 'bg-amber-100', 'text-amber-800');
+                        affirmationOutput.classList.add('bg-red-100', 'text-red-800');
+                    }
+                } catch (error) {
+                    console.error("Error generating affirmation:", error);
+                    generatedAffirmationText.textContent = "An error occurred while generating the affirmation. Please try again later.";
+                    affirmationOutput.classList.remove('hidden', 'bg-amber-100', 'text-amber-800');
+                    affirmationOutput.classList.add('bg-red-100', 'text-red-800');
+                } finally {
+                    // Hide loading state
+                    generateAffirmationText.textContent = "Generate My Affirmation ✨";
+                    loadingSpinner.classList.add('hidden');
+                    generateAffirmationButton.disabled = false;
+                }
             });
         });
     </script>
