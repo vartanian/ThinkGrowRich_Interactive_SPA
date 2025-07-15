@@ -79,6 +79,7 @@
                 <a href="#fears" class="text-gray-600 hover:text-amber-500 transition">Overcoming Fear</a>
                 <a href="#quiz-section" class="text-gray-600 hover:text-amber-500 transition">Quiz</a>
                 <a href="#affirmation-generator-section" class="text-gray-600 hover:text-amber-500 transition">Affirmation Generator</a>
+                <a href="#goal-breakdown-section" class="text-gray-600 hover:text-amber-500 transition">Goal Breakdown</a>
             </div>
             <button id="mobile-menu-button" class="md:hidden text-gray-800 focus:outline-none">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
@@ -91,6 +92,7 @@
             <a href="#fears" class="block py-2 text-gray-600 hover:text-amber-500 transition">Overcoming Fear</a>
             <a href="#quiz-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Quiz</a>
             <a href="#affirmation-generator-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Affirmation Generator</a>
+            <a href="#goal-breakdown-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Goal Breakdown</a>
         </div>
     </header>
 
@@ -175,6 +177,31 @@
                 <div id="affirmation-output" class="mt-8 p-6 bg-amber-100 border-l-4 accent-border text-amber-800 rounded-r-lg hidden">
                     <h4 class="font-bold mb-2">Your Affirmation:</h4>
                     <p id="generated-affirmation-text" class="italic"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="goal-breakdown-section" class="mt-20 bg-gray-50 rounded-lg shadow-lg p-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">✨ Goal Breakdown & Obstacle Brainstormer</h2>
+            <p class="text-lg neutral-text-light max-w-3xl mx-auto text-center mb-8">Enter a major goal, and I'll help you break it down into actionable steps and identify potential obstacles, inspired by Napoleon Hill's principles of Organized Planning and Overcoming Fear.</p>
+
+            <div class="max-w-2xl mx-auto space-y-6">
+                <div>
+                    <label for="major-goal-input" class="block text-lg font-medium text-gray-700 mb-2">My Major Goal:</label>
+                    <textarea id="major-goal-input" rows="4" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-amber-500 focus:border-amber-500" placeholder="e.g., 'Become a successful entrepreneur in the tech industry within 5 years.'"></textarea>
+                </div>
+                <button id="breakdown-goal-button" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition flex items-center justify-center">
+                    <span id="breakdown-goal-text">Break Down My Goal ✨</span>
+                    <svg id="breakdown-loading-spinner" class="animate-spin h-5 w-5 text-white ml-3 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </button>
+                <div id="breakdown-output" class="mt-8 p-6 bg-amber-100 border-l-4 accent-border text-amber-800 rounded-r-lg hidden">
+                    <h4 class="font-bold mb-2">Actionable Steps:</h4>
+                    <ul id="breakdown-steps" class="list-disc list-inside mb-4"></ul>
+                    <h4 class="font-bold mb-2">Potential Obstacles:</h4>
+                    <ul id="breakdown-obstacles" class="list-disc list-inside"></ul>
                 </div>
             </div>
         </section>
@@ -2152,6 +2179,15 @@
         const affirmationOutput = document.getElementById('affirmation-output');
         const generatedAffirmationText = document.getElementById('generated-affirmation-text');
 
+        // New elements for Goal Breakdown & Obstacle Brainstormer
+        const majorGoalInput = document.getElementById('major-goal-input');
+        const breakdownGoalButton = document.getElementById('breakdown-goal-button');
+        const breakdownGoalText = document.getElementById('breakdown-goal-text');
+        const breakdownLoadingSpinner = document.getElementById('breakdown-loading-spinner');
+        const breakdownOutput = document.getElementById('breakdown-output');
+        const breakdownSteps = document.getElementById('breakdown-steps');
+        const breakdownObstacles = document.getElementById('breakdown-obstacles');
+
 
         const PASSING_GRADE_PERCENTAGE = 75;
 
@@ -2542,6 +2578,121 @@
                     generateAffirmationText.textContent = "Generate My Affirmation ✨";
                     loadingSpinner.classList.add('hidden');
                     generateAffirmationButton.disabled = false;
+                }
+            });
+
+            // Goal Breakdown & Obstacle Brainstormer Logic
+            breakdownGoalButton.addEventListener('click', async () => {
+                const userMajorGoal = majorGoalInput.value.trim();
+
+                if (!userMajorGoal) {
+                    breakdownOutput.classList.remove('hidden', 'bg-amber-100', 'text-amber-800');
+                    breakdownOutput.classList.add('bg-red-100', 'text-red-800');
+                    breakdownSteps.innerHTML = '';
+                    breakdownObstacles.innerHTML = '';
+                    breakdownOutput.querySelector('h4').textContent = "Error:";
+                    breakdownOutput.querySelector('ul').innerHTML = '<li>Please enter your major goal to break it down.</li>';
+                    return;
+                }
+
+                // Show loading state
+                breakdownGoalText.textContent = "Breaking Down...";
+                breakdownLoadingSpinner.classList.remove('hidden');
+                breakdownGoalButton.disabled = true;
+                breakdownOutput.classList.add('hidden'); // Hide previous output
+
+                try {
+                    const prompt = `As a 'Think and Grow Rich' expert, your task is to help a user break down their major goal into actionable steps and identify potential obstacles, specifically drawing from Napoleon Hill's principles of 'Organized Planning' and 'Overcoming Fear'.
+
+The user's major goal is: "${userMajorGoal}".
+
+Provide your response in JSON format with two keys: 'steps' (an array of 5-7 concise, actionable steps) and 'obstacles' (an array of 3-5 potential obstacles, ideally linking them to Hill's 'Six Ghosts of Fear' or other relevant principles like indecision or lack of persistence). Each item in the arrays should be a string.
+
+Example JSON structure:
+{
+  "steps": ["Step 1", "Step 2"],
+  "obstacles": ["Obstacle 1", "Obstacle 2"]
+}`;
+
+                    let chatHistory = [];
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = {
+                        contents: chatHistory,
+                        generationConfig: {
+                            responseMimeType: "application/json",
+                            responseSchema: {
+                                type: "OBJECT",
+                                properties: {
+                                    "steps": {
+                                        type: "ARRAY",
+                                        items: { "type": "STRING" }
+                                    },
+                                    "obstacles": {
+                                        type: "ARRAY",
+                                        items: { "type": "STRING" }
+                                    }
+                                },
+                                "propertyOrdering": ["steps", "obstacles"]
+                            }
+                        }
+                    };
+                    const apiKey = ""; // Canvas will provide this in runtime
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const jsonString = result.candidates[0].content.parts[0].text;
+                        const parsedJson = JSON.parse(jsonString);
+
+                        breakdownSteps.innerHTML = '';
+                        parsedJson.steps.forEach(step => {
+                            const li = document.createElement('li');
+                            li.textContent = step;
+                            breakdownSteps.appendChild(li);
+                        });
+
+                        breakdownObstacles.innerHTML = '';
+                        parsedJson.obstacles.forEach(obstacle => {
+                            const li = document.createElement('li');
+                            li.textContent = obstacle;
+                            breakdownObstacles.appendChild(li);
+                        });
+                        
+                        breakdownOutput.classList.remove('hidden', 'bg-red-100', 'text-red-800');
+                        breakdownOutput.classList.add('bg-amber-100', 'text-amber-800');
+                        breakdownOutput.querySelector('h4').textContent = "Actionable Steps:"; // Reset title
+                        breakdownOutput.querySelectorAll('h4')[1].textContent = "Potential Obstacles:"; // Reset title
+
+                    } else {
+                        breakdownOutput.classList.remove('hidden', 'bg-amber-100', 'text-amber-800');
+                        breakdownOutput.classList.add('bg-red-100', 'text-red-800');
+                        breakdownSteps.innerHTML = '';
+                        breakdownObstacles.innerHTML = '';
+                        breakdownOutput.querySelector('h4').textContent = "Error:";
+                        breakdownOutput.querySelector('ul').innerHTML = '<li>Could not break down goal. Please try again.</li>';
+                    }
+                } catch (error) {
+                    console.error("Error breaking down goal:", error);
+                    breakdownOutput.classList.remove('hidden', 'bg-amber-100', 'text-amber-800');
+                    breakdownOutput.classList.add('bg-red-100', 'text-red-800');
+                    breakdownSteps.innerHTML = '';
+                    breakdownObstacles.innerHTML = '';
+                    breakdownOutput.querySelector('h4').textContent = "Error:";
+                    breakdownOutput.querySelector('ul').innerHTML = '<li>An error occurred while breaking down the goal. Please try again later.</li>';
+                } finally {
+                    // Hide loading state
+                    breakdownGoalText.textContent = "Break Down My Goal ✨";
+                    breakdownLoadingSpinner.classList.add('hidden');
+                    breakdownGoalButton.disabled = false;
                 }
             });
         });
