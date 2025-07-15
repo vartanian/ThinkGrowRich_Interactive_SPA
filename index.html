@@ -71,7 +71,10 @@
 
     <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-xl md:text-2xl font-bold text-gray-800">Think & Grow Rich</h1>
+            <div class="break-inside-avoid-column md:break-inside-auto ...">
+                <h1 class="text-xl md:text-2xl font-bold text-gray-800">Think & Grow Rich</h1>
+                <h2 class="break-after-column md:break-after-auto font-bold text-gray-800">- Napoleon Hill </h2>
+            </div>
             <div class="hidden md:flex space-x-8">
                 <a href="#foundation" class="text-gray-600 hover:text-amber-500 transition">The Foundation</a>
                 <a href="#blueprint" class="text-gray-600 hover:text-amber-500 transition">The Blueprint</a>
@@ -132,7 +135,7 @@
                 <button id="start-full-quiz" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition">Take Full Book Quiz</button>
             </div>
 
-            <div id="quiz-container" class="bg-gray-50 rounded-lg shadow-lg p-8 hidden">
+            <div id="quiz-question-area" class="bg-gray-50 rounded-lg shadow-lg p-8 hidden">
                 <div id="quiz-question-display">
                     <h3 id="question-number" class="text-xl font-semibold mb-4"></h3>
                     <p id="question-text" class="text-lg mb-6"></p>
@@ -144,12 +147,13 @@
                     <button id="next-question" class="bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded-lg shadow-md transition">Next Question</button>
                     <button id="submit-quiz" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition hidden">Submit Quiz</button>
                 </div>
-                <div id="quiz-results" class="mt-8 text-center hidden">
-                    <h3 class="text-2xl font-bold mb-4">Quiz Results</h3>
-                    <p id="score-text" class="text-xl mb-2"></p>
-                    <p id="pass-fail-text" class="text-2xl font-bold"></p>
-                    <button id="retake-quiz" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition mt-6">Retake Quiz</button>
-                </div>
+            </div>
+
+            <div id="quiz-results" class="mt-8 text-center hidden">
+                <h3 class="text-2xl font-bold mb-4">Quiz Results</h3>
+                <p id="score-text" class="text-xl mb-2"></p>
+                <p id="pass-fail-text" class="text-2xl font-bold"></p>
+                <button id="retake-quiz" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition mt-6">Retake Quiz</button>
             </div>
         </section>
 
@@ -317,7 +321,7 @@
                     exercise: "Write a personal affirmation starting with 'I am so happy and grateful now that I am...'. Write it on a goal card, carry it with you, and read it aloud with powerful, positive emotion several times a day."
                 },
                 13: {
-                    summary: "The brain is posited as a sophisticated 'broadcasting and receiving station' for thought vibrations. What you attract into your life is a direct result of the thoughts you transmit.",
+                    summary: "The brain is posited as a sophisticated 'broadcasting and receiving station' for vibrational thought energy. What you attract into your life is a direct result of the thoughts you transmit.",
                     takeaways: [
                         "Your mental state is not isolated; it actively interacts with and influences your environment.",
                         "You can control this transmitter by applying the principles of the Subconscious Mind, Creative Imagination, and Autosuggestion.",
@@ -332,7 +336,7 @@
                         "It represents a profound level of intuition that goes beyond reason.",
                         "Practices like meditation and quiet contemplation can help you listen to its guidance."
                     ],
-                    exercise: "Make it a daily habit to study 'Think and Grow Rich'. Read it repeatedly until you can describe all 13 principles from memory. This deep understanding is the key to unlocking the Sixth Sense."
+                    exercise: "Make it a daily habit to study 'Think and Grow Rich'. Read it repeatedly until all 13 principles can be described from memory. This deep understanding is the key to unlocking the Sixth Sense."
                 },
                 15: {
                     summary: "This chapter focuses on clearing the mind by identifying and overcoming the 'Six Ghosts of Fear': Poverty, Criticism, Sickness, Loss of Love, Old Age, and Death. Fear is a counter-principle that manifests misfortune just as faith manifests success.",
@@ -2102,7 +2106,8 @@
         let score = 0;
         let selectedAnswer = null;
 
-        const quizContainer = document.getElementById('quiz-container');
+        // Corrected variable name to match HTML ID
+        const quizQuestionArea = document.getElementById('quiz-question-area'); 
         const chapterSelect = document.getElementById('chapter-select');
         const startFullQuizButton = document.getElementById('start-full-quiz');
         const questionNumberEl = document.getElementById('question-number');
@@ -2305,7 +2310,7 @@
             }
 
             function startQuiz(quizType) {
-                quizContainer.classList.remove('hidden');
+                quizQuestionArea.classList.remove('hidden'); // Corrected variable name
                 quizResultsEl.classList.add('hidden');
                 currentQuestionIndex = 0;
                 score = 0;
@@ -2380,10 +2385,15 @@
                         correctAnswerButton.classList.add('bg-green-100', 'border-green-500');
                     }
                 }
+
+                // If it's the last question, automatically show results after an answer is selected
+                if (currentQuestionIndex === currentQuizQuestions.length - 1) {
+                    showResults();
+                }
             }
 
             function showResults() {
-                quizContainer.classList.add('hidden');
+                quizQuestionArea.classList.add('hidden'); // Corrected variable name
                 quizResultsEl.classList.remove('hidden');
                 const percentage = (score / currentQuizQuestions.length) * 100;
                 scoreTextEl.textContent = `You scored ${score} out of ${currentQuizQuestions.length} (${percentage.toFixed(2)}%)`;
@@ -2403,7 +2413,7 @@
                 if (event.target.value) {
                     startQuiz(event.target.value);
                 } else {
-                    quizContainer.classList.add('hidden');
+                    quizQuestionArea.classList.add('hidden'); // Corrected variable name
                 }
             });
 
@@ -2422,16 +2432,15 @@
             });
 
             submitQuizButton.addEventListener('click', () => {
-                if (selectedAnswer === null) {
-                    // Optional: Provide feedback if no answer selected
-                    return;
-                }
+                // This button should only be visible on the last question.
+                // If an answer was selected, it would have already called showResults().
+                // If no answer was selected for the last question, this click will still show results.
                 showResults();
             });
 
             retakeQuizButton.addEventListener('click', () => {
                 quizResultsEl.classList.add('hidden');
-                quizContainer.classList.add('hidden');
+                quizQuestionArea.classList.add('hidden'); // Corrected variable name
                 chapterSelect.value = ""; // Reset dropdown
             });
 
