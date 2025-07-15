@@ -65,6 +65,44 @@
         .neutral-bg-dark { background-color: #1F2937; } /* gray-800 */
         .neutral-text-light { color: #6B7280; } /* gray-500 */
         .neutral-text-dark { color: #1F2937; } /* gray-800 */
+
+        /* Dropdown specific styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 0.5rem; /* rounded-lg */
+            overflow: hidden; /* Ensures rounded corners apply to content */
+            top: calc(100% + 8px); /* Position below the main nav item with some space */
+            left: 50%;
+            transform: translateX(-50%); /* Center the dropdown */
+        }
+
+        .dropdown-content a {
+            color: #1F2937; /* neutral-text-dark */
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            transition: background-color 0.2s ease;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #FBBF24; /* amber-400 */
+            color: white;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
     </style>
 </head>
 <body class="bg-white neutral-text-dark">
@@ -77,10 +115,17 @@
                 <a href="#blueprint" class="text-gray-600 hover:text-amber-500 transition">The Blueprint</a>
                 <a href="#mastery" class="text-gray-600 hover:text-amber-500 transition">The Mastery</a>
                 <a href="#fears" class="text-gray-600 hover:text-amber-500 transition">Overcoming Fear</a>
-                <a href="#quiz-section" class="text-gray-600 hover:text-amber-500 transition">Quiz</a>
-                <a href="#affirmation-generator-section" class="text-gray-600 hover:text-amber-500 transition">Affirmation Generator</a>
-                <a href="#goal-breakdown-section" class="text-gray-600 hover:text-amber-500 transition">Goal Breakdown</a>
-                <a href="#mastermind-ideator-section" class="text-gray-600 hover:text-amber-500 transition">Master Mind Ideator</a>
+                
+                <!-- New Tools Dropdown -->
+                <div class="dropdown">
+                    <a href="#" class="text-gray-600 hover:text-amber-500 transition cursor-pointer">Tools ▼</a>
+                    <div class="dropdown-content">
+                        <a href="#quiz-section">Quiz</a>
+                        <a href="#affirmation-generator-section">Affirmation Generator</a>
+                        <a href="#goal-breakdown-section">Goal Breakdown</a>
+                        <a href="#mastermind-ideator-section">Master Mind Ideator</a>
+                    </div>
+                </div>
             </div>
             <button id="mobile-menu-button" class="md:hidden text-gray-800 focus:outline-none">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
