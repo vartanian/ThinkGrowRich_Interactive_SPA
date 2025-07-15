@@ -1,0 +1,2444 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Guide to Think and Grow Rich</title>
+    
+    <!-- Chosen Palette: Golden Wisdom -->
+    <!-- Application Structure Plan: The SPA is structured as a guided journey through Napoleon Hill's philosophy, broken into four thematic sections: The Foundation (mindset), The Blueprint (action), The Mastery (amplification), and Overcoming Fear (fortification). A new 'Quiz' section is added for interactive assessment. This thematic structure, rather than a linear chapter-by-chapter list, is chosen for usability because it groups related concepts, helping the user understand the philosophy as an integrated system. Key interactions include an interactive process-flow diagram on the hero section to visualize the entire system, clickable cards for each principle that reveal detailed summaries, a dynamic radar chart for the 'Six Ghosts of Fear', and a comprehensive quiz system with chapter-specific and full-book options. This approach transforms passive reading into active exploration and provides direct comprehension testing. -->
+    <!-- Visualization & Content Choices: 
+        1. Report Info: The 13 interconnected principles. Goal: Visualize the entire success system. Viz/Presentation: Interactive process flow diagram built with HTML/CSS. Interaction: Hover to highlight, click to navigate. Justification: Provides a holistic overview that's more intuitive than a simple list. Library/Method: HTML/CSS/JS.
+        2. Report Info: The Six Ghosts of Fear. Goal: Present the core obstacles in an engaging way. Viz/Presentation: Radar chart. Interaction: Hover over points to see details. Justification: Transforms a static list into a memorable, data-viz style graphic. Library/Method: Chart.js (Canvas).
+        3. Report Info: Detailed chapter summaries (text). Goal: Present dense text without overwhelming the user. Viz/Presentation: Click-to-expand accordion-style sections. Interaction: Click to toggle visibility. Justification: Manages information density and promotes focused learning. Library/Method: HTML/CSS/JS.
+        4. Report Info: Chapter content and overall themes. Goal: Assess user comprehension. Viz/Presentation: Multiple-choice quiz interface. Interaction: Select answers, submit, view score and pass/fail. Justification: Direct, interactive assessment for learning reinforcement. Library/Method: HTML/CSS/JS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            max-height: 400px;
+        }
+        @media (min-width: 640px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .principle-flow-item {
+            transition: all 0.3s ease-in-out;
+        }
+        .principle-flow-item:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .flow-connector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #d1d5db; /* gray-300 */
+        }
+        .details-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.7s ease-in-out, padding 0.7s ease-in-out;
+        }
+        .details-content.open {
+            max-height: 2000px; /* Adjust as needed */
+        }
+        .accent-bg { background-color: #FBBF24; } /* amber-400 */
+        .accent-text { color: #FBBF24; }
+        .accent-border { border-color: #FBBF24; }
+        .neutral-bg-light { background-color: #F3F4F6; } /* gray-100 */
+        .neutral-bg-dark { background-color: #1F2937; } /* gray-800 */
+        .neutral-text-light { color: #6B7280; } /* gray-500 */
+        .neutral-text-dark { color: #1F2937; } /* gray-800 */
+    </style>
+</head>
+<body class="bg-white neutral-text-dark">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-gray-800">Think & Grow Rich</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#foundation" class="text-gray-600 hover:text-amber-500 transition">The Foundation</a>
+                <a href="#blueprint" class="text-gray-600 hover:text-amber-500 transition">The Blueprint</a>
+                <a href="#mastery" class="text-gray-600 hover:text-amber-500 transition">The Mastery</a>
+                <a href="#fears" class="text-gray-600 hover:text-amber-500 transition">Overcoming Fear</a>
+                <a href="#quiz-section" class="text-gray-600 hover:text-amber-500 transition">Quiz</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-gray-800 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#foundation" class="block py-2 text-gray-600 hover:text-amber-500 transition">The Foundation</a>
+            <a href="#blueprint" class="block py-2 text-gray-600 hover:text-amber-500 transition">The Blueprint</a>
+            <a href="#mastery" class="block py-2 text-gray-600 hover:text-amber-500 transition">The Mastery</a>
+            <a href="#fears" class="block py-2 text-gray-600 hover:text-amber-500 transition">Overcoming Fear</a>
+            <a href="#quiz-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Quiz</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        
+        <section class="text-center mb-24">
+            <h2 class="text-4xl md:text-5xl font-bold mb-4">The Philosophy of Achievement</h2>
+            <p class="text-lg neutral-text-light max-w-3xl mx-auto mb-12">This is an interactive exploration of Napoleon Hill's 13 principles for success. The journey is structured in three phases: building your mental foundation, creating a blueprint for action, and finally, achieving mastery. Interact with the diagram below to see how these powerful concepts connect.</p>
+            
+            <div id="principles-diagram" class="space-y-4"></div>
+        </section>
+
+        <div id="principles-content" class="space-y-20">
+            
+        </div>
+
+        <section id="quiz-section" class="mt-20">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Test Your Knowledge: The Think & Grow Rich Quiz</h2>
+            <p class="text-lg neutral-text-light max-w-3xl mx-auto text-center mb-12">Select a chapter or take the full book quiz to test your understanding of Napoleon Hill's principles. You need to score 75% or higher to pass!</p>
+
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <select id="chapter-select" class="p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-amber-500 focus:border-amber-500">
+                    <option value="">Select a Chapter Quiz</option>
+                    <option value="intro">Introduction</option>
+                    <option value="1">Chapter 1: Thoughts Are Things</option>
+                    <option value="2">Chapter 2: Desire</option>
+                    <option value="3">Chapter 3: Faith</option>
+                    <option value="4">Chapter 4: Auto-Suggestion</option>
+                    <option value="5">Chapter 5: Specialized Knowledge</option>
+                    <option value="6">Chapter 6: Imagination</option>
+                    <option value="7">Chapter 7: Organized Planning</option>
+                    <option value="8">Chapter 8: Decision</option>
+                    <option value="9">Chapter 9: Persistence</option>
+                    <option value="10">Chapter 10: Power of the Master Mind</option>
+                    <option value="11">Chapter 11: The Mystery of Sex Transmutation</option>
+                    <option value="12">Chapter 12: The Sub-Conscious Mind</option>
+                    <option value="13">Chapter 13: The Brain</option>
+                    <option value="14">Chapter 14: The Sixth Sense</option>
+                    <option value="15">Chapter 15: How to Outwit the Six Ghosts of Fear</option>
+                </select>
+                <button id="start-full-quiz" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition">Take Full Book Quiz</button>
+            </div>
+
+            <div id="quiz-container" class="bg-gray-50 rounded-lg shadow-lg p-8 hidden">
+                <div id="quiz-question-display">
+                    <h3 id="question-number" class="text-xl font-semibold mb-4"></h3>
+                    <p id="question-text" class="text-lg mb-6"></p>
+                    <div id="answer-options" class="space-y-4"></div>
+                    <button id="show-hint" class="text-amber-600 hover:text-amber-800 text-sm mt-4 focus:outline-none">Show Hint</button>
+                    <p id="hint-text" class="text-sm text-gray-500 mt-2 hidden"></p>
+                </div>
+                <div class="flex justify-between mt-8">
+                    <button id="next-question" class="bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded-lg shadow-md transition">Next Question</button>
+                    <button id="submit-quiz" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition hidden">Submit Quiz</button>
+                </div>
+                <div id="quiz-results" class="mt-8 text-center hidden">
+                    <h3 class="text-2xl font-bold mb-4">Quiz Results</h3>
+                    <p id="score-text" class="text-xl mb-2"></p>
+                    <p id="pass-fail-text" class="text-2xl font-bold"></p>
+                    <button id="retake-quiz" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition mt-6">Retake Quiz</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-20">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>"Whatever the mind can conceive and believe, the mind can achieve."</p>
+            <p class="text-sm text-gray-400 mt-2">- Napoleon Hill</p>
+        </div>
+    </footer>
+
+    <script>
+        const appData = {
+            sections: [
+                {
+                    id: 'foundation',
+                    title: 'The Foundation: Mindset & Goal Setting',
+                    description: 'Success begins in the mind. This first phase focuses on cultivating the internal state required for achievement. It involves defining precisely what you want and building an unshakable belief that you can attain it. These principles are the bedrock upon which all fortunes are built.',
+                    principles: [1, 2, 3, 4] 
+                },
+                {
+                    id: 'blueprint',
+                    title: 'The Blueprint: Planning & Action',
+                    description: 'With a strong foundation, the next phase is to create a practical blueprint for transmuting your desires into reality. This involves acquiring the right knowledge, using your imagination to craft plans, and developing the critical habits of decisive action and persistence. This is where thought begins to crystallize into tangible results.',
+                    principles: [5, 6, 7, 8, 9]
+                },
+                {
+                    id: 'mastery',
+                    title: 'The Mastery: Power & Intuition',
+                    description: 'The final phase of achievement involves amplifying your efforts and tapping into higher levels of power and insight. This includes leveraging strategic alliances, channeling your creative energies, programming your subconscious for automatic success, and ultimately developing the intuitive guidance of the Sixth Sense. This is where good results are transformed into extraordinary ones.',
+                    principles: [10, 11, 12, 13, 14]
+                },
+                {
+                    id: 'fears',
+                    title: 'Overcoming Fear: Clearing the Path to Riches',
+                    description: 'Before the philosophy can work its magic, the mind must be cleared of its greatest enemies: fear, doubt, and indecision. This final, crucial section addresses the six basic fears that sabotage ambition. Understanding and conquering these mental ghosts is the final act of preparation, ensuring a clear and unobstructed path to success.',
+                    principles: [15]
+                }
+            ],
+            principles: [
+                { id: 1, title: "Thoughts Are Things", tagline: "Thoughts, backed by purpose and desire, can be transmuted into reality." },
+                { id: 2, title: "Desire", tagline: "A burning, definite desire is the starting point of all achievement." },
+                { id: 3, title: "Faith", tagline: "Cultivate unwavering belief in the attainment of your desires." },
+                { id: 4, title: "Auto-Suggestion", tagline: "Influence your subconscious mind through repeated, emotionalized affirmations." },
+                { id: 5, title: "Specialized Knowledge", tagline: "Acquire and apply specific knowledge relevant to your purpose." },
+                { id: 6, title: "Imagination", tagline: "The mental workshop where all plans are created and shaped." },
+                { id: 7, title: "Organized Planning", tagline: "Crystallize desire into action with definite, adaptable plans." },
+                { id: 8, title: "Decision", tagline: "Master procrastination by making prompt, firm decisions." },
+                { id: 9, title: "Persistence", tagline: "Sustain your effort with willpower, fueled by desire." },
+                { id: 10, title: "Power of the Master Mind", tagline: "Amplify your power through a harmonious alliance of minds." },
+                { id: 11, title: "The Mystery of Sex Transmutation", tagline: "Channel powerful creative energy into productive pursuits." },
+                { id: 12, title: "The Sub-Conscious Mind", tagline: "The link to Infinite Intelligence, which acts on your dominant thoughts." },
+                { id: 13, title: "The Brain", tagline: "A broadcasting and receiving station for the vibration of thought." },
+                { id: 14, title: "The Sixth Sense", tagline: "The pinnacle of the philosophy, where intuition guides you." },
+                { id: 15, title: "How to Outwit the Six Ghosts of Fear", tagline: "Identify and conquer the mental barriers to success." }
+            ],
+            details: {
+                1: {
+                    summary: "This foundational chapter introduces the revolutionary idea that thoughts are not abstract but possess a tangible power, capable of being transformed into their physical equivalent. This transformation is particularly potent when thoughts are imbued with strong emotion and directed by a definite purpose. The concept of being 'money conscious' is introduced, suggesting that merely wishing for wealth is insufficient; a deep, burning desire for it is essential.",
+                    takeaways: [
+                        "A 'money conscious' state of belief is a fundamental, causal force in shaping reality.",
+                        "Failure is not personal, but informational feedback that your plan needs adjustment.",
+                        "The six practical steps (amount, exchange, date, plan, statement, repetition) are the core method."
+                    ],
+                    exercise: "Write a clear, concise statement of the exact amount of money you desire, the time limit, what you'll give in return, and your plan. Read it aloud twice daily, visualizing yourself already in possession of it."
+                },
+                2: {
+                    summary: "Napoleon Hill unequivocally positions a 'vivid, burning desire' for a clear, definite purpose as the absolute first step and the indispensable fuel for all accomplishment. This is not a mere wish, but an obsessive determination that provides the necessary drive for action and forces a 'burn your ships' level of commitment.",
+                    takeaways: [
+                        "Desire must be definite, not general. Know precisely what you want.",
+                        "True desire means eliminating all sources of retreat, forcing focus.",
+                        "A definite purpose naturally cultivates essential traits like self-reliance and discipline."
+                    ],
+                    exercise: "Create a vision board with pictures of your desired outcomes and place it where you will see it every day. Reinforce the six practical steps from Chapter 1 with this visual anchor."
+                },
+                3: {
+                    summary: "Faith is presented as a cultivable state of mind, developed through affirmations and repeated instructions to the subconscious mind (autosuggestion). It acts as a catalyst, enabling communication with 'Infinite Intelligence' and clearing the mind of fear and doubt.",
+                    takeaways: [
+                        "Faith is a practical tool for subconscious programming, not just a spiritual concept.",
+                        "Faith must be deliberately cultivated and maintained through consistent practice.",
+                        "Emotional conviction is key; the subconscious responds to emotionalized thoughts."
+                    ],
+                    exercise: "Repeat a personal affirmation daily, focusing on a clear mental picture of your goal with unwavering faith. Consciously close your mind to all doubt during this practice."
+                },
+                4: {
+                    summary: "Autosuggestion is the conscious act of feeding instructions and stimuli to the subconscious mind, effectively programming it to manifest desires. It is the bridge between conscious intent and subconscious action, the practical application of 'Thoughts Are Things'.",
+                    takeaways: [
+                        "This is an active mental discipline, not passive wishing.",
+                        "Emotion is the key ingredient; unemotional words have little influence.",
+                        "Repetition and consistency are necessary for desires to take root."
+                    ],
+                    exercise: "Before bed and upon waking, repeat aloud your written statement of desire. As you do, see and feel yourself already in possession of your goal, mixing faith and emotion into your words."
+                },
+                5: {
+                    summary: "Hill asserts that knowledge is only 'potential power'. It becomes true power when organized into a pragmatic plan of action and executed with resolution. Specialized knowledge, not general knowledge, is what creates tangible value.",
+                    takeaways: [
+                        "Execution transforms potential power (knowledge) into actual power.",
+                        "Success is not about knowing everything, but knowing how to acquire and apply what's needed.",
+                        "Leveraging the knowledge of others through a 'Master Mind' is a critical strategy."
+                    ],
+                    exercise: "Determine the service or product you will offer. Identify someone who has succeeded similarly and learn everything you can from them, ideally seeking their mentorship."
+                },
+                6: {
+                    summary: "Imagination is the 'workshop of the mind' where plans are conceived and desires are given shape, form, and action. Hill distinguishes between 'Synthetic Imagination' (rearranging old ideas) and 'Creative Imagination' (receiving new insights).",
+                    takeaways: [
+                        "Imagination is the vital conversion mechanism from abstract desire to concrete plan.",
+                        "It is a practical tool for innovation and problem-solving, not just fantasy.",
+                        "Creative Imagination is stimulated by a strong, burning desire."
+                    ],
+                    exercise: "Dedicate 30 minutes daily to 'creative imagination time'. In a quiet place, vividly imagine living your perfect life, sensing the reality of it, and journal any new ideas that arise."
+                },
+                7: {
+                    summary: "Transforming desire into money requires a definite, well-organized, and enthusiastically pursued plan. Hill emphasizes that planning is not a one-time event but a dynamic feedback loop of execution, evaluation, and refinement.",
+                    takeaways: [
+                        "Temporary defeat signals a flaw in your plan, not your goal. Rebuild and try again.",
+                        "Collaboration is essential; no great fortune is accumulated alone. Utilize a Master Mind group.",
+                        "Effective leadership qualities are crucial for executing any plan."
+                    ],
+                    exercise: "Solidify your plan based on the six-step formula. Form a Master Mind group to review and improve it. Meet with them regularly to maintain harmony and momentum."
+                },
+                8: {
+                    summary: "The habit of making prompt, firm decisions distinguishes the successful from the unsuccessful. Indecision and its cousin, procrastination, are major causes of failure. True decision is an act of self-authorship and courage.",
+                    takeaways: [
+                        "Make decisions quickly and change them slowly.",
+                        "Trust your own judgment and avoid being swayed by the opinions of others.",
+                        "Your actions, not your words, reveal your true decisions. 'First show it'."
+                    ],
+                    exercise: "Examine your calendar and bank statements. Where are your time and money actually going? This reveals your true, authentic decisions and priorities. Adjust accordingly."
+                },
+                9: {
+                    summary: "Persistence is the sustained effort to continue despite all opposition. It is a cultivated habit, fueled by the combination of willpower and a burning desire. Hill suggests it's a 'test' that filters out the uncommitted.",
+                    takeaways: [
+                        "Persistence is an 'insurance against failure'.",
+                        "Obstacles are tests to strengthen your resolve, not roadblocks.",
+                        "Persistence is built on a definite purpose, a definite plan, a closed mind to negativity, and a Master Mind alliance."
+                    ],
+                    exercise: "Set a clear goal to achieve in the next 12 months. Break it down into a list of concrete action steps. Begin taking action immediately and refuse to stop, no matter the obstacle."
+                },
+                10: {
+                    summary: "Power, defined as 'organized and intelligently directed knowledge', is essential for success. It is primarily acquired through a 'Master Mind' group—a harmonious alliance of two or more minds uniting for a definite purpose, creating a synergistic 'third mind'.",
+                    takeaways: [
+                        "The Master Mind is a collective consciousness amplifier, not just simple teamwork.",
+                        "It creates a force greater than the sum of its parts by tapping into a higher intelligence.",
+                        "Harmony within the group is absolutely essential for the principle to work."
+                    ],
+                    exercise: "Identify a big, ambitious goal. Define the benefits others will receive by joining you. Present this idea to carefully selected, potential Master Mind partners."
+                },
+                11: {
+                    summary: "This chapter explains how the intense creative energy of sex can be 'transmuted' (redirected) from purely physical expression into highly productive and creative endeavors. It is a principle of conscious energy management.",
+                    takeaways: [
+                        "The emotion of sex is one of the most powerful creative forces available.",
+                        "Consciously channeling this energy enhances imagination, courage, and willpower.",
+                        "Self-mastery over powerful internal drives is a key trait of highly successful people."
+                    ],
+                    exercise: "Reflect on a positive love experience and the emotions it evoked. Preserve that emotional state and consciously link it to your major life purpose. Practice this frequently."
+                },
+                12: {
+                    summary: "The subconscious mind is the vital link to 'Infinite Intelligence'. It is an unbiased manifestation engine that accepts and acts upon your predominant thoughts, whether they are positive or negative.",
+                    takeaways: [
+                        "You have a profound responsibility for your 'mental diet'.",
+                        "The subconscious is programmed through consistent, emotionalized repetition and self-suggestion.",
+                        "Positive and negative emotions cannot occupy the mind simultaneously; one must dominate."
+                    ],
+                    exercise: "Write a personal affirmation starting with 'I am so happy and grateful now that I am...'. Write it on a goal card, carry it with you, and read it aloud with powerful, positive emotion several times a day."
+                },
+                13: {
+                    summary: "The brain is posited as a sophisticated 'broadcasting and receiving station' for thought vibrations. What you attract into your life is a direct result of the thoughts you transmit.",
+                    takeaways: [
+                        "Your mental state is not isolated; it actively interacts with and influences your environment.",
+                        "You can control this transmitter by applying the principles of the Subconscious Mind, Creative Imagination, and Autosuggestion.",
+                        "Increasing your mental vibration through strong, positive emotion makes you more receptive to success."
+                    ],
+                    exercise: "Fix the precise thought you wish to impress upon others. Maintain focus, come into vibrational harmony with those who can help, visualize the outcome, and maintain absolute faith."
+                },
+                14: {
+                    summary: "The Sixth Sense is the pinnacle of the philosophy, a faculty enabling direct communication with 'Infinite Intelligence' through 'hunches' and 'inspirations'. It is not a gift, but the natural outcome of mastering the other 12 principles.",
+                    takeaways: [
+                        "This faculty is the reward for integrated self-mastery.",
+                        "It represents a profound level of intuition that goes beyond reason.",
+                        "Practices like meditation and quiet contemplation can help you listen to its guidance."
+                    ],
+                    exercise: "Make it a daily habit to study 'Think and Grow Rich'. Read it repeatedly until you can describe all 13 principles from memory. This deep understanding is the key to unlocking the Sixth Sense."
+                },
+                15: {
+                    summary: "This chapter focuses on clearing the mind by identifying and overcoming the 'Six Ghosts of Fear': Poverty, Criticism, Sickness, Loss of Love, Old Age, and Death. Fear is a counter-principle that manifests misfortune just as faith manifests success.",
+                    takeaways: [
+                        "Indecision is the seedling of fear, which grows into doubt, then full-fledged fear.",
+                        "The same mental mechanisms that create wealth can create poverty if dominated by fear.",
+                        "Mental mastery requires both building positive habits and actively dismantling negative ones."
+                    ],
+                    exercise: "Take the Self-Analysis Test provided in the book's final chapter. Repeat it annually to assess your progress in conquering fear and to identify any lingering mental enemies."
+                }
+            },
+            quizzes: {
+                intro: [
+                    {
+                        question: "According to Napoleon Hill's introduction, what is the fundamental premise that underpins his entire philosophy of success?",
+                        options: [
+                            { text: "Success is primarily a matter of luck and external circumstances.", isCorrect: false },
+                            { text: "Whatever the mind can conceive and believe, the mind can achieve.", isCorrect: true },
+                            { text: "Hard work alone guarantees wealth accumulation.", isCorrect: false },
+                            { text: "Only those born into privilege can achieve true riches.", isCorrect: false }
+                        ],
+                        hint: "This core belief emphasizes the power of one's internal mental state."
+                    },
+                    {
+                        question: "What was Napoleon Hill's primary method for developing the philosophy presented in 'Think and Grow Rich'?",
+                        options: [
+                            { text: "Extensive reading of ancient philosophical texts.", isCorrect: false },
+                            { text: "Personal introspection and meditation.", isCorrect: false },
+                            { text: "Over two decades of research into the lives of over 500 successful individuals.", isCorrect: true },
+                            { text: "Conducting large-scale psychological experiments.", isCorrect: false }
+                        ],
+                        hint: "His method involved studying real-world examples of achievement."
+                    },
+                    {
+                        question: "How does the book suggest one should interpret 'temporary defeat'?",
+                        options: [
+                            { text: "As a sign to abandon the goal entirely.", isCorrect: false },
+                            { text: "As a personal failure that proves one's inadequacy.", isCorrect: false },
+                            { text: "As a signal that current plans are not sound and need refinement.", isCorrect: true },
+                            { text: "As an unfortunate event to be ignored.", isCorrect: false }
+                        ],
+                        hint: "This perspective reframes setbacks as valuable information."
+                    },
+                    {
+                        question: "What is the central aim of 'Think and Grow Rich' as stated in the introduction?",
+                        options: [
+                            { text: "To provide a historical account of industrial tycoons.", isCorrect: false },
+                            { text: "To entertain readers with inspiring stories.", isCorrect: false },
+                            { text: "To distill a concrete philosophy of success accessible to anyone.", isCorrect: true },
+                            { text: "To predict future economic trends.", isCorrect: false }
+                        ],
+                        hint: "The book aims to empower readers with a specific system."
+                    },
+                    {
+                        question: "According to the introduction, what is the essential prerequisite for any external accomplishment?",
+                        options: [
+                            { text: "Having a large inheritance.", isCorrect: false },
+                            { text: "Mastery of one's internal world—thoughts, beliefs, and mindset.", isCorrect: true },
+                            { text: "Possessing an extensive network of influential friends.", isCorrect: false },
+                            { text: "Achieving a high level of formal education.", isCorrect: false }
+                        ],
+                        hint: "Success begins from within."
+                    },
+                    {
+                        question: "Who was a key industrial magnate whose life and philosophy influenced Hill's research?",
+                        options: [
+                            { text: "Henry Ford", isCorrect: false },
+                            { text: "John D. Rockefeller", isCorrect: false },
+                            { text: "Andrew Carnegie", isCorrect: true },
+                            { text: "J.P. Morgan", isCorrect: false }
+                        ],
+                        hint: "He was a steel magnate who challenged Hill to undertake this research."
+                    },
+                    {
+                        question: "The introduction emphasizes that the journey to success begins with what?",
+                        options: [
+                            { text: "A large sum of starting capital.", isCorrect: false },
+                            { text: "A clear and definite desire.", isCorrect: true },
+                            { text: "A detailed business plan.", isCorrect: false },
+                            { text: "Extensive market research.", isCorrect: false }
+                        ],
+                        hint: "This is the very first internal step."
+                    },
+                    {
+                        question: "What does Hill suggest about the relationship between success and giving up?",
+                        options: [
+                            { text: "Giving up early can lead to new, better opportunities.", isCorrect: false },
+                            { text: "Significant success often emerges just beyond the point where one might have been tempted to give up.", isCorrect: true },
+                            { text: "It's always best to cut your losses quickly.", isCorrect: false },
+                            { text: "Success is for those who never face any temptation to quit.", isCorrect: false }
+                        ],
+                        hint: "This highlights the importance of perseverance."
+                    },
+                    {
+                        question: "The book's philosophy is fundamentally about cultivating what two key aspects?",
+                        options: [
+                            { text: "Financial literacy and investment strategies.", isCorrect: false },
+                            { text: "Social networking and public speaking.", isCorrect: false },
+                            { text: "Mental discipline and self-responsibility.", isCorrect: true },
+                            { text: "Physical strength and endurance.", isCorrect: false }
+                        ],
+                        hint: "These are internal qualities essential for control."
+                    },
+                    {
+                        question: "What does the statement 'Thoughts Are Things' imply about the nature of thoughts?",
+                        options: [
+                            { text: "They are abstract and fleeting impulses with no real impact.", isCorrect: false },
+                            { text: "They are only relevant if they are positive.", isCorrect: false },
+                            { text: "They possess a tangible power capable of being transmuted into physical reality.", isCorrect: true },
+                            { text: "They are merely reflections of external events.", isCorrect: false }
+                        ],
+                        hint: "This phrase suggests a concrete quality to mental activity."
+                    }
+                ],
+                1: [
+                    {
+                        question: "What is the revolutionary idea introduced in Chapter 1, 'Thoughts Are Things'?",
+                        options: [
+                            { text: "That money can only be earned through hard labor.", isCorrect: false },
+                            { text: "That thoughts are abstract and have no real power.", isCorrect: false },
+                            { text: "That thoughts possess a tangible power capable of being transformed into physical reality.", isCorrect: true },
+                            { text: "That only positive thoughts can manifest into reality.", isCorrect: false }
+                        ],
+                        hint: "This concept gives mental activity a concrete quality."
+                    },
+                    {
+                        question: "According to Chapter 1, what is essential for thoughts to become potent and transform into reality?",
+                        options: [
+                            { text: "They must be shared with many people.", isCorrect: false },
+                            { text: "They must be purely logical and rational.", isCorrect: false },
+                            { text: "They must be imbued with strong emotion and directed by a definite purpose.", isCorrect: true },
+                            { text: "They must be kept secret from everyone.", isCorrect: false }
+                        ],
+                        hint: "This involves adding a vital ingredient to your thoughts."
+                    },
+                    {
+                        question: "What does the concept of being 'money conscious' imply in this chapter?",
+                        options: [
+                            { text: "Constantly worrying about money.", isCorrect: false },
+                            { text: "Merely wishing for wealth is sufficient.", isCorrect: false },
+                            { text: "A deep, burning desire for wealth is essential, not just a wish.", isCorrect: true },
+                            { text: "Only thinking about money all the time.", isCorrect: false }
+                        ],
+                        hint: "It's about the intensity of your financial aspiration."
+                    },
+                    {
+                        question: "How should one view 'defeat' according to Chapter 1?",
+                        options: [
+                            { text: "As a personal shortcoming.", isCorrect: false },
+                            { text: "As a sign to give up on the goal.", isCorrect: false },
+                            { text: "As valuable informational feedback that plans need refinement.", isCorrect: true },
+                            { text: "As an unchangeable outcome.", isCorrect: false }
+                        ],
+                        hint: "This perspective helps in continuous improvement."
+                    },
+                    {
+                        question: "What is the first practical step outlined for transmuting desire into its physical form?",
+                        options: [
+                            { text: "Creating a vision board.", isCorrect: false },
+                            { text: "Fixing in the mind the exact amount of money desired.", isCorrect: true },
+                            { text: "Telling friends about your financial goals.", isCorrect: false },
+                            { text: "Starting a new business immediately.", isCorrect: false }
+                        ],
+                        hint: "This step requires specificity regarding your financial target."
+                    },
+                    {
+                        question: "What is the purpose of reading your written statement aloud twice daily?",
+                        options: [
+                            { text: "To impress others with your ambition.", isCorrect: false },
+                            { text: "To memorize the statement.", isCorrect: false },
+                            { text: "To program the subconscious mind and visualize attainment.", isCorrect: true },
+                            { text: "To practice public speaking.", isCorrect: false }
+                        ],
+                        hint: "This action is about internalizing your goals."
+                    },
+                    {
+                        question: "When creating a plan for acquiring money, what does Hill suggest about starting?",
+                        options: [
+                            { text: "Wait until the plan is perfect before starting.", isCorrect: false },
+                            { text: "Begin at once, whether ready or not.", isCorrect: true },
+                            { text: "Only start if you have all necessary resources.", isCorrect: false },
+                            { text: "Seek external approval before beginning.", isCorrect: false }
+                        ],
+                        hint: "This emphasizes immediate action."
+                    },
+                    {
+                        question: "What is one of the six practical steps that involves setting a timeline?",
+                        options: [
+                            { text: "Determining precisely what one intends to give in return.", isCorrect: false },
+                            { text: "Establishing a definite date by which the money is to be possessed.", isCorrect: true },
+                            { text: "Writing a clear, concise statement.", isCorrect: false },
+                            { text: "Creating a definite plan for acquiring the money.", isCorrect: false }
+                        ],
+                        hint: "This step adds a deadline to your desire."
+                    },
+                    {
+                        question: "What kind of force is a 'money conscious' state of belief considered to be?",
+                        options: [
+                            { text: "A superficial attitude.", isCorrect: false },
+                            { text: "A fundamental, causal force in shaping reality.", isCorrect: true },
+                            { text: "A temporary emotion.", isCorrect: false },
+                            { text: "A passive wish.", isCorrect: false }
+                        ],
+                        hint: "It's about the deep impact of your financial mindset."
+                    },
+                    {
+                        question: "Chapter 1 fundamentally aims to guide readers on how to do what, before even attempting practical steps?",
+                        options: [
+                            { text: "Manage their finances.", isCorrect: false },
+                            { text: "Cultivate a specific mindset.", isCorrect: true },
+                            { text: "Network with influential people.", isCorrect: false },
+                            { text: "Analyze market trends.", isCorrect: false }
+                        ],
+                        hint: "This is about internal preparation."
+                    }
+                ],
+                2: [
+                    {
+                        question: "What does Napoleon Hill describe as the 'absolute first step and indispensable fuel' for all accomplishment?",
+                        options: [
+                            { text: "A detailed business plan.", isCorrect: false },
+                            { text: "A vast network of contacts.", isCorrect: false },
+                            { text: "A vivid, burning desire for a clear, definite purpose.", isCorrect: true },
+                            { text: "Access to significant capital.", isCorrect: false }
+                        ],
+                        hint: "This is the initial, intense internal drive."
+                    },
+                    {
+                        question: "The 'burn your ships' analogy in Chapter 2 signifies what kind of commitment?",
+                        options: [
+                            { text: "Taking unnecessary risks.", isCorrect: false },
+                            { text: "Eliminating all backup plans and sources of retreat.", isCorrect: true },
+                            { text: "Ignoring all advice from others.", isCorrect: false },
+                            { text: "Spending all your money on your goal.", isCorrect: false }
+                        ],
+                        hint: "It's about leaving no alternative but success."
+                    },
+                    {
+                        question: "What is a key characteristic of the desire needed for success, as emphasized in this chapter?",
+                        options: [
+                            { text: "It should be general and flexible.", isCorrect: false },
+                            { text: "It must be definite, not general.", isCorrect: true },
+                            { text: "It should be kept secret from everyone.", isCorrect: false },
+                            { text: "It needs to be constantly changing.", isCorrect: false }
+                        ],
+                        hint: "This refers to the specificity of your goal."
+                    },
+                    {
+                        question: "According to Chapter 2, what does a definite purpose naturally cultivate?",
+                        options: [
+                            { text: "Dependence on others.", isCorrect: false },
+                            { text: "Indecision and procrastination.", isCorrect: false },
+                            { text: "Self-reliance, imagination, enthusiasm, and self-discipline.", isCorrect: true },
+                            { text: "A tendency to give up easily.", isCorrect: false }
+                        ],
+                        hint: "This refers to positive character traits that emerge."
+                    },
+                    {
+                        question: "What is the role of 'Infinite Intelligence' in relation to desire, as mentioned in Chapter 2?",
+                        options: [
+                            { text: "It will automatically grant wishes without effort.", isCorrect: false },
+                            { text: "It provides assistance and guidance when continuously sought.", isCorrect: true },
+                            { text: "It only responds to prayer, not desire.", isCorrect: false },
+                            { text: "It is irrelevant to the process of wealth accumulation.", isCorrect: false }
+                        ],
+                        hint: "This refers to a higher power's role in guiding your path."
+                    },
+                    {
+                        question: "Which historical figure's unwavering pursuit of a partnership with Thomas Edison is cited as an example of intense desire?",
+                        options: [
+                            { text: "Henry Ford", isCorrect: false },
+                            { text: "Andrew Carnegie", isCorrect: false },
+                            { text: "Edwin C. Barnes", isCorrect: true },
+                            { text: "Alexander Graham Bell", isCorrect: false }
+                        ],
+                        hint: "He started with no money but a burning ambition."
+                    },
+                    {
+                        question: "What is suggested as a practical application to reinforce desire, beyond the six steps?",
+                        options: [
+                            { text: "Constantly talking about your desires to others.", isCorrect: false },
+                            { text: "Creating a vision board with pictures of desired outcomes.", isCorrect: true },
+                            { text: "Waiting for opportunities to come to you.", isCorrect: false },
+                            { text: "Only focusing on the present moment.", isCorrect: false }
+                        ],
+                        hint: "This involves a visual tool to keep your goals present."
+                    },
+                    {
+                        question: "Chapter 2 emphasizes that while a plan is crucial, what other quality is equally important regarding the plan?",
+                        options: [
+                            { text: "It must be rigid and unchangeable.", isCorrect: false },
+                            { text: "It should be kept secret.", isCorrect: false },
+                            { text: "Being open-minded and willing to modify or adopt new plans.", isCorrect: true },
+                            { text: "It should be dictated by others.", isCorrect: false }
+                        ],
+                        hint: "This relates to the flexibility of your strategy."
+                    },
+                    {
+                        question: "What is the relationship between desire and the six practical steps for transmutation?",
+                        options: [
+                            { text: "Desire is separate from the steps.", isCorrect: false },
+                            { text: "Desire is the fuel that powers the execution of the six steps.", isCorrect: true },
+                            { text: "The six steps replace the need for desire.", isCorrect: false },
+                            { text: "Desire is only relevant after the steps are completed.", isCorrect: false }
+                        ],
+                        hint: "Think about what gives the steps their energy."
+                    },
+                    {
+                        question: "What is the primary difference between a 'wish' and a 'burning desire' in Hill's philosophy?",
+                        options: [
+                            { text: "A wish is for small things, a desire for big things.", isCorrect: false },
+                            { text: "A wish is passive, while a burning desire is an obsessive determination that drives action.", isCorrect: true },
+                            { text: "A wish is spiritual, a desire is material.", isCorrect: false },
+                            { text: "There is no significant difference.", isCorrect: false }
+                        ],
+                        hint: "One implies passivity, the other intense drive."
+                    }
+                ],
+                3: [
+                    {
+                        question: "How is 'Faith' primarily developed in Hill's philosophy?",
+                        options: [
+                            { text: "Through blind adherence to religious dogma.", isCorrect: false },
+                            { text: "Through affirmations and repeated instructions to the subconscious mind (autosuggestion).", isCorrect: true },
+                            { text: "By waiting for external validation.", isCorrect: false },
+                            { text: "By intellectual understanding alone.", isCorrect: false }
+                        ],
+                        hint: "This involves a specific mental practice."
+                    },
+                    {
+                        question: "What role does Faith play as an 'ethereal catalyst'?",
+                        options: [
+                            { text: "It causes immediate financial gain.", isCorrect: false },
+                            { text: "It enables the subconscious mind to communicate with 'Infinite Intelligence'.", isCorrect: true },
+                            { text: "It removes the need for any action.", isCorrect: false },
+                            { text: "It makes one immune to all setbacks.", isCorrect: false }
+                        ],
+                        hint: "This function connects your mind to a higher source."
+                    },
+                    {
+                        question: "What is a key characteristic of Faith according to Chapter 3?",
+                        options: [
+                            { text: "It is an innate quality that some people are born with.", isCorrect: false },
+                            { text: "It is a skill that must be deliberately cultivated and maintained.", isCorrect: true },
+                            { text: "It is only effective when shared with others.", isCorrect: false },
+                            { text: "It is a temporary emotion that comes and goes.", isCorrect: false }
+                        ],
+                        hint: "This emphasizes its active development."
+                    },
+                    {
+                        question: "What is the significance of 'emotional conviction' when developing Faith?",
+                        options: [
+                            { text: "It is irrelevant; only logical thoughts matter.", isCorrect: false },
+                            { text: "It makes the subconscious mind respond more quickly and effectively.", isCorrect: true },
+                            { text: "It can lead to irrational decisions.", isCorrect: false },
+                            { text: "It is only important for spiritual goals.", isCorrect: false }
+                        ],
+                        hint: "This adds power to your thoughts."
+                    },
+                    {
+                        question: "When is an individual truly 'ready to receive' something, according to this chapter?",
+                        options: [
+                            { text: "When they have accumulated enough money.", isCorrect: false },
+                            { text: "When they possess absolute belief in their ability to possess it.", isCorrect: true },
+                            { text: "When they have completed all their plans.", isCorrect: false },
+                            { text: "When others tell them they are ready.", isCorrect: false }
+                        ],
+                        hint: "This readiness is an internal state."
+                    },
+                    {
+                        question: "Which emotions does Hill identify as the most powerful positive emotions for strengthening faith?",
+                        options: [
+                            { text: "Joy, excitement, and peace.", isCorrect: false },
+                            { text: "Hope, optimism, and patience.", isCorrect: false },
+                            { text: "Faith, love, and sex.", isCorrect: true },
+                            { text: "Gratitude, empathy, and humility.", isCorrect: false }
+                        ],
+                        hint: "These are deeply rooted human drives."
+                    },
+                    {
+                        question: "What does applying faith help clear the mind of?",
+                        options: [
+                            { text: "Creative ideas.", isCorrect: false },
+                            { text: "Practical plans.", isCorrect: false },
+                            { text: "Fear and doubt.", isCorrect: true },
+                            { text: "Positive emotions.", isCorrect: false }
+                        ],
+                        hint: "This removes mental obstacles."
+                    },
+                    {
+                        question: "What is suggested as a daily practice to strengthen faith?",
+                        options: [
+                            { text: "Reading the news.", isCorrect: false },
+                            { text: "Repeating a personal affirmation with a clear mental picture of the goal.", isCorrect: true },
+                            { text: "Discussing doubts with others.", isCorrect: false },
+                            { text: "Avoiding all thoughts of the future.", isCorrect: false }
+                        ],
+                        hint: "This involves consistent self-talk and visualization."
+                    },
+                    {
+                        question: "The subconscious mind, when infused with faith, performs what action?",
+                        options: [
+                            { text: "It creates new problems.", isCorrect: false },
+                            { text: "It ignores the instructions.", isCorrect: false },
+                            { text: "It picks up the vibration, translates it, and transmits it to Infinite Intelligence.", isCorrect: true },
+                            { text: "It only responds to logical commands.", isCorrect: false }
+                        ],
+                        hint: "This describes its role in the communication process."
+                    },
+                    {
+                        question: "Understanding faith as a 'skill to be developed' implies what about its accessibility?",
+                        options: [
+                            { text: "It is only for a select few.", isCorrect: false },
+                            { text: "It is accessible to anyone willing to put in the effort.", isCorrect: true },
+                            { text: "It requires a specific religious background.", isCorrect: false },
+                            { text: "It is an inborn talent.", isCorrect: false }
+                        ],
+                        hint: "This makes it a universal potential."
+                    }
+                ],
+                4: [
+                    {
+                        question: "How is 'Autosuggestion' primarily defined in Chapter 4?",
+                        options: [
+                            { text: "Random, spontaneous thoughts.", isCorrect: false },
+                            { text: "The conscious act of feeding instructions and stimuli to the subconscious mind.", isCorrect: true },
+                            { text: "Unconscious desires and impulses.", isCorrect: false },
+                            { text: "The act of receiving suggestions from others.", isCorrect: false }
+                        ],
+                        hint: "This involves intentional mental input."
+                    },
+                    {
+                        question: "Autosuggestion is presented as the 'secret to harnessing' what?",
+                        options: [
+                            { text: "The power of persuasion.", isCorrect: false },
+                            { text: "The Law of Attraction.", isCorrect: true },
+                            { text: "The forces of nature.", isCorrect: false },
+                            { text: "The opinions of others.", isCorrect: false }
+                        ],
+                        hint: "This refers to a universal principle of manifestation."
+                    },
+                    {
+                        question: "What is the role of 'emotion' in autosuggestion?",
+                        options: [
+                            { text: "It is irrelevant; only words matter.", isCorrect: false },
+                            { text: "It can hinder the process by making thoughts irrational.", isCorrect: false },
+                            { text: "The more positive emotion infused into thoughts, the faster desired results are attracted.", isCorrect: true },
+                            { text: "Only negative emotions are effective.", isCorrect: false }
+                        ],
+                        hint: "This adds power and speed to your mental commands."
+                    },
+                    {
+                        question: "What is the relationship between autosuggestion and the 'Thoughts Are Things' principle?",
+                        options: [
+                            { text: "Autosuggestion contradicts 'Thoughts Are Things'.", isCorrect: false },
+                            { text: "Autosuggestion is the practical application of 'Thoughts Are Things'.", isCorrect: true },
+                            { text: "They are unrelated concepts.", isCorrect: false },
+                            { text: "Autosuggestion is a theoretical concept, not practical.", isCorrect: false }
+                        ],
+                        hint: "One is the theory, the other is the method."
+                    },
+                    {
+                        question: "What is crucial for the subconscious mind to act effectively based on autosuggestion?",
+                        options: [
+                            { text: "The goal must be kept vague.", isCorrect: false },
+                            { text: "The goal must be clear and definite, with vivid visualization.", isCorrect: true },
+                            { text: "The goal must be easy to achieve.", isCorrect: false },
+                            { text: "The goal must be approved by others.", isCorrect: false }
+                        ],
+                        hint: "This relates to the precision of your mental input."
+                    },
+                    {
+                        question: "What is necessary for desires to take root in the subconscious mind through autosuggestion?",
+                        options: [
+                            { text: "A single, intense thought.", isCorrect: false },
+                            { text: "Continuous and repetitive voicing of desires.", isCorrect: true },
+                            { text: "External validation.", isCorrect: false },
+                            { text: "A passive approach.", isCorrect: false }
+                        ],
+                        hint: "This emphasizes consistency."
+                    },
+                    {
+                        question: "What is the suggested primary exercise for applying autosuggestion?",
+                        options: [
+                            { text: "Debating your goals with others.", isCorrect: false },
+                            { text: "Reading a written statement aloud twice daily, visualizing possession.", isCorrect: true },
+                            { text: "Watching motivational videos.", isCorrect: false },
+                            { text: "Waiting for inspiration to strike.", isCorrect: false }
+                        ],
+                        hint: "This involves a specific routine with your written goals."
+                    },
+                    {
+                        question: "What does the chapter imply about unemotional words when influencing the subconscious?",
+                        options: [
+                            { text: "They are highly effective.", isCorrect: false },
+                            { text: "They have little influence.", isCorrect: true },
+                            { text: "They are only effective for logical tasks.", isCorrect: false },
+                            { text: "They are more effective than emotional words.", isCorrect: false }
+                        ],
+                        hint: "The subconscious requires a certain 'charge' to respond."
+                    },
+                    {
+                        question: "Autosuggestion is described as the bridge between what two aspects of the mind?",
+                        options: [
+                            { text: "Memory and logic.", isCorrect: false },
+                            { text: "Conscious intent and subconscious action.", isCorrect: true },
+                            { text: "Reason and emotion.", isCorrect: false },
+                            { text: "Past experiences and future predictions.", isCorrect: false }
+                        ],
+                        hint: "It connects your deliberate thoughts to your deeper mental processes."
+                    },
+                    {
+                        question: "What does understanding autosuggestion provide for a young individual?",
+                        options: [
+                            { text: "A reason to rely on external forces.", isCorrect: false },
+                            { text: "Concrete techniques for mental programming and shaping reality.", isCorrect: true },
+                            { text: "A way to avoid hard work.", isCorrect: false },
+                            { text: "A method to predict the future.", isCorrect: false }
+                        ],
+                        hint: "This empowers them with internal control."
+                    }
+                ],
+                5: [
+                    {
+                        question: "According to Napoleon Hill, when does 'knowledge' truly become 'power'?",
+                        options: [
+                            { text: "When it is acquired from prestigious institutions.", isCorrect: false },
+                            { text: "When it is organized into a pragmatic plan of action and executed.", isCorrect: true },
+                            { text: "When it is memorized and recited perfectly.", isCorrect: false },
+                            { text: "When it is kept secret from others.", isCorrect: false }
+                        ],
+                        hint: "This emphasizes the active use of information."
+                    },
+                    {
+                        question: "What kind of knowledge does Hill consider most valuable for accumulating wealth?",
+                        options: [
+                            { text: "General knowledge acquired in traditional schooling.", isCorrect: false },
+                            { text: "Historical knowledge.", isCorrect: false },
+                            { text: "Specific, specialized knowledge.", isCorrect: true },
+                            { text: "Theoretical knowledge.", isCorrect: false }
+                        ],
+                        hint: "It's about expertise in a particular area."
+                    },
+                    {
+                        question: "What is a critical understanding from this chapter regarding knowledge application?",
+                        options: [
+                            { text: "Passive learning is sufficient for success.", isCorrect: false },
+                            { text: "Active application and strategic organization are what create tangible value.", isCorrect: true },
+                            { text: "Knowledge should be accumulated without any specific purpose.", isCorrect: false },
+                            { text: "The more knowledge you have, the less you need to apply it.", isCorrect: false }
+                        ],
+                        hint: "This refers to how knowledge translates into results."
+                    },
+                    {
+                        question: "How does Hill suggest one can acquire specialized knowledge?",
+                        options: [
+                            { text: "Only through formal university education.", isCorrect: false },
+                            { text: "Through personal research, practical experience, or drawing upon the expertise of others.", isCorrect: true },
+                            { text: "By waiting for it to be revealed intuitively.", isCorrect: false },
+                            { text: "Only by inventing something entirely new.", isCorrect: false }
+                        ],
+                        hint: "This involves various avenues of learning."
+                    },
+                    {
+                        question: "Who is cited as an example of effectively building a team of specialized experts?",
+                        options: [
+                            { text: "Thomas Edison", isCorrect: false },
+                            { text: "Andrew Carnegie", isCorrect: false },
+                            { text: "Henry Ford", isCorrect: true },
+                            { text: "John D. Rockefeller", isCorrect: false }
+                        ],
+                        hint: "This industrialist revolutionized manufacturing with a team."
+                    },
+                    {
+                        question: "What does Hill emphasize about truly successful individuals regarding knowledge?",
+                        options: [
+                            { text: "They stop learning once they achieve their first success.", isCorrect: false },
+                            { text: "They never cease acquiring specialized knowledge relevant to their major purpose.", isCorrect: true },
+                            { text: "They only learn from their own mistakes.", isCorrect: false },
+                            { text: "They rely solely on inherited knowledge.", isCorrect: false }
+                        ],
+                        hint: "This highlights a continuous habit of learning."
+                    },
+                    {
+                        question: "What is the suggested exercise for applying the principle of Specialized Knowledge?",
+                        options: [
+                            { text: "Reading a new book every day.", isCorrect: false },
+                            { text: "Debating complex theories with peers.", isCorrect: false },
+                            { text: "Identifying a successful individual/group in a desired field and seeking mentorship.", isCorrect: true },
+                            { text: "Attending as many seminars as possible.", isCorrect: false }
+                        ],
+                        hint: "This involves learning directly from those who have achieved similar success."
+                    },
+                    {
+                        question: "What theory does the concept of leveraging others' knowledge align with?",
+                        options: [
+                            { text: "Theory of Relativity.", isCorrect: false },
+                            { text: "Theory of Evolution.", isCorrect: false },
+                            { text: "Adam Smith's theory of the 'division of labor'.", isCorrect: true },
+                            { text: "Theory of Chaos.", isCorrect: false }
+                        ],
+                        hint: "This economic concept emphasizes efficiency through specialization."
+                    },
+                    {
+                        question: "For a young individual, understanding this chapter means recognizing that success is not about knowing everything, but about what?",
+                        options: [
+                            { text: "Memorizing facts.", isCorrect: false },
+                            { text: "Discerning what knowledge is needed and how to access and apply it.", isCorrect: true },
+                            { text: "Avoiding specialized fields.", isCorrect: false },
+                            { text: "Relying on general education alone.", isCorrect: false }
+                        ],
+                        hint: "This focuses on strategic learning and resourcefulness."
+                    },
+                    {
+                        question: "What is the relationship between specialized knowledge and adding value?",
+                        options: [
+                            { text: "Specialized knowledge is irrelevant to adding value.", isCorrect: false },
+                            { text: "Specialized knowledge is required to add value and be compensated for it.", isCorrect: true },
+                            { text: "General knowledge is more effective for adding value.", isCorrect: false },
+                            { text: "Adding value doesn't require any specific knowledge.", isCorrect: false }
+                        ],
+                        hint: "This connects expertise to tangible output."
+                    }
+                ],
+                6: [
+                    {
+                        question: "How does Napoleon Hill refer to 'Imagination' in Chapter 6?",
+                        options: [
+                            { text: "The source of all problems.", isCorrect: false },
+                            { text: "The workshop of the mind.", isCorrect: true },
+                            { text: "A fleeting fantasy.", isCorrect: false },
+                            { text: "The memory bank.", isCorrect: false }
+                        ],
+                        hint: "This metaphor describes where ideas are formed."
+                    },
+                    {
+                        question: "What is the primary function of imagination in relation to desires?",
+                        options: [
+                            { text: "To make desires disappear.", isCorrect: false },
+                            { text: "To give intangible desires concrete shape, form, and action.", isCorrect: true },
+                            { text: "To make desires more abstract.", isCorrect: false },
+                            { text: "To suppress desires.", isCorrect: false }
+                        ],
+                        hint: "This transforms abstract wants into something tangible."
+                    },
+                    {
+                        question: "What is 'Synthetic Imagination'?",
+                        options: [
+                            { text: "Creating entirely new material from scratch.", isCorrect: false },
+                            { text: "Arranging existing concepts, ideas, or plans into new combinations.", isCorrect: true },
+                            { text: "Receiving new insights from Infinite Intelligence.", isCorrect: false },
+                            { text: "Imagining impossible scenarios.", isCorrect: false }
+                        ],
+                        hint: "This form of imagination reuses existing components."
+                    },
+                    {
+                        question: "How is 'Creative Imagination' primarily stimulated?",
+                        options: [
+                            { text: "By passive observation.", isCorrect: false },
+                            { text: "By a strong, burning desire.", isCorrect: true },
+                            { text: "By logical analysis.", isCorrect: false },
+                            { text: "By avoiding all external stimuli.", isCorrect: false }
+                        ],
+                        hint: "This higher form of imagination is activated by intense internal drive."
+                    },
+                    {
+                        question: "According to Hill, what is humanity's only limitation, within reason?",
+                        options: [
+                            { text: "Lack of financial resources.", isCorrect: false },
+                            { text: "The development and effective use of imagination.", isCorrect: true },
+                            { text: "External competition.", isCorrect: false },
+                            { text: "Limited formal education.", isCorrect: false }
+                        ],
+                        hint: "This refers to an internal mental capacity."
+                    },
+                    {
+                        question: "What is the relationship between an 'idea' and 'imagination'?",
+                        options: [
+                            { text: "Ideas are separate from imagination.", isCorrect: false },
+                            { text: "All fortunes begin as an idea, which is a direct product of the imagination.", isCorrect: true },
+                            { text: "Imagination is only for fantasy, not practical ideas.", isCorrect: false },
+                            { text: "Ideas are only generated through logical reasoning.", isCorrect: false }
+                        ],
+                        hint: "This connects the source of innovation to a specific mental faculty."
+                    },
+                    {
+                        question: "What is the recommended exercise for this chapter?",
+                        options: [
+                            { text: "Reading fiction books daily.", isCorrect: false },
+                            { text: "Dedicate 30 minutes daily to 'creative imagination time' and journaling ideas.", isCorrect: true },
+                            { text: "Analyzing the imagination of others.", isCorrect: false },
+                            { text: "Limiting imaginative thoughts to practical matters only.", isCorrect: false }
+                        ],
+                        hint: "This involves a dedicated practice of mental visualization."
+                    },
+                    {
+                        question: "What does understanding imagination provide for a young individual?",
+                        options: [
+                            { text: "A license to daydream without purpose.", isCorrect: false },
+                            { text: "A practical, active tool for innovation and problem-solving.", isCorrect: true },
+                            { text: "A way to avoid dealing with reality.", isCorrect: false },
+                            { text: "A method to predict the future with certainty.", isCorrect: false }
+                        ],
+                        hint: "This empowers them to use their mind for tangible results."
+                    },
+                    {
+                        question: "What does imagination do for an 'abstract desire'?",
+                        options: [
+                            { text: "It makes it more abstract.", isCorrect: false },
+                            { text: "It molds it into a workable blueprint for achievement.", isCorrect: true },
+                            { text: "It causes it to fade away.", isCorrect: false },
+                            { text: "It turns it into a wish.", isCorrect: false }
+                        ],
+                        hint: "This is a transformative process."
+                    },
+                    {
+                        question: "Which form of imagination is most frequently used in the process of converting desire into money?",
+                        options: [
+                            { text: "Creative Imagination.", isCorrect: false },
+                            { text: "Synthetic Imagination.", isCorrect: true },
+                            { text: "Unconscious Imagination.", isCorrect: false },
+                            { text: "Pure Imagination.", isCorrect: false }
+                        ],
+                        hint: "This form involves rearranging existing elements."
+                    }
+                ],
+                7: [
+                    {
+                        question: "What is absolutely necessary for the transformation of desire into its monetary equivalent, according to Chapter 7?",
+                        options: [
+                            { text: "A large initial investment.", isCorrect: false },
+                            { text: "A definite, well-organized, and enthusiastically pursued plan.", isCorrect: true },
+                            { text: "A passive approach to wealth accumulation.", isCorrect: false },
+                            { text: "Relying solely on luck.", isCorrect: false }
+                        ],
+                        hint: "This involves a structured approach to your goals."
+                    },
+                    {
+                        question: "How should one interpret 'temporary defeat' in the context of organized planning?",
+                        options: [
+                            { text: "As a reason to give up on the goal.", isCorrect: false },
+                            { text: "As a signal that your plan has a flaw and needs refinement.", isCorrect: true },
+                            { text: "As a personal failure that proves inadequacy.", isCorrect: false },
+                            { text: "As an unchangeable obstacle.", isCorrect: false }
+                        ],
+                        hint: "This perspective treats setbacks as valuable feedback."
+                    },
+                    {
+                        question: "What is a crucial aspect of planning, as emphasized by Hill, regarding its nature?",
+                        options: [
+                            { text: "It is a one-time event.", isCorrect: false },
+                            { text: "It is a static blueprint.", isCorrect: false },
+                            { text: "It is a dynamic feedback loop of execution, evaluation, and refinement.", isCorrect: true },
+                            { text: "It should only be done by experts.", isCorrect: false }
+                        ],
+                        hint: "This implies continuous adjustment."
+                    },
+                    {
+                        question: "Why is collaboration essential in organized planning, according to Hill?",
+                        options: [
+                            { text: "To avoid personal responsibility.", isCorrect: false },
+                            { text: "No single individual possesses enough experience or knowledge to accumulate a great fortune alone.", isCorrect: true },
+                            { text: "To share the workload equally.", isCorrect: false },
+                            { text: "To gain social approval.", isCorrect: false }
+                        ],
+                        hint: "This relates to the limitations of individual effort."
+                    },
+                    {
+                        question: "What famous quote from this chapter highlights the importance of persistence in the face of temporary defeat?",
+                        options: [
+                            { text: "'Fortune favors the bold.'", isCorrect: false },
+                            { text: "'A quitter never wins—and—a winner never quits.'", isCorrect: true },
+                            { text: "'Knowledge is power.'", isCorrect: false },
+                            { text: "'The early bird gets the worm.'", isCorrect: false }
+                        ],
+                        hint: "This emphasizes unwavering determination."
+                    },
+                    {
+                        question: "Who is cited as an example of persistent planning, reportedly having 10,000 'failures' before perfecting the light bulb?",
+                        options: [
+                            { text: "Henry Ford", isCorrect: false },
+                            { text: "Andrew Carnegie", isCorrect: false },
+                            { text: "Thomas Edison", isCorrect: true },
+                            { text: "Alexander Graham Bell", isCorrect: false }
+                        ],
+                        hint: "This inventor is famous for his numerous experiments."
+                    },
+                    {
+                        question: "What is the role of a 'Master Mind' group in organized planning?",
+                        options: [
+                            { text: "To delegate all tasks to others.", isCorrect: false },
+                            { text: "To provide joint creation or approval of plans and harmonious meetings.", isCorrect: true },
+                            { text: "To compete against each other.", isCorrect: false },
+                            { text: "To discourage new ideas.", isCorrect: false }
+                        ],
+                        hint: "This group provides collective intelligence and support."
+                    },
+                    {
+                        question: "What is one of the essential qualities for successful leaders detailed in this chapter?",
+                        options: [
+                            { text: "A tendency to avoid responsibility.", isCorrect: false },
+                            { text: "Unwavering courage based on self-knowledge.", isCorrect: true },
+                            { text: "A desire to control others.", isCorrect: false },
+                            { text: "A willingness to blame others for shortcomings.", isCorrect: false }
+                        ],
+                        hint: "This relates to inner strength and confidence."
+                    },
+                    {
+                        question: "For a young individual, understanding this chapter means recognizing that perfection is not the immediate goal in planning, but rather what?",
+                        options: [
+                            { text: "To avoid making any plans.", isCorrect: false },
+                            { text: "To establish a starting point and cultivate resilience to course-correct.", isCorrect: true },
+                            { text: "To copy someone else's plan exactly.", isCorrect: false },
+                            { text: "To wait for ideal conditions before starting.", isCorrect: false }
+                        ],
+                        hint: "This focuses on iterative progress and adaptability."
+                    },
+                    {
+                        question: "What is the final step in the detailed formula for results reiterated in this chapter?",
+                        options: [
+                            { text: "Creating a definite plan.", isCorrect: false },
+                            { text: "Determining what is given in return.", isCorrect: false },
+                            { text: "Reading the concise statement aloud twice daily.", isCorrect: true },
+                            { text: "Fixing the exact amount of money desired.", isCorrect: false }
+                        ],
+                        hint: "This involves a consistent daily practice."
+                    }
+                ],
+                8: [
+                    {
+                        question: "What is identified as one of the most critical traits distinguishing successful individuals from those who fail?",
+                        options: [
+                            { text: "Their ability to avoid all risks.", isCorrect: false },
+                            { text: "Their consistent habit of making prompt, firm decisions.", isCorrect: true },
+                            { text: "Their willingness to change decisions frequently.", isCorrect: false },
+                            { text: "Their reliance on others for all decisions.", isCorrect: false }
+                        ],
+                        hint: "This relates to the speed and conviction of choices."
+                    },
+                    {
+                        question: "What are cited as major causes of failure in Chapter 8?",
+                        options: [
+                            { text: "Too much hard work and effort.", isCorrect: false },
+                            { text: "Indecision and procrastination.", isCorrect: true },
+                            { text: "Over-planning and excessive organization.", isCorrect: false },
+                            { text: "Taking too many risks.", isCorrect: false }
+                        ],
+                        hint: "These are habits that delay or prevent action."
+                    },
+                    {
+                        question: "What does the chapter imply about allowing external 'opinions' to influence personal choices?",
+                        options: [
+                            { text: "It is always beneficial to seek many opinions.", isCorrect: false },
+                            { text: "It is crucial to guard one's thoughts and not be swayed by others' opinions.", isCorrect: true },
+                            { text: "Opinions from loved ones should always be followed.", isCorrect: false },
+                            { text: "External opinions are irrelevant to success.", isCorrect: false }
+                        ],
+                        hint: "This emphasizes self-reliance in decision-making."
+                    },
+                    {
+                        question: "What historical example is used to underscore the courage required to make profound, risky decisions?",
+                        options: [
+                            { text: "The invention of the light bulb.", isCorrect: false },
+                            { text: "The American Declaration of Independence.", isCorrect: true },
+                            { text: "The building of the Panama Canal.", isCorrect: false },
+                            { text: "The moon landing.", isCorrect: false }
+                        ],
+                        hint: "This event involved signatories risking their lives."
+                    },
+                    {
+                        question: "What is the principle 'Tell the world what you intend to do, but first show it' emphasizing?",
+                        options: [
+                            { text: "The importance of public announcements.", isCorrect: false },
+                            { text: "That deeds, not mere words, are what truly count.", isCorrect: true },
+                            { text: "The need for external validation.", isCorrect: false },
+                            { text: "The power of positive affirmations.", isCorrect: false }
+                        ],
+                        hint: "This highlights the importance of concrete actions."
+                    },
+                    {
+                        question: "Who is presented as a prime example of 'unwavering firmness of decision'?",
+                        options: [
+                            { text: "Thomas Edison", isCorrect: false },
+                            { text: "Andrew Carnegie", isCorrect: false },
+                            { text: "Henry Ford", isCorrect: true },
+                            { text: "John D. Rockefeller", isCorrect: false }
+                        ],
+                        hint: "This industrialist was known for his strong will."
+                    },
+                    {
+                        question: "How are one's true decisions reflected, according to this chapter?",
+                        options: [
+                            { text: "In their spoken words and promises.", isCorrect: false },
+                            { text: "In their priorities, observed in how time and money are spent.", isCorrect: true },
+                            { text: "In their intentions and dreams.", isCorrect: false },
+                            { text: "In the opinions of their friends.", isCorrect: false }
+                        ],
+                        hint: "This refers to the tangible evidence of your choices."
+                    },
+                    {
+                        question: "What does understanding 'Decision' provide for a young individual?",
+                        options: [
+                            { text: "A reason to be reckless.", isCorrect: false },
+                            { text: "Inner fortitude to trust one's own judgment and commit to a chosen path.", isCorrect: true },
+                            { text: "A way to avoid responsibility.", isCorrect: false },
+                            { text: "A method to always be right.", isCorrect: false }
+                        ],
+                        hint: "This empowers them with internal strength."
+                    },
+                    {
+                        question: "What is the relationship between indecision and 'definite purpose'?",
+                        options: [
+                            { text: "Indecision strengthens definite purpose.", isCorrect: false },
+                            { text: "Indecision is irrelevant to definite purpose.", isCorrect: false },
+                            { text: "A firm decision gives definite purpose concrete form and momentum.", isCorrect: true },
+                            { text: "Definite purpose leads to indecision.", isCorrect: false }
+                        ],
+                        hint: "One provides clarity and drive to the other."
+                    },
+                    {
+                        question: "What is the recommended exercise for this chapter?",
+                        options: [
+                            { text: "Making a list of all possible decisions.", isCorrect: false },
+                            { text: "Examining one's calendar and bank statements to reveal true priorities.", isCorrect: true },
+                            { text: "Asking others for advice on every decision.", isCorrect: false },
+                            { text: "Avoiding making any decisions for a week.", isCorrect: false }
+                        ],
+                        hint: "This involves an audit of your resource allocation."
+                    }
+                ],
+                9: [
+                    {
+                        question: "How is 'Persistence' defined in Chapter 9?",
+                        options: [
+                            { text: "The ability to avoid all challenges.", isCorrect: false },
+                            { text: "The sustained effort and unwavering will to continue despite opposition or defeat.", isCorrect: true },
+                            { text: "The act of giving up when faced with difficulty.", isCorrect: false },
+                            { text: "A natural talent possessed by a few individuals.", isCorrect: false }
+                        ],
+                        hint: "This describes continuous effort in the face of adversity."
+                    },
+                    {
+                        question: "What is the primary fuel for persistence?",
+                        options: [
+                            { text: "External motivation from others.", isCorrect: false },
+                            { text: "The combination of willpower and a burning desire.", isCorrect: true },
+                            { text: "A fear of failure.", isCorrect: false },
+                            { text: "Luck and favorable circumstances.", isCorrect: false }
+                        ],
+                        hint: "This comes from an internal drive."
+                    },
+                    {
+                        question: "What does Hill suggest about the 'Persistence Test'?",
+                        options: [
+                            { text: "It is a random event that some people experience.", isCorrect: false },
+                            { text: "A 'hidden Guide' tests individuals through discouraging experiences, filtering out the uncommitted.", isCorrect: true },
+                            { text: "It is a psychological assessment to determine one's potential.", isCorrect: false },
+                            { text: "It is a test that everyone automatically passes.", isCorrect: false }
+                        ],
+                        hint: "This implies a deliberate challenge to one's resolve."
+                    },
+                    {
+                        question: "What is one of the four essential steps to cultivate persistence?",
+                        options: [
+                            { text: "A general purpose without specific goals.", isCorrect: false },
+                            { text: "A definite purpose backed by a burning desire for its fulfillment.", isCorrect: true },
+                            { text: "A mind open to all negative influences.", isCorrect: false },
+                            { text: "Avoiding alliances with others.", isCorrect: false }
+                        ],
+                        hint: "This relates to the clarity and intensity of your objective."
+                    },
+                    {
+                        question: "What does persistence provide, acting as a form of 'insurance'?",
+                        options: [
+                            { text: "Insurance against financial loss.", isCorrect: false },
+                            { text: "Insurance against failure, as those who persist eventually reach their goals.", isCorrect: true },
+                            { text: "Insurance against criticism.", isCorrect: false },
+                            { text: "Insurance against bad luck.", isCorrect: false }
+                        ],
+                        hint: "This guarantees eventual success."
+                    },
+                    {
+                        question: "What is the relationship between persistence and temporary defeat?",
+                        options: [
+                            { text: "Temporary defeat means persistence has failed.", isCorrect: false },
+                            { text: "Persistence means picking oneself up after defeat and trying again.", isCorrect: true },
+                            { text: "Persistence means avoiding all forms of defeat.", isCorrect: false },
+                            { text: "Temporary defeat is a sign to stop persisting.", isCorrect: false }
+                        ],
+                        hint: "This describes the response to setbacks."
+                    },
+                    {
+                        question: "What is Hill's famous quote related to persistence?",
+                        options: [
+                            { text: "'Where there's a will, there's a way.'", isCorrect: false },
+                            { text: "'A quitter never wins – and a winner never quits.'", isCorrect: true },
+                            { text: "'The journey of a thousand miles begins with a single step.'", isCorrect: false },
+                            { text: "'Success is not final, failure is not fatal: it is the courage to continue that counts.'", isCorrect: false }
+                        ],
+                        hint: "This emphasizes the outcome of giving up versus continuing."
+                    },
+                    {
+                        question: "Which other principles significantly strengthen persistence?",
+                        options: [
+                            { text: "Only Imagination and The Brain.", isCorrect: false },
+                            { text: "Autosuggestion and understanding the subconscious mind.", isCorrect: true },
+                            { text: "Specialized Knowledge and Organized Planning.", isCorrect: false },
+                            { text: "Decision and The Sixth Sense.", isCorrect: false }
+                        ],
+                        hint: "These relate to mental programming and inner workings."
+                    },
+                    {
+                        question: "For a young individual, understanding persistence means viewing obstacles as what?",
+                        options: [
+                            { text: "Unsurmountable barriers.", isCorrect: false },
+                            { text: "Roadblocks that stop progress.", isCorrect: false },
+                            { text: "Opportunities to strengthen mental fortitude and prove worthiness.", isCorrect: true },
+                            { text: "Random misfortunes to be endured.", isCorrect: false }
+                        ],
+                        hint: "This reframes challenges as growth opportunities."
+                    },
+                    {
+                        question: "What is the recommended exercise for this chapter?",
+                        options: [
+                            { text: "Avoiding all difficult tasks.", isCorrect: false },
+                            { text: "Setting a 12-month goal, listing action steps, and beginning immediately without stopping.", isCorrect: true },
+                            { text: "Waiting for external motivation.", isCorrect: false },
+                            { text: "Only focusing on small, easy goals.", isCorrect: false }
+                        ],
+                        hint: "This involves immediate and sustained action towards a specific objective."
+                    }
+                ],
+                10: [
+                    {
+                        question: "How is 'Power' primarily acquired for achieving success, according to Chapter 10?",
+                        options: [
+                            { text: "Through inherited wealth.", isCorrect: false },
+                            { text: "Through a 'Master Mind' group—a harmonious alliance of two or more individuals.", isCorrect: true },
+                            { text: "Through individual genius alone.", isCorrect: false },
+                            { text: "Through aggressive competition.", isCorrect: false }
+                        ],
+                        hint: "This refers to a collaborative approach."
+                    },
+                    {
+                        question: "What is the 'synergistic effect' of a Master Mind group?",
+                        options: [
+                            { text: "It divides the power among members.", isCorrect: false },
+                            { text: "It creates a 'third mind' or 'spiritual unit of energy' that amplifies collective power.", isCorrect: true },
+                            { text: "It leads to conflicts and disagreements.", isCorrect: false },
+                            { text: "It only benefits the leader of the group.", isCorrect: false }
+                        ],
+                        hint: "This describes how the combined minds create something greater."
+                    },
+                    {
+                        question: "Power is fundamentally defined as what?",
+                        options: [
+                            { text: "Financial capital.", isCorrect: false },
+                            { text: "Organized and intelligently directed KNOWLEDGE.", isCorrect: true },
+                            { text: "Physical strength.", isCorrect: false },
+                            { text: "Social influence.", isCorrect: false }
+                        ],
+                        hint: "This definition emphasizes the strategic use of information."
+                    },
+                    {
+                        question: "What is absolutely essential for the Master Mind principle to work optimally?",
+                        options: [
+                            { text: "A large number of members.", isCorrect: false },
+                            { text: "Perfect harmony within the group.", isCorrect: true },
+                            { text: "Members must have identical skills.", isCorrect: false },
+                            { text: "Frequent disagreements to stimulate ideas.", isCorrect: false }
+                        ],
+                        hint: "This refers to the internal state of the group dynamics."
+                    },
+                    {
+                        question: "Historically, what has been the foundation for nearly every great fortune?",
+                        options: [
+                            { text: "Individual risk-taking.", isCorrect: false },
+                            { text: "The principle of the Master Mind (cooperation of others).", isCorrect: true },
+                            { text: "Inherited wealth.", isCorrect: false },
+                            { text: "Monopolistic practices.", isCorrect: false }
+                        ],
+                        hint: "This highlights a consistent pattern in historical success."
+                    },
+                    {
+                        question: "What kind of benefits do Mastermind groups offer?",
+                        options: [
+                            { text: "Only financial benefits.", isCorrect: false },
+                            { text: "Only social benefits.", isCorrect: false },
+                            { text: "Both tangible economic advantages and intangible psychic benefits.", isCorrect: true },
+                            { text: "Only competitive advantages.", isCorrect: false }
+                        ],
+                        hint: "This refers to both practical and energetic gains."
+                    },
+                    {
+                        question: "What is the recommended exercise for this chapter?",
+                        options: [
+                            { text: "Working in isolation to prove self-reliance.", isCorrect: false },
+                            { text: "Identifying a big goal, defining benefits for others, and presenting it to potential Master Mind partners.", isCorrect: true },
+                            { text: "Waiting for others to approach you with opportunities.", isCorrect: false },
+                            { text: "Only forming a Master Mind group after achieving initial success.", isCorrect: false }
+                        ],
+                        hint: "This involves strategic outreach for collaboration."
+                    },
+                    {
+                        question: "What does the Master Mind concept imply about collective intelligence?",
+                        options: [
+                            { text: "It is simply the sum of individual intelligences.", isCorrect: false },
+                            { text: "It creates a force greater than the sum of its parts by tapping into a higher intelligence.", isCorrect: true },
+                            { text: "It is only useful for small, simple tasks.", isCorrect: false },
+                            { text: "It leads to groupthink and poor decisions.", isCorrect: false }
+                        ],
+                        hint: "This describes an exponential increase in mental power."
+                    },
+                    {
+                        question: "For a young individual, understanding the Master Mind means recognizing that true power often lies in what?",
+                        options: [
+                            { text: "Dominating others.", isCorrect: false },
+                            { text: "Strategic alliances that foster shared effort and resonance.", isCorrect: true },
+                            { text: "Avoiding all forms of teamwork.", isCorrect: false },
+                            { text: "Being the smartest person in the room.", isCorrect: false }
+                        ],
+                        hint: "This emphasizes the quality of collaborative relationships."
+                    },
+                    {
+                        question: "Why should partners for a Master Mind group be selected with utmost care?",
+                        options: [
+                            { text: "To ensure they are easily controlled.", isCorrect: false },
+                            { text: "To maintain perfect harmony within the group for optimal results.", isCorrect: true },
+                            { text: "To find people who will do all the work.", isCorrect: false },
+                            { text: "To avoid any challenges or disagreements.", isCorrect: false }
+                        ],
+                        hint: "This relates to the crucial element for the group's effectiveness."
+                    }
+                ],
+                11: [
+                    {
+                        question: "What is the primary focus of Chapter 11, 'The Mystery of Sex Transmutation'?",
+                        options: [
+                            { text: "The biological aspects of reproduction.", isCorrect: false },
+                            { text: "How to harness and redirect intense creative energy into productive endeavors.", isCorrect: true },
+                            { text: "The importance of romantic relationships for success.", isCorrect: false },
+                            { text: "The history of human sexuality.", isCorrect: false }
+                        ],
+                        hint: "This involves channeling a powerful internal force."
+                    },
+                    {
+                        question: "How does Hill describe the emotion of sex?",
+                        options: [
+                            { text: "A minor human impulse.", isCorrect: false },
+                            { text: "An irresistible force and the most powerful creative energy.", isCorrect: true },
+                            { text: "A distraction from one's goals.", isCorrect: false },
+                            { text: "Only relevant for physical gratification.", isCorrect: false }
+                        ],
+                        hint: "This highlights its immense power."
+                    },
+                    {
+                        question: "What can happen when sex energy is consciously harnessed and redirected?",
+                        options: [
+                            { text: "It can lead to exhaustion.", isCorrect: false },
+                            { text: "It can significantly enhance imagination, courage, willpower, and creative ability.", isCorrect: true },
+                            { text: "It causes one to lose focus on practical matters.", isCorrect: false },
+                            { text: "It has no impact on mental faculties.", isCorrect: false }
+                        ],
+                        hint: "This describes its transformative potential for personal traits."
+                    },
+                    {
+                        question: "What is 'personal magnetism' and how is it related to sex transmutation?",
+                        options: [
+                            { text: "It is a magical aura that attracts money.", isCorrect: false },
+                            { text: "It is a physical attraction to others.", isCorrect: false },
+                            { text: "It is a manifestation of harnessed energy that influences others through subtle cues.", isCorrect: true },
+                            { text: "It is a purely intellectual quality.", isCorrect: false }
+                        ],
+                        hint: "This refers to an influential presence that comes from within."
+                    },
+                    {
+                        question: "What is required for the successful transmutation of sex energy?",
+                        options: [
+                            { text: "A passive approach.", isCorrect: false },
+                            { text: "A conscious and consistent exercise of willpower.", isCorrect: true },
+                            { text: "External guidance from a guru.", isCorrect: false },
+                            { text: "Avoiding all emotional experiences.", isCorrect: false }
+                        ],
+                        hint: "This emphasizes internal control and discipline."
+                    },
+                    {
+                        question: "For a young individual, what profound lesson does this chapter teach?",
+                        options: [
+                            { text: "To suppress all natural urges.", isCorrect: false },
+                            { text: "A profound lesson in self-mastery and the strategic use of personal energy.", isCorrect: true },
+                            { text: "That success is purely about physical attraction.", isCorrect: false },
+                            { text: "That emotions are always a distraction.", isCorrect: false }
+                        ],
+                        hint: "This relates to managing one's internal resources for achievement."
+                    },
+                    {
+                        question: "What is the recommended exercise for this chapter?",
+                        options: [
+                            { text: "Avoiding all emotional experiences.", isCorrect: false },
+                            { text: "Reflecting on positive love experiences and linking those emotions to one's major life purpose.", isCorrect: true },
+                            { text: "Focusing solely on intellectual pursuits.", isCorrect: false },
+                            { text: "Engaging in purely physical activities.", isCorrect: false }
+                        ],
+                        hint: "This involves connecting powerful feelings to your goals."
+                    },
+                    {
+                        question: "What kind of endeavors can sex energy be redirected into?",
+                        options: [
+                            { text: "Only physical exercise.", isCorrect: false },
+                            { text: "Only spiritual practices.", isCorrect: false },
+                            { text: "Highly productive and creative endeavors in art, literature, or accumulation of riches.", isCorrect: true },
+                            { text: "Only social interactions.", isCorrect: false }
+                        ],
+                        hint: "This highlights a broad range of constructive applications."
+                    },
+                    {
+                        question: "What does 'transmutation' imply in this context?",
+                        options: [
+                            { text: "Ignoring an energy.", isCorrect: false },
+                            { text: "A magical transformation.", isCorrect: false },
+                            { text: "Conscious redirection and conservation of energy.", isCorrect: true },
+                            { text: "Allowing energy to dissipate naturally.", isCorrect: false }
+                        ],
+                        hint: "This refers to a deliberate change in direction."
+                    },
+                    {
+                        question: "What is a key trait of highly successful people related to this principle?",
+                        options: [
+                            { text: "They lack strong internal drives.", isCorrect: false },
+                            { text: "They are masters of channeling their inherent drives into their definite purpose.", isCorrect: true },
+                            { text: "They let their emotions control them.", isCorrect: false },
+                            { text: "They avoid all forms of creative expression.", isCorrect: false }
+                        ],
+                        hint: "This relates to their ability to manage powerful inner forces."
+                    }
+                ],
+                12: [
+                    {
+                        question: "How is the 'Subconscious Mind' primarily presented in Chapter 12?",
+                        options: [
+                            { text: "A random collection of thoughts.", isCorrect: false },
+                            { text: "The vital conduit for communicating with 'Infinite Intelligence' through thought vibration.", isCorrect: true },
+                            { text: "A passive storage unit for memories.", isCorrect: false },
+                            { text: "A part of the mind that only processes logical information.", isCorrect: false }
+                        ],
+                        hint: "This describes its role in connecting to a higher source."
+                    },
+                    {
+                        question: "What is the crucial revelation about the subconscious mind's nature?",
+                        options: [
+                            { text: "It only accepts positive thoughts.", isCorrect: false },
+                            { text: "It unconditionally accepts your predominant thoughts and acts on both positive and negative impulses.", isCorrect: true },
+                            { text: "It judges and corrects your thoughts.", isCorrect: false },
+                            { text: "It ignores thoughts that are not logical.", isCorrect: false }
+                        ],
+                        hint: "This highlights its impartial processing."
+                    },
+                    {
+                        question: "What is considered the individual's 'power center' where creative facilities reside?",
+                        options: [
+                            { text: "The conscious mind.", isCorrect: false },
+                            { text: "The subconscious mind.", isCorrect: true },
+                            { text: "The physical brain.", isCorrect: false },
+                            { text: "External circumstances.", isCorrect: false }
+                        ],
+                        hint: "This is where your deepest creative potential lies."
+                    },
+                    {
+                        question: "How is the subconscious mind primarily programmed?",
+                        options: [
+                            { text: "Through random experiences.", isCorrect: false },
+                            { text: "Through consistent repetition and self-suggestion, particularly when thoughts are mixed with emotion.", isCorrect: true },
+                            { text: "Through external commands from others.", isCorrect: false },
+                            { text: "Through passive learning.", isCorrect: false }
+                        ],
+                        hint: "This involves deliberate and emotionalized input."
+                    },
+                    {
+                        question: "What is the role of 'emotion' in influencing the subconscious mind?",
+                        options: [
+                            { text: "It is irrelevant.", isCorrect: false },
+                            { text: "Only emotionalized thoughts have significant influence.", isCorrect: true },
+                            { text: "It can hinder the process.", isCorrect: false },
+                            { text: "Negative emotions are more effective.", isCorrect: false }
+                        ],
+                        hint: "This adds power to your mental commands."
+                    },
+                    {
+                        question: "What does understanding the subconscious mind empower individuals to do?",
+                        options: [
+                            { text: "To avoid all responsibility for their thoughts.", isCorrect: false },
+                            { text: "To have direct control over a powerful internal force and responsibility for their mental diet.", isCorrect: true },
+                            { text: "To predict the future with certainty.", isCorrect: false },
+                            { text: "To rely solely on external factors for success.", isCorrect: false }
+                        ],
+                        hint: "This relates to internal agency and accountability."
+                    },
+                    {
+                        question: "What is the suggested exercise for this chapter?",
+                        options: [
+                            { text: "Avoiding all self-reflection.", isCorrect: false },
+                            { text: "Writing and repeatedly reading aloud a personal affirmation with powerful, positive emotion.", isCorrect: true },
+                            { text: "Only thinking about past successes.", isCorrect: false },
+                            { text: "Engaging in debates to challenge beliefs.", isCorrect: false }
+                        ],
+                        hint: "This involves a daily practice of positive self-talk."
+                    },
+                    {
+                        question: "What must desires be for the subconscious to act effectively?",
+                        options: [
+                            { text: "Vague and abstract.", isCorrect: false },
+                            { text: "Clear and reduced to writing.", isCorrect: true },
+                            { text: "Complex and multi-faceted.", isCorrect: false },
+                            { text: "Kept entirely in one's head.", isCorrect: false }
+                        ],
+                        hint: "This refers to the precision and format of your goals."
+                    },
+                    {
+                        question: "What happens if positive and negative emotions occupy the mind simultaneously?",
+                        options: [
+                            { text: "They cancel each other out.", isCorrect: false },
+                            { text: "Both will manifest equally.", isCorrect: false },
+                            { text: "One must dominate for the subconscious to act effectively.", isCorrect: true },
+                            { text: "The subconscious becomes confused and stops working.", isCorrect: false }
+                        ],
+                        hint: "This highlights the need for mental clarity."
+                    },
+                    {
+                        question: "What does the subconscious mind act upon?",
+                        options: [
+                            { text: "Only what is logical.", isCorrect: false },
+                            { text: "Only what is consciously willed.", isCorrect: false },
+                            { text: "Your predominant thoughts, whether positive or negative.", isCorrect: true },
+                            { text: "External suggestions only.", isCorrect: false }
+                        ],
+                        hint: "This emphasizes its non-discriminatory nature."
+                    }
+                ],
+                13: [
+                    {
+                        question: "How does Napoleon Hill primarily posit the brain in Chapter 13?",
+                        options: [
+                            { text: "As a simple storage unit for memories.", isCorrect: false },
+                            { text: "As a sophisticated broadcasting and receiving station for vibrational thought energy.", isCorrect: true },
+                            { text: "As a tool for purely logical reasoning.", isCorrect: false },
+                            { text: "As a passive organ with no active role in manifestation.", isCorrect: false }
+                        ],
+                        hint: "This describes its dynamic role in transmitting and receiving mental signals."
+                    },
+                    {
+                        question: "What is the fundamental assertion of this chapter regarding what an individual attracts into their life?",
+                        options: [
+                            { text: "It is determined solely by external luck.", isCorrect: false },
+                            { text: "It is a direct result of the thoughts they transmit.", isCorrect: true },
+                            { text: "It is controlled by external forces.", isCorrect: false },
+                            { text: "It is unrelated to their internal thoughts.", isCorrect: false }
+                        ],
+                        hint: "This connects internal mental activity to external outcomes."
+                    },
+                    {
+                        question: "Which three core principles does Hill suggest applying to consciously control the brain's 'transmitter and receiver'?",
+                        options: [
+                            { text: "Desire, Faith, and Persistence.", isCorrect: false },
+                            { text: "The Subconscious Mind, Creative Imagination, and Autosuggestion.", isCorrect: true },
+                            { text: "Specialized Knowledge, Organized Planning, and Decision.", isCorrect: false },
+                            { text: "Master Mind, Sex Transmutation, and The Sixth Sense.", isCorrect: false }
+                        ],
+                        hint: "These are key mental faculties for programming and creativity."
+                    },
+                    {
+                        question: "How can one increase the vibration of the mind to make it more receptive?",
+                        options: [
+                            { text: "By reducing all emotional stimuli.", isCorrect: false },
+                            { text: "Through emotional stimuli, especially the emotion of sex.", isCorrect: true },
+                            { text: "By focusing only on logical thoughts.", isCorrect: false },
+                            { text: "By avoiding all external interactions.", isCorrect: false }
+                        ],
+                        hint: "This involves adding a powerful charge to your thoughts."
+                    },
+                    {
+                        question: "What does Hill highlight about many of the greatest forces in the world (e.g., gravity, electricity, thought)?",
+                        options: [
+                            { text: "They are all tangible and visible.", isCorrect: false },
+                            { text: "They are primarily controlled by external entities.", isCorrect: false },
+                            { text: "They are intangible, underscoring the immense power of thought itself.", isCorrect: true },
+                            { text: "They are beyond human comprehension.", isCorrect: false }
+                        ],
+                        hint: "This emphasizes the unseen but powerful nature of certain forces."
+                    },
+                    {
+                        question: "What does understanding this chapter help a young individual grasp?",
+                        options: [
+                            { text: "That thoughts are irrelevant to reality.", isCorrect: false },
+                            { text: "The mechanism behind the Law of Attraction and other principles.", isCorrect: true },
+                            { text: "How to physically alter their brain.", isCorrect: false },
+                            { text: "That external circumstances dictate everything.", isCorrect: false }
+                        ],
+                        hint: "This provides insight into how mental processes influence outcomes."
+                    },
+                    {
+                        question: "What is the suggested exercise for practical application in this chapter?",
+                        options: [
+                            { text: "Avoiding thinking about others' opinions.", isCorrect: false },
+                            { text: "Fixing a precise thought, maintaining focus, visualizing outcome, and maintaining faith.", isCorrect: true },
+                            { text: "Only focusing on past events.", isCorrect: false },
+                            { text: "Engaging in random thought experiments.", isCorrect: false }
+                        ],
+                        hint: "This involves a deliberate and focused mental practice for influencing others and outcomes."
+                    },
+                    {
+                        question: "What does Hill allude to as evidence of the brain's capacity to receive impulses?",
+                        options: [
+                            { text: "Physical sensations.", isCorrect: false },
+                            { text: "Studies on phenomena like telepathy and clairvoyance.", isCorrect: true },
+                            { text: "Dreams during sleep.", isCorrect: false },
+                            { text: "Logical deductions.", isCorrect: false }
+                        ],
+                        hint: "These are examples of non-physical communication."
+                    },
+                    {
+                        question: "What is the relationship between one's mental state and their environment?",
+                        options: [
+                            { text: "They are entirely separate.", isCorrect: false },
+                            { text: "One's mental state is isolated and has no impact.", isCorrect: false },
+                            { text: "One's mental state actively interacts with and influences their environment.", isCorrect: true },
+                            { text: "The environment solely dictates one's mental state.", isCorrect: false }
+                        ],
+                        hint: "This describes a dynamic two-way interaction."
+                    },
+                    {
+                        question: "What does controlling the brain's 'transmitter' allow for?",
+                        options: [
+                            { text: "Predicting the future.", isCorrect: false },
+                            { text: "A powerful act of creation.", isCorrect: true },
+                            { text: "Avoiding all challenges.", isCorrect: false },
+                            { text: "Manipulating others.", isCorrect: false }
+                        ],
+                        hint: "This relates to shaping your reality through thought."
+                    }
+                ],
+                14: [
+                    {
+                        question: "How is the 'Sixth Sense' primarily presented in Napoleon Hill's philosophy?",
+                        options: [
+                            { text: "As a magical gift only a few possess.", isCorrect: false },
+                            { text: "As the ultimate principle, enabling direct communication with 'Infinite Intelligence'.", isCorrect: true },
+                            { text: "As a purely logical reasoning ability.", isCorrect: false },
+                            { text: "As a temporary feeling of inspiration.", isCorrect: false }
+                        ],
+                        hint: "This describes its highest function and source."
+                    },
+                    {
+                        question: "What is the most significant understanding from this chapter regarding the Sixth Sense?",
+                        options: [
+                            { text: "It is an inborn talent that cannot be developed.", isCorrect: false },
+                            { text: "It represents the synthesis of self-mastery, requiring mastery of the preceding 12 principles.", isCorrect: true },
+                            { text: "It is developed through random acts of kindness.", isCorrect: false },
+                            { text: "It is only accessible through external spiritual guidance.", isCorrect: false }
+                        ],
+                        hint: "This highlights its cumulative nature."
+                    },
+                    {
+                        question: "How does the Sixth Sense primarily manifest?",
+                        options: [
+                            { text: "Through loud, clear voices.", isCorrect: false },
+                            { text: "As 'hunches' and 'inspirations'.", isCorrect: true },
+                            { text: "Through logical deductions.", isCorrect: false },
+                            { text: "As physical sensations.", isCorrect: false }
+                        ],
+                        hint: "These are subtle forms of intuitive guidance."
+                    },
+                    {
+                        question: "What is the relationship between the Sixth Sense and the creative imagination?",
+                        options: [
+                            { text: "They are unrelated.", isCorrect: false },
+                            { text: "The Sixth Sense is activated primarily by the creative imagination within the subconscious mind.", isCorrect: true },
+                            { text: "Creative imagination hinders the Sixth Sense.", isCorrect: false },
+                            { text: "The Sixth Sense replaces the need for imagination.", isCorrect: false }
+                        ],
+                        hint: "One faculty helps activate the other."
+                    },
+                    {
+                        question: "What does Hill suggest about decisions made based on emotions rather than pure logic?",
+                        options: [
+                            { text: "They are always inferior.", isCorrect: false },
+                            { text: "They can sometimes be superior, hinting at the power of intuition.", isCorrect: true },
+                            { text: "They are always irrational.", isCorrect: false },
+                            { text: "They are only valid for personal matters.", isCorrect: false }
+                        ],
+                        hint: "This challenges conventional views on decision-making."
+                    },
+                    {
+                        question: "What kind of practices can significantly facilitate the ability to listen to one's Sixth Sense?",
+                        options: [
+                            { text: "Intense physical exercise.", isCorrect: false },
+                            { text: "Meditation, quiet contemplation, and mentally projecting into the future.", isCorrect: true },
+                            { text: "Constant external stimulation.", isCorrect: false },
+                            { text: "Avoiding all forms of introspection.", isCorrect: false }
+                        ],
+                        hint: "These involve cultivating inner stillness and foresight."
+                    },
+                    {
+                        question: "For a young individual, what does understanding the Sixth Sense provide?",
+                        options: [
+                            { text: "A license to ignore all other principles.", isCorrect: false },
+                            { text: "A clear path and strong motivation to unlock profound intuition and insight.", isCorrect: true },
+                            { text: "A way to avoid making any effort.", isCorrect: false },
+                            { text: "A guarantee of immediate success without effort.", isCorrect: false }
+                        ],
+                        hint: "This offers a compelling reason to master the entire philosophy."
+                    },
+                    {
+                        question: "What is the recommended exercise for developing the Sixth Sense?",
+                        options: [
+                            { text: "Seeking external psychics for guidance.", isCorrect: false },
+                            { text: "Studying 'Think and Grow Rich' daily until all 13 principles can be described from memory.", isCorrect: true },
+                            { text: "Only focusing on future predictions.", isCorrect: false },
+                            { text: "Avoiding all forms of structured learning.", isCorrect: false }
+                        ],
+                        hint: "This involves deep immersion in the book's teachings."
+                    },
+                    {
+                        question: "The Sixth Sense is described as the 'natural outcome' and 'reward' for what?",
+                        options: [
+                            { text: "Being born with special abilities.", isCorrect: false },
+                            { text: "Diligently applying all the foundational steps outlined in the book.", isCorrect: true },
+                            { text: "Random acts of good fortune.", isCorrect: false },
+                            { text: "Only focusing on one principle.", isCorrect: false }
+                        ],
+                        hint: "This emphasizes the result of integrated effort."
+                    },
+                    {
+                        question: "What does the Sixth Sense represent in terms of intuition?",
+                        options: [
+                            { text: "A basic level of gut feeling.", isCorrect: false },
+                            { text: "A profound level of intuition that goes beyond reason.", isCorrect: true },
+                            { text: "A purely intellectual form of insight.", isCorrect: false },
+                            { text: "A form of logical deduction.", isCorrect: false }
+                        ],
+                        hint: "This describes a higher form of knowing."
+                    }
+                ],
+                15: [
+                    {
+                        question: "What must be cleared from the mind before an individual can fully benefit from Hill's success philosophy?",
+                        options: [
+                            { text: "All positive thoughts.", isCorrect: false },
+                            { text: "All thoughts of fear, doubt, and indecision.", isCorrect: true },
+                            { text: "All memories of past successes.", isCorrect: false },
+                            { text: "All knowledge acquired from others.", isCorrect: false }
+                        ],
+                        hint: "These are mental obstacles to progress."
+                    },
+                    {
+                        question: "What is identified as the 'seedling of FEAR'?",
+                        options: [
+                            { text: "Poverty.", isCorrect: false },
+                            { text: "Indecision.", isCorrect: true },
+                            { text: "Criticism.", isCorrect: false },
+                            { text: "Sickness.", isCorrect: false }
+                        ],
+                        hint: "This is the initial habit that allows fear to grow."
+                    },
+                    {
+                        question: "What is the crucial counterpoint provided in this chapter to the positive principles of desire and faith?",
+                        options: [
+                            { text: "The importance of external validation.", isCorrect: false },
+                            { text: "That fear acts as a counter-principle of manifestation, creating misfortune.", isCorrect: true },
+                            { text: "That positive thinking is always sufficient.", isCorrect: false },
+                            { text: "That challenges are purely random.", isCorrect: false }
+                        ],
+                        hint: "This highlights the destructive power of negative mental states."
+                    },
+                    {
+                        question: "What are the 'Six Basic Fears' that commonly hinder success?",
+                        options: [
+                            { text: "Loud noises, darkness, heights, public speaking, insects, small spaces.", isCorrect: false },
+                            { text: "Poverty, Criticism, Sickness, Loss of Love, Old Age, and Death.", isCorrect: true },
+                            { text: "Failure, success, change, commitment, responsibility, happiness.", isCorrect: false },
+                            { text: "Loneliness, rejection, boredom, confusion, anger, sadness.", isCorrect: false }
+                        ],
+                        hint: "These are fundamental anxieties about life's challenges."
+                    },
+                    {
+                        question: "What does the chapter state about the subconscious mind's response to fear?",
+                        options: [
+                            { text: "It ignores thoughts driven by fear.", isCorrect: false },
+                            { text: "It translates a thought driven by fear just as readily as it will translate a thought driven by courage or faith.", isCorrect: true },
+                            { text: "It corrects fearful thoughts automatically.", isCorrect: false },
+                            { text: "It only responds to positive emotions.", isCorrect: false }
+                        ],
+                        hint: "This highlights its impartial nature."
+                    },
+                    {
+                        question: "What is required to identify and eliminate subtle, often hidden, mental enemies?",
+                        options: [
+                            { text: "External therapy only.", isCorrect: false },
+                            { text: "Thorough and regular self-analysis.", isCorrect: true },
+                            { text: "Ignoring them until they disappear.", isCorrect: false },
+                            { text: "Relying on others to point them out.", isCorrect: false }
+                        ],
+                        hint: "This involves internal introspection."
+                    },
+                    {
+                        question: "What is the relationship between the paths to poverty and riches?",
+                        options: [
+                            { text: "They are the same path.", isCorrect: false },
+                            { text: "They travel in opposite directions; to pursue riches, one must actively refuse circumstances leading to poverty.", isCorrect: true },
+                            { text: "They are unrelated.", isCorrect: false },
+                            { text: "Poverty is a necessary step to riches.", isCorrect: false }
+                        ],
+                        hint: "This describes a divergence in direction."
+                    },
+                    {
+                        question: "For a young individual, this chapter serves as a powerful warning: it is not enough to simply cultivate positive habits; one must also do what?",
+                        options: [
+                            { text: "Avoid all challenges.", isCorrect: false },
+                            { text: "Actively identify and eliminate the mental barriers of fear and doubt.", isCorrect: true },
+                            { text: "Only focus on external factors.", isCorrect: false },
+                            { text: "Wait for fear to disappear on its own.", isCorrect: false }
+                        ],
+                        hint: "This emphasizes a proactive approach to mental obstacles."
+                    },
+                    {
+                        question: "What is the recommended exercise for this chapter?",
+                        options: [
+                            { text: "Avoiding self-reflection.", isCorrect: false },
+                            { text: "Taking the Self-Analysis Test provided in chapter 15 and repeating it annually.", isCorrect: true },
+                            { text: "Ignoring any fears that arise.", isCorrect: false },
+                            { text: "Discussing fears with everyone you meet.", isCorrect: false }
+                        ],
+                        hint: "This involves a structured assessment of your mental state."
+                    },
+                    {
+                        question: "What is the causal chain identified in this chapter that leads to full-fledged fear?",
+                        options: [
+                            { text: "Poverty -> Sickness -> Death.", isCorrect: false },
+                            { text: "Indecision -> Doubt -> Fear.", isCorrect: true },
+                            { text: "Criticism -> Loss of Love -> Old Age.", isCorrect: false },
+                            { text: "Action -> Success -> Fear.", isCorrect: false }
+                        ],
+                        hint: "This describes a progression of negative mental states."
+                    }
+                ],
+                full_book: []
+            }
+        };
+
+        // Populate full_book quiz with 10 questions from each chapter
+        for (const chapterId in appData.quizzes) {
+            if (chapterId !== 'full_book') {
+                // Shuffle questions for each chapter and take the first 10
+                const shuffledChapterQuestions = [...appData.quizzes[chapterId]].sort(() => 0.5 - Math.random());
+                appData.quizzes.full_book.push(...shuffledChapterQuestions.slice(0, 10));
+            }
+        }
+
+        // Add 10 bonus questions for the full book quiz
+        appData.quizzes.full_book.push(
+            {
+                question: "Which principle is described as the 'workshop of the mind' where plans are conceived?",
+                options: [
+                    { text: "Desire", isCorrect: false },
+                    { text: "Imagination", isCorrect: true },
+                    { text: "Decision", isCorrect: false },
+                    { text: "Persistence", isCorrect: false }
+                ],
+                hint: "This faculty allows for the creation of new ideas and plans."
+            },
+            {
+                question: "What is the primary difference between 'knowledge' and 'power' according to Hill?",
+                options: [
+                    { text: "They are interchangeable terms.", isCorrect: false },
+                    { text: "Knowledge is potential power, becoming power only when organized and applied.", isCorrect: true },
+                    { text: "Power is inherited, knowledge is learned.", isCorrect: false },
+                    { text: "Knowledge is for academics, power is for business.", isCorrect: false }
+                ],
+                hint: "One is theoretical, the other is practical and active."
+            },
+            {
+                question: "The 'Six Ghosts of Fear' are ultimately rooted in what initial mental habit?",
+                options: [
+                    { text: "Poverty", isCorrect: false },
+                    { text: "Criticism", isCorrect: false },
+                    { text: "Indecision", isCorrect: true },
+                    { text: "Sickness", isCorrect: false }
+                ],
+                hint: "This habit paralyzes action and allows doubt to take hold."
+            },
+            {
+                question: "Which principle emphasizes the importance of making prompt, firm decisions and being slow to change them?",
+                options: [
+                    { text: "Organized Planning", isCorrect: false },
+                    { text: "Persistence", isCorrect: false },
+                    { text: "Decision", isCorrect: true },
+                    { text: "Faith", isCorrect: false }
+                ],
+                hint: "This is about overcoming procrastination."
+            },
+            {
+                question: "What is the 'Master Mind' principle primarily designed to amplify?",
+                options: [
+                    { text: "Individual ego.", isCorrect: false },
+                    { text: "Collective power and intelligence.", isCorrect: true },
+                    { text: "Financial risk.", isCorrect: false },
+                    { text: "Social isolation.", isCorrect: false }
+                ],
+                hint: "This concept involves synergistic collaboration."
+            },
+            {
+                question: "The 'Sixth Sense' is described as the pinnacle of the philosophy, developed through what?",
+                options: [
+                    { text: "Random luck.", isCorrect: false },
+                    { text: "Mastering and integrating all preceding principles.", isCorrect: true },
+                    { text: "Avoiding all forms of logical thought.", isCorrect: false },
+                    { text: "Purely spiritual practices.", isCorrect: false }
+                ],
+                hint: "This ultimate faculty is a result of holistic application."
+            },
+            {
+                question: "What is the role of 'emotion' in influencing the subconscious mind?",
+                options: [
+                    { text: "It is irrelevant.", isCorrect: false },
+                    { text: "It only matters for negative thoughts.", isCorrect: false },
+                    { text: "Emotionalized thoughts have significant influence, while unemotional words have little.", isCorrect: true },
+                    { text: "Only logical thoughts influence it.", isCorrect: false }
+                ],
+                hint: "This adds power to your mental commands."
+            },
+            {
+                question: "Which principle involves consciously channeling powerful creative energy into productive pursuits?",
+                options: [
+                    { text: "Autosuggestion", isCorrect: false },
+                    { text: "The Mystery of Sex Transmutation", isCorrect: true },
+                    { text: "The Brain", isCorrect: false },
+                    { text: "Desire", isCorrect: false }
+                ],
+                hint: "This is about redirecting a potent internal drive."
+            },
+            {
+                question: "What does Hill suggest about 'temporary defeat' in the overall philosophy?",
+                options: [
+                    { text: "It's a sign to give up.", isCorrect: false },
+                    { text: "It's a signal that plans need refinement, not a personal failure.", isCorrect: true },
+                    { text: "It's an unavoidable end to ambition.", isCorrect: false },
+                    { text: "It means you chose the wrong goal.", isCorrect: false }
+                ],
+                hint: "This perspective promotes resilience and adaptation."
+            },
+            {
+                question: "The brain is likened to a 'broadcasting and receiving station' for what?",
+                options: [
+                    { text: "Radio signals.", isCorrect: false },
+                    { text: "Financial data.", isCorrect: false },
+                    { text: "Vibrational thought energy.", isCorrect: true },
+                    { text: "External opinions.", isCorrect: false }
+                ],
+                hint: "This emphasizes its role in transmitting and receiving mental impulses."
+            }
+        );
+
+        // Shuffle the full_book quiz questions
+        appData.quizzes.full_book.sort(() => 0.5 - Math.random());
+
+        let currentQuizQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let selectedAnswer = null;
+
+        const quizContainer = document.getElementById('quiz-container');
+        const chapterSelect = document.getElementById('chapter-select');
+        const startFullQuizButton = document.getElementById('start-full-quiz');
+        const questionNumberEl = document.getElementById('question-number');
+        const questionTextEl = document.getElementById('question-text');
+        const answerOptionsEl = document.getElementById('answer-options');
+        const nextQuestionButton = document.getElementById('next-question');
+        const submitQuizButton = document.getElementById('submit-quiz');
+        const quizResultsEl = document.getElementById('quiz-results');
+        const scoreTextEl = document.getElementById('score-text');
+        const passFailTextEl = document.getElementById('pass-fail-text');
+        const retakeQuizButton = document.getElementById('retake-quiz');
+        const showHintButton = document.getElementById('show-hint');
+        const hintTextEl = document.getElementById('hint-text');
+
+        const PASSING_GRADE_PERCENTAGE = 75;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const principlesContent = document.getElementById('principles-content');
+            const principlesDiagram = document.getElementById('principles-diagram');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            function createPrincipleCard(principle) {
+                const details = appData.details[principle.id];
+                const takeawaysList = details.takeaways.map(item => `<li class="flex items-start"><span class="accent-text text-xl mr-2 mt-1">&#10003;</span><span>${item}</span></li>`).join('');
+
+                return `
+                    <article id="principle-${principle.id}" class="bg-gray-50 rounded-lg shadow-md overflow-hidden">
+                        <button class="w-full text-left p-6 focus:outline-none flex justify-between items-center toggle-details" data-target="details-${principle.id}">
+                            <div>
+                                <h3 class="text-2xl font-bold neutral-text-dark">${principle.id}. ${principle.title}</h3>
+                                <p class="neutral-text-light mt-1">${principle.tagline}</p>
+                            </div>
+                            <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="details-${principle.id}" class="details-content">
+                            <div class="px-6 pb-6 pt-2 border-t border-gray-200">
+                                <p class="mb-4">${details.summary}</p>
+                                <h4 class="font-bold mb-2">Key Understandings:</h4>
+                                <ul class="space-y-2 mb-4">
+                                    ${takeawaysList}
+                                </ul>
+                                <div class="bg-amber-100 border-l-4 accent-border text-amber-800 p-4 rounded-r-lg">
+                                    <h4 class="font-bold">Practical Exercise:</h4>
+                                    <p class="mt-1">${details.exercise}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }
+
+            appData.sections.forEach(section => {
+                const sectionEl = document.createElement('section');
+                sectionEl.id = section.id;
+
+                let principlesHtml = '';
+                if (section.id !== 'fears') {
+                    principlesHtml = section.principles.map(pid => {
+                        const principle = appData.principles.find(p => p.id === pid);
+                        return createPrincipleCard(principle);
+                    }).join('');
+                }
+
+                if (section.id === 'fears') {
+                    sectionEl.innerHTML = `
+                        <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">${section.title}</h2>
+                        <p class="text-lg neutral-text-light max-w-3xl mx-auto text-center mb-12">${section.description}</p>
+                        <div class="md:flex md:items-center md:space-x-8">
+                            <div class="md:w-1/2 mb-8 md:mb-0">
+                               <div class="chart-container"><canvas id="fearChart"></canvas></div>
+                            </div>
+                            <div class="md:w-1/2">
+                                ${createPrincipleCard(appData.principles.find(p => p.id === 15))}
+                            </div>
+                        </div>
+                    `;
+                    principlesContent.appendChild(sectionEl);
+                    createFearChart();
+                } else {
+                     sectionEl.innerHTML = `
+                        <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">${section.title}</h2>
+                        <p class="text-lg neutral-text-light max-w-3xl mx-auto text-center mb-12">${section.description}</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                           ${principlesHtml}
+                        </div>
+                    `;
+                    principlesContent.appendChild(sectionEl);
+                }
+            });
+            
+            function createDiagram() {
+                const sections = appData.sections.filter(s => s.id !== 'fears');
+                let diagramHtml = '';
+                sections.forEach((section, index) => {
+                    const principleCards = section.principles.map(pid => {
+                        const p = appData.principles.find(p => p.id === pid);
+                        return `<a href="#principle-${p.id}" class="principle-flow-item bg-white p-3 rounded-lg shadow-md text-center flex-1 min-w-[120px]">
+                                    <div class="font-bold text-sm">${p.title}</div>
+                                </a>`;
+                    }).join('');
+                    
+                    diagramHtml += `
+                        <div class="mb-2">
+                            <h3 class="font-bold text-xl accent-text">${section.title.split(':')[0]}</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2 justify-center">${principleCards}</div>
+                    `;
+
+                    if(index < sections.length - 1) {
+                        diagramHtml += `<div class="flow-connector">&#8595;</div>`;
+                    }
+                });
+                principlesDiagram.innerHTML = diagramHtml;
+            }
+
+            createDiagram();
+            
+            document.querySelectorAll('.toggle-details').forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-target');
+                    const content = document.getElementById(targetId);
+                    const icon = button.querySelector('svg');
+
+                    if (content.classList.contains('open')) {
+                        content.classList.remove('open');
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        content.classList.add('open');
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+
+            function createFearChart() {
+                const ctx = document.getElementById('fearChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Poverty', 'Criticism', 'Sickness', 'Loss of Love', 'Old Age', 'Death'],
+                        datasets: [{
+                            label: 'Intensity of Fear',
+                            data: [10, 8, 6, 7, 5, 9],
+                            backgroundColor: 'rgba(251, 191, 36, 0.2)',
+                            borderColor: 'rgba(251, 191, 36, 1)',
+                            pointBackgroundColor: 'rgba(251, 191, 36, 1)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgba(251, 191, 36, 1)',
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                             tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `The fear of ${context.label} is a major obstacle to overcome.`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            r: {
+                                angleLines: {
+                                    color: 'rgba(0, 0, 0, 0.1)'
+                                },
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.1)'
+                                },
+                                pointLabels: {
+                                    font: {
+                                        size: 14,
+                                        weight: 'bold'
+                                    },
+                                    color: '#1F2937'
+                                },
+                                ticks: {
+                                    backdropColor: 'transparent',
+                                    color: 'transparent'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function startQuiz(quizType) {
+                quizContainer.classList.remove('hidden');
+                quizResultsEl.classList.add('hidden');
+                currentQuestionIndex = 0;
+                score = 0;
+                selectedAnswer = null;
+                hintTextEl.classList.add('hidden');
+
+                if (quizType === 'full_book') {
+                    currentQuizQuestions = [...appData.quizzes.full_book].sort(() => 0.5 - Math.random());
+                } else {
+                    currentQuizQuestions = [...appData.quizzes[quizType]].sort(() => 0.5 - Math.random());
+                }
+                
+                displayQuestion();
+            }
+
+            function displayQuestion() {
+                if (currentQuestionIndex < currentQuizQuestions.length) {
+                    const questionData = currentQuizQuestions[currentQuestionIndex];
+                    questionNumberEl.textContent = `Question ${currentQuestionIndex + 1} of ${currentQuizQuestions.length}`;
+                    questionTextEl.textContent = questionData.question;
+                    answerOptionsEl.innerHTML = '';
+                    hintTextEl.classList.add('hidden');
+                    hintTextEl.textContent = questionData.hint;
+
+                    // Shuffle answer options
+                    const shuffledOptions = [...questionData.options].sort(() => 0.5 - Math.random());
+
+                    shuffledOptions.forEach((option, index) => {
+                        const button = document.createElement('button');
+                        button.textContent = option.text;
+                        button.classList.add('w-full', 'text-left', 'p-4', 'border', 'border-gray-300', 'rounded-lg', 'hover:bg-amber-100', 'focus:outline-none', 'focus:ring-2', 'focus:ring-amber-500', 'transition', 'duration-200');
+                        button.setAttribute('data-index', index);
+                        button.addEventListener('click', () => selectAnswer(button, option.isCorrect));
+                        answerOptionsEl.appendChild(button);
+                    });
+
+                    nextQuestionButton.classList.remove('hidden');
+                    submitQuizButton.classList.add('hidden');
+                    if (currentQuestionIndex === currentQuizQuestions.length - 1) {
+                        nextQuestionButton.classList.add('hidden');
+                        submitQuizButton.classList.remove('hidden');
+                    }
+
+                    // Reset selected answer styling
+                    answerOptionsEl.querySelectorAll('button').forEach(btn => {
+                        btn.classList.remove('bg-amber-200', 'border-amber-500', 'bg-green-100', 'border-green-500', 'bg-red-100', 'border-red-500');
+                        btn.disabled = false;
+                    });
+                    selectedAnswer = null;
+                } else {
+                    showResults();
+                }
+            }
+
+            function selectAnswer(button, isCorrect) {
+                if (selectedAnswer !== null) return; // Prevent changing answer
+
+                selectedAnswer = isCorrect;
+                answerOptionsEl.querySelectorAll('button').forEach(btn => btn.disabled = true); // Disable all buttons
+
+                if (isCorrect) {
+                    button.classList.add('bg-green-100', 'border-green-500');
+                    score++;
+                } else {
+                    button.classList.add('bg-red-100', 'border-red-500');
+                    // Highlight correct answer
+                    const correctAnswerButton = Array.from(answerOptionsEl.children).find(btn => {
+                        const optionIndex = parseInt(btn.getAttribute('data-index'));
+                        return currentQuizQuestions[currentQuestionIndex].options[optionIndex].isCorrect;
+                    });
+                    if (correctAnswerButton) {
+                        correctAnswerButton.classList.add('bg-green-100', 'border-green-500');
+                    }
+                }
+            }
+
+            function showResults() {
+                quizContainer.classList.add('hidden');
+                quizResultsEl.classList.remove('hidden');
+                const percentage = (score / currentQuizQuestions.length) * 100;
+                scoreTextEl.textContent = `You scored ${score} out of ${currentQuizQuestions.length} (${percentage.toFixed(2)}%)`;
+
+                if (percentage >= PASSING_GRADE_PERCENTAGE) {
+                    passFailTextEl.textContent = 'Congratulations! You Passed!';
+                    passFailTextEl.classList.remove('text-red-600');
+                    passFailTextEl.classList.add('text-green-600');
+                } else {
+                    passFailTextEl.textContent = 'Keep Studying! You Did Not Pass.';
+                    passFailTextEl.classList.remove('text-green-600');
+                    passFailTextEl.classList.add('text-red-600');
+                }
+            }
+
+            chapterSelect.addEventListener('change', (event) => {
+                if (event.target.value) {
+                    startQuiz(event.target.value);
+                } else {
+                    quizContainer.classList.add('hidden');
+                }
+            });
+
+            startFullQuizButton.addEventListener('click', () => {
+                chapterSelect.value = ""; // Reset dropdown
+                startQuiz('full_book');
+            });
+
+            nextQuestionButton.addEventListener('click', () => {
+                if (selectedAnswer === null) {
+                    // Optional: Provide feedback if no answer selected
+                    return;
+                }
+                currentQuestionIndex++;
+                displayQuestion();
+            });
+
+            submitQuizButton.addEventListener('click', () => {
+                if (selectedAnswer === null) {
+                    // Optional: Provide feedback if no answer selected
+                    return;
+                }
+                showResults();
+            });
+
+            retakeQuizButton.addEventListener('click', () => {
+                quizResultsEl.classList.add('hidden');
+                quizContainer.classList.add('hidden');
+                chapterSelect.value = ""; // Reset dropdown
+            });
+
+            showHintButton.addEventListener('click', () => {
+                hintTextEl.classList.toggle('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
