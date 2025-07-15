@@ -80,6 +80,7 @@
                 <a href="#quiz-section" class="text-gray-600 hover:text-amber-500 transition">Quiz</a>
                 <a href="#affirmation-generator-section" class="text-gray-600 hover:text-amber-500 transition">Affirmation Generator</a>
                 <a href="#goal-breakdown-section" class="text-gray-600 hover:text-amber-500 transition">Goal Breakdown</a>
+                <a href="#mastermind-ideator-section" class="text-gray-600 hover:text-amber-500 transition">Master Mind Ideator</a>
             </div>
             <button id="mobile-menu-button" class="md:hidden text-gray-800 focus:outline-none">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
@@ -93,6 +94,7 @@
             <a href="#quiz-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Quiz</a>
             <a href="#affirmation-generator-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Affirmation Generator</a>
             <a href="#goal-breakdown-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Goal Breakdown</a>
+            <a href="#mastermind-ideator-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Master Mind Ideator</a>
         </div>
     </header>
 
@@ -206,6 +208,29 @@
             </div>
         </section>
 
+        <section id="mastermind-ideator-section" class="mt-20 bg-gray-50 rounded-lg shadow-lg p-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">✨ Master Mind Group Ideator</h2>
+            <p class="text-lg neutral-text-light max-w-3xl mx-auto text-center mb-8">Describe your major goal or definite chief aim, and I'll suggest ideal types of individuals, skills, and qualities for your personal Master Mind group, inspired by Napoleon Hill's principles.</p>
+
+            <div class="max-w-2xl mx-auto space-y-6">
+                <div>
+                    <label for="mastermind-goal-input" class="block text-lg font-medium text-gray-700 mb-2">My Major Goal for a Master Mind Group:</label>
+                    <textarea id="mastermind-goal-input" rows="4" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-amber-500 focus:border-amber-500" placeholder="e.g., 'Launch a successful online educational platform for aspiring artists.'"></textarea>
+                </div>
+                <button id="suggest-mastermind-button" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition flex items-center justify-center">
+                    <span id="suggest-mastermind-text">Suggest Master Mind Members ✨</span>
+                    <svg id="mastermind-loading-spinner" class="animate-spin h-5 w-5 text-white ml-3 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </button>
+                <div id="mastermind-output" class="mt-8 p-6 bg-amber-100 border-l-4 accent-border text-amber-800 rounded-r-lg hidden">
+                    <h4 class="font-bold mb-2">Suggested Master Mind Member Types:</h4>
+                    <ul id="mastermind-suggestions" class="list-disc list-inside"></ul>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <footer class="bg-gray-800 text-white mt-20">
@@ -307,7 +332,7 @@
                     exercise: "Determine the service or product you will offer. Identify someone who has succeeded similarly and learn everything you can from them, ideally seeking their mentorship."
                 },
                 6: {
-                    summary: "Imagination is the 'workshop of the mind' where plans are conceived and desires are given shape, form, and action. Hill distinguishes between 'Synthetic Imagination' (rearranging old ideas) and 'Creative Imagination' (receiving new insights).",
+                    summary: "Imagination is the 'workshop of the mind' where plans are conceived and desires are given shape, form, and action. Hill distinguishes between 'Synthetic Imagination' (rearranging old ideas) and 'Creative Imagination' (reCeiving new insights).",
                     takeaways: [
                         "Imagination is the vital conversion mechanism from abstract desire to concrete plan.",
                         "It is a practical tool for innovation and problem-solving, not just fantasy.",
@@ -2188,6 +2213,14 @@
         const breakdownSteps = document.getElementById('breakdown-steps');
         const breakdownObstacles = document.getElementById('breakdown-obstacles');
 
+        // New elements for Master Mind Group Ideator
+        const mastermindGoalInput = document.getElementById('mastermind-goal-input');
+        const suggestMastermindButton = document.getElementById('suggest-mastermind-button');
+        const suggestMastermindText = document.getElementById('suggest-mastermind-text');
+        const mastermindLoadingSpinner = document.getElementById('mastermind-loading-spinner');
+        const mastermindOutput = document.getElementById('mastermind-output');
+        const mastermindSuggestions = document.getElementById('mastermind-suggestions');
+
 
         const PASSING_GRADE_PERCENTAGE = 75;
 
@@ -2693,6 +2726,105 @@ Example JSON structure:
                     breakdownGoalText.textContent = "Break Down My Goal ✨";
                     breakdownLoadingSpinner.classList.add('hidden');
                     breakdownGoalButton.disabled = false;
+                }
+            });
+
+            // Master Mind Group Ideator Logic
+            suggestMastermindButton.addEventListener('click', async () => {
+                const userMastermindGoal = mastermindGoalInput.value.trim();
+
+                if (!userMastermindGoal) {
+                    mastermindOutput.classList.remove('hidden', 'bg-amber-100', 'text-amber-800');
+                    mastermindOutput.classList.add('bg-red-100', 'text-red-800');
+                    mastermindSuggestions.innerHTML = '';
+                    mastermindOutput.querySelector('h4').textContent = "Error:";
+                    mastermindOutput.querySelector('ul').innerHTML = '<li>Please enter your major goal for the Master Mind Group to get suggestions.</li>';
+                    return;
+                }
+
+                // Show loading state
+                suggestMastermindText.textContent = "Suggesting...";
+                mastermindLoadingSpinner.classList.remove('hidden');
+                suggestMastermindButton.disabled = true;
+                mastermindOutput.classList.add('hidden'); // Hide previous output
+
+                try {
+                    const prompt = `As a 'Think and Grow Rich' expert, your task is to suggest ideal types of individuals, skills, and qualities for a Master Mind group based on the user's major goal. Emphasize diversity of thought and complementary skills, aligning with Napoleon Hill's Master Mind principle (Chapter 10).
+
+The user's major goal for a Master Mind Group is: "${userMastermindGoal}".
+
+Provide your response in JSON format with one key: 'suggestions' (an array of 5-7 concise strings, each describing a type of member or skill needed).
+
+Example JSON structure:
+{
+  "suggestions": ["A financial expert", "A marketing strategist", "A creative visionary"]
+}`;
+
+                    let chatHistory = [];
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = {
+                        contents: chatHistory,
+                        generationConfig: {
+                            responseMimeType: "application/json",
+                            responseSchema: {
+                                type: "OBJECT",
+                                properties: {
+                                    "suggestions": {
+                                        type: "ARRAY",
+                                        items: { "type": "STRING" }
+                                    }
+                                },
+                                "propertyOrdering": ["suggestions"]
+                            }
+                        }
+                    };
+                    const apiKey = ""; // Canvas will provide this in runtime
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const jsonString = result.candidates[0].content.parts[0].text;
+                        const parsedJson = JSON.parse(jsonString);
+
+                        mastermindSuggestions.innerHTML = '';
+                        parsedJson.suggestions.forEach(suggestion => {
+                            const li = document.createElement('li');
+                            li.textContent = suggestion;
+                            mastermindSuggestions.appendChild(li);
+                        });
+                        
+                        mastermindOutput.classList.remove('hidden', 'bg-red-100', 'text-red-800');
+                        mastermindOutput.classList.add('bg-amber-100', 'text-amber-800');
+                        mastermindOutput.querySelector('h4').textContent = "Suggested Master Mind Member Types:"; // Reset title
+
+                    } else {
+                        mastermindOutput.classList.remove('hidden', 'bg-amber-100', 'text-amber-800');
+                        mastermindOutput.classList.add('bg-red-100', 'text-red-800');
+                        mastermindSuggestions.innerHTML = '';
+                        mastermindOutput.querySelector('h4').textContent = "Error:";
+                        mastermindOutput.querySelector('ul').innerHTML = '<li>Could not suggest Master Mind members. Please try again.</li>';
+                    }
+                } catch (error) {
+                    console.error("Error suggesting Master Mind members:", error);
+                    mastermindOutput.classList.remove('hidden', 'bg-amber-100', 'text-amber-800');
+                    mastermindOutput.classList.add('bg-red-100', 'text-red-800');
+                    mastermindSuggestions.innerHTML = '';
+                    mastermindOutput.querySelector('h4').textContent = "Error:";
+                    mastermindOutput.querySelector('ul').innerHTML = '<li>An error occurred while suggesting Master Mind members. Please try again later.</li>';
+                } finally {
+                    // Hide loading state
+                    suggestMastermindText.textContent = "Suggest Master Mind Members ✨";
+                    mastermindLoadingSpinner.classList.add('hidden');
+                    suggestMastermindButton.disabled = false;
                 }
             });
         });
