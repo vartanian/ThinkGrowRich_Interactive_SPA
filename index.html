@@ -111,9 +111,9 @@
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="break-inside-avoid-column md:break-inside-auto ...">
                 <h1 class="text-xl md:text-2xl font-bold text-gray-800">Think & Grow Rich</h1>
-                <h2 class="break-after-column md:break-after-auto font-bold text-gray-800">- Napoleon Hill </h2>
-            </div>  
-            <div class="hidden md:flex space-x-8">
+                <h2 class="break-after-column md:break-after-auto font-bold text-gray-800">- Napoleon Hill 
+                </h2>
+            </div>              <div class="hidden md:flex space-x-8">
                 <a href="#foundation" class="text-gray-600 hover:text-amber-500 transition">The Foundation</a>
                 <a href="#blueprint" class="text-gray-600 hover:text-amber-500 transition">The Blueprint</a>
                 <a href="#mastery" class="text-gray-600 hover:text-amber-500 transition">The Mastery</a>
@@ -134,6 +134,7 @@
                         <a href="#visualization-prompt-section">Visualization Prompt</a>
                         <a href="#subconscious-programmer-section">Subconscious Programmer</a>
                         <a href="#sixth-sense-prompt-section">Sixth Sense Intuition</a>
+                        <a href="#fear-analysis-section">Fear Analysis</a>
                     </div>
                 </div>
             </div>
@@ -157,6 +158,7 @@
             <a href="#visualization-prompt-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Visualization Prompt</a>
             <a href="#subconscious-programmer-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Subconscious Programmer</a>
             <a href="#sixth-sense-prompt-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Sixth Sense Intuition</a>
+            <a href="#fear-analysis-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Fear Analysis</a>
         </div>
     </header>
 
@@ -450,6 +452,29 @@
                 <div id="sixth-sense-output" class="mt-8 p-6 bg-amber-100 border-l-4 accent-border text-amber-800 rounded-r-lg hidden">
                     <h4 class="font-bold mb-2">Your Intuition Prompt:</h4>
                     <p id="generated-sixth-sense-text" class="italic"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="fear-analysis-section" class="mt-20 bg-gray-50 rounded-lg shadow-lg p-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">✨ Fear Analysis & Counter-Suggestion</h2>
+            <p class="text-lg neutral-text-light max-w-3xl mx-auto text-center mb-8">Describe a specific fear or anxiety you're experiencing, and I'll help you identify its root and provide a powerful counter-suggestion, inspired by Napoleon Hill's 'How to Outwit the Six Ghosts of Fear'.</p>
+
+            <div class="max-w-2xl mx-auto space-y-6">
+                <div>
+                    <label for="fear-input" class="block text-lg font-medium text-gray-700 mb-2">My Fear / Anxiety:</label>
+                    <textarea id="fear-input" rows="4" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-amber-500 focus:border-amber-500" placeholder="e.g., 'I'm afraid of losing my job and not being able to provide for my family.' or 'I fear public speaking and avoid presentations.'"></textarea>
+                </div>
+                <button id="analyze-fear-button" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition flex items-center justify-center">
+                    <span id="analyze-fear-text">Analyze My Fear ✨</span>
+                    <svg id="fear-analysis-loading-spinner" class="animate-spin h-5 w-5 text-white ml-3 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </button>
+                <div id="fear-analysis-output" class="mt-8 p-6 bg-amber-100 border-l-4 accent-border text-amber-800 rounded-r-lg hidden">
+                    <h4 class="font-bold mb-2">Identified Fear: <span id="identified-fear-type" class="text-amber-900"></span></h4>
+                    <p id="fear-counter-suggestion" class="italic mt-2"></p>
                 </div>
             </div>
         </section>
@@ -2500,6 +2525,15 @@
         const sixthSenseOutput = document.getElementById('sixth-sense-output');
         const generatedSixthSenseText = document.getElementById('generated-sixth-sense-text');
 
+        // New elements for Fear Analysis & Counter-Suggestion
+        const fearInput = document.getElementById('fear-input');
+        const analyzeFearButton = document.getElementById('analyze-fear-button');
+        const analyzeFearText = document.getElementById('analyze-fear-text');
+        const fearAnalysisLoadingSpinner = document.getElementById('fear-analysis-loading-spinner');
+        const fearAnalysisOutput = document.getElementById('fear-analysis-output');
+        const identifiedFearType = document.getElementById('identified-fear-type');
+        const fearCounterSuggestion = document.getElementById('fear-counter-suggestion');
+
 
         const PASSING_GRADE_PERCENTAGE = 75;
 
@@ -2516,7 +2550,7 @@
                 element.classList.add('bg-amber-100', 'text-amber-800');
             }
             // Assuming the message is for a <p> tag inside the output div
-            const textElement = element.querySelector('p') || element.querySelector('ul');
+            const textElement = element.querySelector('p') || element.querySelector('ul') || element.querySelector('span');
             if (textElement) {
                 if (typeof message === 'string') {
                     textElement.textContent = message;
@@ -3578,6 +3612,93 @@ Example JSON structure:
                     generateSixthSensePromptText.textContent = "Generate Intuition Prompt ✨";
                     sixthSenseLoadingSpinner.classList.add('hidden');
                     generateSixthSensePromptButton.disabled = false;
+                }
+            });
+
+            // Fear Analysis & Counter-Suggestion Logic
+            analyzeFearButton.addEventListener('click', async () => {
+                const userFear = fearInput.value.trim();
+
+                if (!userFear) {
+                    identifiedFearType.textContent = '';
+                    fearCounterSuggestion.textContent = '';
+                    fearAnalysisOutput.querySelector('h4').textContent = "Error:";
+                    displayOutput(fearAnalysisOutput, "Please describe your fear or anxiety to get an analysis.", true);
+                    return;
+                }
+
+                // Show loading state
+                analyzeFearText.textContent = "Analyzing...";
+                fearAnalysisLoadingSpinner.classList.remove('hidden');
+                analyzeFearButton.disabled = true;
+                fearAnalysisOutput.classList.add('hidden'); // Hide previous output
+
+                try {
+                    const prompt = `The user is describing a fear: "${userFear}".
+                    Based on Napoleon Hill's "Think and Grow Rich" (Chapter 15: How to Outwit the Six Ghosts of Fear), identify which of the "Six Basic Fears" (Poverty, Criticism, Sickness, Loss of Love, Old Age, Death) this fear most closely aligns with. Then, provide a concise counter-suggestion or affirmation (1-2 sentences) specifically designed to combat that identified fear, drawing from Hill's principles.
+
+Provide your response in JSON format with two keys: 'identified_fear' (string, one of the six basic fears) and 'counter_suggestion' (string).
+
+Example JSON structure:
+{
+  "identified_fear": "Fear of Poverty",
+  "counter_suggestion": "I am financially abundant and attract wealth effortlessly through my definite chief aim."
+}`;
+
+                    let chatHistory = [];
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = {
+                        contents: chatHistory,
+                        generationConfig: {
+                            responseMimeType: "application/json",
+                            responseSchema: {
+                                type: "OBJECT",
+                                properties: {
+                                    "identified_fear": { "type": "STRING" },
+                                    "counter_suggestion": { "type": "STRING" }
+                                },
+                                "propertyOrdering": ["identified_fear", "counter_suggestion"]
+                            }
+                        }
+                    };
+                    
+                    const response = await fetch(geminiApiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const jsonString = result.candidates[0].content.parts[0].text;
+                        const parsedJson = JSON.parse(jsonString);
+
+                        identifiedFearType.textContent = parsedJson.identified_fear;
+                        fearCounterSuggestion.textContent = parsedJson.counter_suggestion;
+                        
+                        fearAnalysisOutput.classList.remove('hidden', 'bg-red-100', 'text-red-800');
+                        fearAnalysisOutput.classList.add('bg-amber-100', 'text-amber-800');
+                        fearAnalysisOutput.querySelector('h4').textContent = "Identified Fear: "; // Reset title
+
+                    } else {
+                        identifiedFearType.textContent = '';
+                        fearCounterSuggestion.textContent = '';
+                        fearAnalysisOutput.querySelector('h4').textContent = "Error:";
+                        displayOutput(fearAnalysisOutput, "Could not analyze fear. Please try again.", true);
+                    }
+                } catch (error) {
+                    console.error("Error analyzing fear:", error);
+                    identifiedFearType.textContent = '';
+                    fearCounterSuggestion.textContent = '';
+                    fearAnalysisOutput.querySelector('h4').textContent = "Error:";
+                    displayOutput(fearAnalysisOutput, "An error occurred while analyzing the fear. Please try again later.", true);
+                } finally {
+                    analyzeFearText.textContent = "Analyze My Fear ✨";
+                    fearAnalysisLoadingSpinner.classList.add('hidden');
+                    analyzeFearButton.disabled = false;
                 }
             });
         });
