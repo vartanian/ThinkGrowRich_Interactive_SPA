@@ -112,7 +112,7 @@
             <div class="break-inside-avoid-column md:break-inside-auto ...">
                 <h1 class="text-xl md:text-2xl font-bold text-gray-800">Think & Grow Rich</h1>
                 <h2 class="break-after-column md:break-after-auto font-bold text-gray-800">- Napoleon Hill 
-                </h2>
+            </h2>
             </div>              <div class="hidden md:flex space-x-8">
                 <a href="#foundation" class="text-gray-600 hover:text-amber-500 transition">The Foundation</a>
                 <a href="#blueprint" class="text-gray-600 hover:text-amber-500 transition">The Blueprint</a>
@@ -135,6 +135,8 @@
                         <a href="#subconscious-programmer-section">Subconscious Programmer</a>
                         <a href="#sixth-sense-prompt-section">Sixth Sense Intuition</a>
                         <a href="#fear-analysis-section">Fear Analysis</a>
+                        <a href="#decision-clarity-section">Decision Clarity</a>
+                        <a href="#idea-elaborator-section">Idea Elaborator</a>
                     </div>
                 </div>
             </div>
@@ -159,6 +161,8 @@
             <a href="#subconscious-programmer-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Subconscious Programmer</a>
             <a href="#sixth-sense-prompt-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Sixth Sense Intuition</a>
             <a href="#fear-analysis-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Fear Analysis</a>
+            <a href="#decision-clarity-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Decision Clarity</a>
+            <a href="#idea-elaborator-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Idea Elaborator</a>
         </div>
     </header>
 
@@ -475,6 +479,67 @@
                 <div id="fear-analysis-output" class="mt-8 p-6 bg-amber-100 border-l-4 accent-border text-amber-800 rounded-r-lg hidden">
                     <h4 class="font-bold mb-2">Identified Fear: <span id="identified-fear-type" class="text-amber-900"></span></h4>
                     <p id="fear-counter-suggestion" class="italic mt-2"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="decision-clarity-section" class="mt-20 bg-gray-50 rounded-lg shadow-lg p-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">✨ Decision Clarity Assistant</h2>
+            <p class="text-lg neutral-text-light max-w-3xl mx-auto text-center mb-8">Describe a complex decision you're facing, and I'll help you analyze it by outlining potential pros and cons, assessing its alignment with your definite chief aim, and suggesting a clear path forward, inspired by Napoleon Hill's principle of Decision.</p>
+
+            <div class="max-w-2xl mx-auto space-y-6">
+                <div>
+                    <label for="decision-input" class="block text-lg font-medium text-gray-700 mb-2">My Decision:</label>
+                    <textarea id="decision-input" rows="4" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-amber-500 focus:border-amber-500" placeholder="e.g., 'Should I leave my stable job to start a new business?' or 'Which university program should I choose?'"></textarea>
+                </div>
+                <div>
+                    <label for="definite-aim-for-decision" class="block text-lg font-medium text-gray-700 mb-2">My Definite Chief Aim (Optional, for better alignment analysis):</label>
+                    <input type="text" id="definite-aim-for-decision" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-amber-500 focus:border-amber-500" placeholder="e.g., 'To achieve financial freedom through innovation.'">
+                </div>
+                <button id="analyze-decision-button" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition flex items-center justify-center">
+                    <span id="analyze-decision-text">Analyze Decision ✨</span>
+                    <svg id="decision-loading-spinner" class="animate-spin h-5 w-5 text-white ml-3 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </button>
+                <div id="decision-output" class="mt-8 p-6 bg-amber-100 border-l-4 accent-border text-amber-800 rounded-r-lg hidden">
+                    <h4 class="font-bold mb-2">Decision Analysis:</h4>
+                    <h5 class="font-semibold mt-4 mb-2">Pros:</h5>
+                    <ul id="decision-pros" class="list-disc list-inside mb-4"></ul>
+                    <h5 class="font-semibold mb-2">Cons:</h5>
+                    <ul id="decision-cons" class="list-disc list-inside mb-4"></ul>
+                    <h5 class="font-semibold mb-2">Alignment with Definite Chief Aim:</h5>
+                    <p id="decision-alignment" class="italic mb-4"></p>
+                    <h5 class="font-semibold mb-2">Recommended Path Forward:</h5>
+                    <p id="decision-recommendation" class="italic"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="idea-elaborator-section" class="mt-20 bg-gray-50 rounded-lg shadow-lg p-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">✨ Idea Elaborator</h2>
+            <p class="text-lg neutral-text-light max-w-3xl mx-auto text-center mb-8">Input a nascent idea, and I'll expand upon it, suggesting detailed elaborations, potential applications, and initial steps for development, drawing from Napoleon Hill's principle of Imagination.</p>
+
+            <div class="max-w-2xl mx-auto space-y-6">
+                <div>
+                    <label for="idea-input" class="block text-lg font-medium text-gray-700 mb-2">My Nascent Idea:</label>
+                    <textarea id="idea-input" rows="4" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-amber-500 focus:border-amber-500" placeholder="e.g., 'A smart garden system.' or 'A new way to teach math.'"></textarea>
+                </div>
+                <button id="elaborate-idea-button" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition flex items-center justify-center">
+                    <span id="elaborate-idea-text">Elaborate Idea ✨</span>
+                    <svg id="idea-loading-spinner" class="animate-spin h-5 w-5 text-white ml-3 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </button>
+                <div id="idea-output" class="mt-8 p-6 bg-amber-100 border-l-4 accent-border text-amber-800 rounded-r-lg hidden">
+                    <h4 class="font-bold mb-2">Idea Elaboration:</h4>
+                    <p id="generated-elaboration-text" class="italic mb-4"></p>
+                    <h5 class="font-semibold mt-4 mb-2">Potential Applications:</h5>
+                    <ul id="idea-applications" class="list-disc list-inside mb-4"></ul>
+                    <h5 class="font-semibold mb-2">Next Steps for Development:</h5>
+                    <ul id="idea-next-steps" class="list-disc list-inside"></ul>
                 </div>
             </div>
         </section>
@@ -1654,7 +1719,7 @@
                         question: "What is Hill's famous quote related to persistence?",
                         options: [
                             { text: "'Where there's a will, there's a way.'", isCorrect: false },
-                            { text: "'A quitter never wins – and a winner never quits.'", isCorrect: true },
+                            { text: "A quitter never wins – and a winner never quits.'", isCorrect: true },
                             { text: "'The journey of a thousand miles begins with a single step.'", isCorrect: false },
                             { text: "'Success is not final, failure is not fatal: it is the courage to continue that counts.'", isCorrect: false }
                         ],
@@ -2533,6 +2598,28 @@
         const fearAnalysisOutput = document.getElementById('fear-analysis-output');
         const identifiedFearType = document.getElementById('identified-fear-type');
         const fearCounterSuggestion = document.getElementById('fear-counter-suggestion');
+
+        // New elements for Decision Clarity Assistant
+        const decisionInput = document.getElementById('decision-input');
+        const definiteAimForDecision = document.getElementById('definite-aim-for-decision');
+        const analyzeDecisionButton = document.getElementById('analyze-decision-button');
+        const analyzeDecisionText = document.getElementById('analyze-decision-text');
+        const decisionLoadingSpinner = document.getElementById('decision-loading-spinner');
+        const decisionOutput = document.getElementById('decision-output');
+        const decisionPros = document.getElementById('decision-pros');
+        const decisionCons = document.getElementById('decision-cons');
+        const decisionAlignment = document.getElementById('decision-alignment');
+        const decisionRecommendation = document.getElementById('decision-recommendation');
+
+        // New elements for Idea Elaborator
+        const ideaInput = document.getElementById('idea-input');
+        const elaborateIdeaButton = document.getElementById('elaborate-idea-button');
+        const elaborateIdeaText = document.getElementById('elaborate-idea-text');
+        const ideaLoadingSpinner = document.getElementById('idea-loading-spinner');
+        const ideaOutput = document.getElementById('idea-output');
+        const generatedElaborationText = document.getElementById('generated-elaboration-text');
+        const ideaApplications = document.getElementById('idea-applications');
+        const ideaNextSteps = document.getElementById('idea-next-steps');
 
 
         const PASSING_GRADE_PERCENTAGE = 75;
@@ -3701,7 +3788,33 @@ Example JSON structure:
                     analyzeFearButton.disabled = false;
                 }
             });
-        });
-    </script>
-</body>
-</html>
+
+            // Decision Clarity Assistant Logic
+            analyzeDecisionButton.addEventListener('click', async () => {
+                const userDecision = decisionInput.value.trim();
+                const userDefiniteAim = definiteAimForDecision.value.trim();
+
+                if (!userDecision) {
+                    decisionPros.innerHTML = '';
+                    decisionCons.innerHTML = '';
+                    decisionAlignment.textContent = '';
+                    decisionRecommendation.textContent = '';
+                    decisionOutput.querySelector('h4').textContent = "Error:";
+                    displayOutput(decisionOutput, ['Please describe the decision you are facing.'], true);
+                    return;
+                }
+
+                // Show loading state
+                analyzeDecisionText.textContent = "Analyzing...";
+                decisionLoadingSpinner.classList.remove('hidden');
+                analyzeDecisionButton.disabled = true;
+                decisionOutput.classList.add('hidden'); // Hide previous output
+
+                try {
+                    let prompt = `As a 'Think and Grow Rich' expert, analyze the following decision from the perspective of Napoleon Hill's 'Decision' principle. Outline potential pros and cons, how it aligns or conflicts with a definite chief aim, and suggest a clear path forward.
+
+User decision: "${userDecision}"`;
+
+                    if (userDefiniteAim) {
+                        prompt += `\nUser's Definite Chief Aim: "${userDefiniteAim}"`;
+                    } e
