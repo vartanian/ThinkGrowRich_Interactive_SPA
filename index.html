@@ -111,9 +111,9 @@
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="break-inside-avoid-column md:break-inside-auto ...">
                 <h1 class="text-xl md:text-2xl font-bold text-gray-800">Think & Grow Rich</h1>
-                <h2 class="break-after-column md:break-after-auto font-bold text-gray-800">- Napoleon Hill 
-                </h2>
-            </div>              <div class="hidden md:flex space-x-8">
+                <h2 class="break-after-column md:break-after-auto font-bold text-gray-800">- Napoleon Hill </h2>
+            </div>  
+            <div class="hidden md:flex space-x-8">
                 <a href="#foundation" class="text-gray-600 hover:text-amber-500 transition">The Foundation</a>
                 <a href="#blueprint" class="text-gray-600 hover:text-amber-500 transition">The Blueprint</a>
                 <a href="#mastery" class="text-gray-600 hover:text-amber-500 transition">The Mastery</a>
@@ -131,6 +131,9 @@
                         <a href="#obstacle-overcomer-section">Obstacle Overcomer</a>
                         <a href="#persistence-booster-section">Persistence Booster</a>
                         <a href="#knowledge-navigator-section">Specialized Knowledge</a>
+                        <a href="#visualization-prompt-section">Visualization Prompt</a>
+                        <a href="#subconscious-programmer-section">Subconscious Programmer</a>
+                        <a href="#sixth-sense-prompt-section">Sixth Sense Intuition</a>
                     </div>
                 </div>
             </div>
@@ -151,6 +154,9 @@
             <a href="#obstacle-overcomer-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Obstacle Overcomer</a>
             <a href="#persistence-booster-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Persistence Booster</a>
             <a href="#knowledge-navigator-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Specialized Knowledge</a>
+            <a href="#visualization-prompt-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Visualization Prompt</a>
+            <a href="#subconscious-programmer-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Subconscious Programmer</a>
+            <a href="#sixth-sense-prompt-section" class="block py-2 text-gray-600 hover:text-amber-500 transition">Sixth Sense Intuition</a>
         </div>
     </header>
 
@@ -375,6 +381,75 @@
                 <div id="knowledge-output" class="mt-8 p-6 bg-amber-100 border-l-4 accent-border text-amber-800 rounded-r-lg hidden">
                     <h4 class="font-bold mb-2">Suggested Specialized Knowledge Areas:</h4>
                     <ul id="knowledge-areas-list" class="list-disc list-inside"></ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="visualization-prompt-section" class="mt-20 bg-gray-50 rounded-lg shadow-lg p-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">✨ Visualization Prompt Generator</h2>
+            <p class="text-lg neutral-text-light max-w-3xl mx-auto text-center mb-8">Enter your definite chief aim or a goal, and I'll generate a vivid description to help you with your daily visualization practice, inspired by the principle of Imagination.</p>
+
+            <div class="max-w-2xl mx-auto space-y-6">
+                <div>
+                    <label for="visualization-goal-input" class="block text-lg font-medium text-gray-700 mb-2">My Definite Chief Aim / Goal for Visualization:</label>
+                    <textarea id="visualization-goal-input" rows="4" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-amber-500 focus:border-amber-500" placeholder="e.g., 'I want to see myself successfully launching my new startup and celebrating with my team.'"></textarea>
+                </div>
+                <button id="generate-visualization-button" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition flex items-center justify-center">
+                    <span id="generate-visualization-text">Generate Visualization Prompt ✨</span>
+                    <svg id="visualization-loading-spinner" class="animate-spin h-5 w-5 text-white ml-3 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </button>
+                <div id="visualization-output" class="mt-8 p-6 bg-amber-100 border-l-4 accent-border text-amber-800 rounded-r-lg hidden">
+                    <h4 class="font-bold mb-2">Your Visualization Prompt:</h4>
+                    <p id="generated-visualization-text" class="italic"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="subconscious-programmer-section" class="mt-20 bg-gray-50 rounded-lg shadow-lg p-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">✨ Subconscious Mind Programmer</h2>
+            <p class="text-lg neutral-text-light max-w-3xl mx-auto text-center mb-8">Enter a specific belief or goal you want to impress upon your subconscious mind, and I'll generate a script for daily repetition, inspired by Auto-Suggestion and The Sub-Conscious Mind principles.</p>
+
+            <div class="max-w-2xl mx-auto space-y-6">
+                <div>
+                    <label for="subconscious-input" class="block text-lg font-medium text-gray-700 mb-2">Belief or Goal for Subconscious Programming:</label>
+                    <textarea id="subconscious-input" rows="4" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-amber-500 focus:border-amber-500" placeholder="e.g., 'I am financially abundant and attract wealth effortlessly.' or 'I am confident and articulate in all my communications.'"></textarea>
+                </div>
+                <button id="generate-subconscious-script-button" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition flex items-center justify-center">
+                    <span id="generate-subconscious-script-text">Generate Subconscious Script ✨</span>
+                    <svg id="subconscious-loading-spinner" class="animate-spin h-5 w-5 text-white ml-3 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </button>
+                <div id="subconscious-output" class="mt-8 p-6 bg-amber-100 border-l-4 accent-border text-amber-800 rounded-r-lg hidden">
+                    <h4 class="font-bold mb-2">Your Subconscious Script:</h4>
+                    <p id="generated-subconscious-text" class="italic"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="sixth-sense-prompt-section" class="mt-20 bg-gray-50 rounded-lg shadow-lg p-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">✨ Sixth Sense Intuition Prompt</h2>
+            <p class="text-lg neutral-text-light max-w-3xl mx-auto text-center mb-8">Describe a challenge or decision you're facing, and I'll provide a prompt designed to help you tap into your intuition and 'Sixth Sense' for deeper insights.</p>
+
+            <div class="max-w-2xl mx-auto space-y-6">
+                <div>
+                    <label for="sixth-sense-challenge-input" class="block text-lg font-medium text-gray-700 mb-2">My Challenge / Decision:</label>
+                    <textarea id="sixth-sense-challenge-input" rows="4" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-amber-500 focus:border-amber-500" placeholder="e.g., 'I need to decide whether to take a new job offer or continue with my current role.' or 'I'm stuck on a creative problem for my project.'"></textarea>
+                </div>
+                <button id="generate-sixth-sense-prompt-button" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition flex items-center justify-center">
+                    <span id="generate-sixth-sense-prompt-text">Generate Intuition Prompt ✨</span>
+                    <svg id="sixth-sense-loading-spinner" class="animate-spin h-5 w-5 text-white ml-3 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </button>
+                <div id="sixth-sense-output" class="mt-8 p-6 bg-amber-100 border-l-4 accent-border text-amber-800 rounded-r-lg hidden">
+                    <h4 class="font-bold mb-2">Your Intuition Prompt:</h4>
+                    <p id="generated-sixth-sense-text" class="italic"></p>
                 </div>
             </div>
         </section>
@@ -1237,8 +1312,8 @@
                     {
                         question: "What is the relationship between an 'idea' and 'imagination'?",
                         options: [
-                            { text: "Ideas are separate from imagination.", isCorrect: false },
                             { text: "All fortunes begin as an idea, which is a direct product of the imagination.", isCorrect: true },
+                            { text: "Ideas are separate from imagination.", isCorrect: false },
                             { text: "Imagination is only for fantasy, not practical ideas.", isCorrect: false },
                             { text: "Ideas are only generated through logical reasoning.", isCorrect: false }
                         ],
@@ -2291,11 +2366,11 @@
             {
                 question: "Which principle involves consciously channeling powerful creative energy into productive pursuits?",
                 options: [
-                    { text: "Autosuggestion", isCorrect: false },
-                    { text: "The Mystery of Sex Transmutation", isCorrect: true },
-                    { text: "The Brain", isCorrect: false },
-                    { text: "Desire", isCorrect: false }
-                ],
+                            { text: "Autosuggestion", isCorrect: false },
+                            { text: "The Mystery of Sex Transmutation", isCorrect: true },
+                            { text: "The Brain", isCorrect: false },
+                            { text: "Desire", isCorrect: false }
+                        ],
                 hint: "This is about redirecting a potent internal drive."
             },
             {
@@ -2400,6 +2475,30 @@
         const knowledgeLoadingSpinner = document.getElementById('knowledge-loading-spinner');
         const knowledgeOutput = document.getElementById('knowledge-output');
         const knowledgeAreasList = document.getElementById('knowledge-areas-list');
+
+        // New elements for Visualization Prompt Generator
+        const visualizationGoalInput = document.getElementById('visualization-goal-input');
+        const generateVisualizationButton = document.getElementById('generate-visualization-button');
+        const generateVisualizationText = document.getElementById('generate-visualization-text');
+        const visualizationLoadingSpinner = document.getElementById('visualization-loading-spinner');
+        const visualizationOutput = document.getElementById('visualization-output');
+        const generatedVisualizationText = document.getElementById('generated-visualization-text');
+
+        // New elements for Subconscious Mind Programmer
+        const subconsciousInput = document.getElementById('subconscious-input');
+        const generateSubconsciousScriptButton = document.getElementById('generate-subconscious-script-button');
+        const generateSubconsciousScriptText = document.getElementById('generate-subconscious-script-text');
+        const subconsciousLoadingSpinner = document.getElementById('subconscious-loading-spinner');
+        const subconsciousOutput = document.getElementById('subconscious-output');
+        const generatedSubconsciousText = document.getElementById('generated-subconscious-text');
+
+        // New elements for Sixth Sense Intuition Prompt
+        const sixthSenseChallengeInput = document.getElementById('sixth-sense-challenge-input');
+        const generateSixthSensePromptButton = document.getElementById('generate-sixth-sense-prompt-button');
+        const generateSixthSensePromptText = document.getElementById('generate-sixth-sense-prompt-text');
+        const sixthSenseLoadingSpinner = document.getElementById('sixth-sense-loading-spinner');
+        const sixthSenseOutput = document.getElementById('sixth-sense-output');
+        const generatedSixthSenseText = document.getElementById('generated-sixth-sense-text');
 
 
         const PASSING_GRADE_PERCENTAGE = 75;
@@ -3329,6 +3428,156 @@ Example JSON structure:
                     suggestKnowledgeText.textContent = "Suggest Knowledge Areas ✨";
                     knowledgeLoadingSpinner.classList.add('hidden');
                     suggestKnowledgeButton.disabled = false;
+                }
+            });
+
+            // Visualization Prompt Generator Logic
+            generateVisualizationButton.addEventListener('click', async () => {
+                const visualizationGoal = visualizationGoalInput.value.trim();
+
+                if (!visualizationGoal) {
+                    displayOutput(visualizationOutput, "Please enter your goal for visualization to generate a prompt.", true);
+                    generatedVisualizationText.innerHTML = "Please enter your goal for visualization to generate a prompt.";
+                    return;
+                }
+
+                // Show loading state
+                generateVisualizationText.textContent = "Generating...";
+                visualizationLoadingSpinner.classList.remove('hidden');
+                generateVisualizationButton.disabled = true;
+                visualizationOutput.classList.add('hidden'); // Hide previous output
+
+                try {
+                    const prompt = `Based on Napoleon Hill's "Think and Grow Rich" principles, especially Imagination (Chapter 6) and Auto-Suggestion (Chapter 4), generate a detailed, vivid, and emotionally rich visualization prompt (2-3 paragraphs) for the following goal: "${visualizationGoal}". The prompt should encourage the user to see, hear, feel, and experience the attainment of their goal as if it's already a reality.`;
+
+                    let chatHistory = [];
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    
+                    const response = await fetch(geminiApiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        generatedVisualizationText.textContent = text;
+                        displayOutput(visualizationOutput, text);
+                    } else {
+                        displayOutput(visualizationOutput, "Could not generate visualization prompt. Please try again.", true);
+                    }
+                } catch (error) {
+                    console.error("Error generating visualization prompt:", error);
+                    displayOutput(visualizationOutput, "An error occurred while generating the visualization prompt. Please try again later.", true);
+                } finally {
+                    generateVisualizationText.textContent = "Generate Visualization Prompt ✨";
+                    visualizationLoadingSpinner.classList.add('hidden');
+                    generateVisualizationButton.disabled = false;
+                }
+            });
+
+            // Subconscious Mind Programmer Logic
+            generateSubconsciousScriptButton.addEventListener('click', async () => {
+                const subconsciousGoal = subconsciousInput.value.trim();
+
+                if (!subconsciousGoal) {
+                    displayOutput(subconsciousOutput, "Please enter a belief or goal to generate a subconscious script.", true);
+                    generatedSubconsciousText.innerHTML = "Please enter a belief or goal to generate a subconscious script.";
+                    return;
+                }
+
+                // Show loading state
+                generateSubconsciousScriptText.textContent = "Generating...";
+                subconsciousLoadingSpinner.classList.remove('hidden');
+                generateSubconsciousScriptButton.disabled = true;
+                subconsciousOutput.classList.add('hidden'); // Hide previous output
+
+                try {
+                    const prompt = `Based on Napoleon Hill's "Think and Grow Rich" principles, especially Auto-Suggestion (Chapter 4) and The Sub-Conscious Mind (Chapter 12), generate a concise, powerful, and repeatable script (1-2 paragraphs) for impressing the following belief/goal upon the subconscious mind: "${subconsciousGoal}". The script should be in the first person, present tense, affirmative, and designed for daily repetition with emotion.`;
+
+                    let chatHistory = [];
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    
+                    const response = await fetch(geminiApiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        generatedSubconsciousText.textContent = text;
+                        displayOutput(subconsciousOutput, text);
+                    } else {
+                        displayOutput(subconsciousOutput, "Could not generate subconscious script. Please try again.", true);
+                    }
+                } catch (error) {
+                    console.error("Error generating subconscious script:", error);
+                    displayOutput(subconsciousOutput, "An error occurred while generating the subconscious script. Please try again later.", true);
+                } finally {
+                    generateSubconsciousScriptText.textContent = "Generate Subconscious Script ✨";
+                    subconsciousLoadingSpinner.classList.add('hidden');
+                    generateSubconsciousScriptButton.disabled = false;
+                }
+            });
+
+            // Sixth Sense Intuition Prompt Logic
+            generateSixthSensePromptButton.addEventListener('click', async () => {
+                const sixthSenseChallenge = sixthSenseChallengeInput.value.trim();
+
+                if (!sixthSenseChallenge) {
+                    displayOutput(sixthSenseOutput, "Please describe your challenge or decision to get an intuition prompt.", true);
+                    generatedSixthSenseText.innerHTML = "Please describe your challenge or decision to get an intuition prompt.";
+                    return;
+                }
+
+                // Show loading state
+                generateSixthSensePromptText.textContent = "Generating...";
+                sixthSenseLoadingSpinner.classList.remove('hidden');
+                generateSixthSensePromptButton.disabled = true;
+                sixthSenseOutput.classList.add('hidden'); // Hide previous output
+
+                try {
+                    const prompt = `Based on Napoleon Hill's "Think and Grow Rich" principle of The Sixth Sense (Chapter 14), generate a concise, thought-provoking question or prompt (1-2 sentences) that encourages the user to tap into their intuition and receive guidance for the following challenge/decision: "${sixthSenseChallenge}". The prompt should encourage quiet contemplation and listening for inner wisdom.`;
+
+                    let chatHistory = [];
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    
+                    const response = await fetch(geminiApiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        generatedSixthSenseText.textContent = text;
+                        displayOutput(sixthSenseOutput, text);
+                    } else {
+                        displayOutput(sixthSenseOutput, "Could not generate intuition prompt. Please try again.", true);
+                    }
+                } catch (error) {
+                    console.error("Error generating intuition prompt:", error);
+                    displayOutput(sixthSenseOutput, "An error occurred while generating the intuition prompt. Please try again later.", true);
+                } finally {
+                    generateSixthSensePromptText.textContent = "Generate Intuition Prompt ✨";
+                    sixthSenseLoadingSpinner.classList.add('hidden');
+                    generateSixthSensePromptButton.disabled = false;
                 }
             });
         });
